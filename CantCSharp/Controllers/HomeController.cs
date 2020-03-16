@@ -12,16 +12,17 @@ namespace CantCSharp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        static public List<QuestionModel> question;
+   
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            question = CsvLoader.LoadData()
-        {
-            }
-        [HttpPost]
+            
+        
+        }
+        //[HttpPost]
         public IActionResult Index()
         {
+           
             return View();
         }
 

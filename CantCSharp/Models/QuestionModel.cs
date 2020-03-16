@@ -8,6 +8,7 @@ namespace CantCSharp.Models
 {
     public class QuestionModel : IQuestion
     {
+        public string User { get;private }
         public int QuestionID { get; set; }
         public DateTime PostTime { get; set; }
         public int ViewNumber { get; set; }
