@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CantCSharp.Models
 {
-    public class CsvLoader
+    public class CsvLoader: IDataLoad
     {
-        public static List<QuestionModel> LoadData()
+        public List<QuestionModel> LoadData(string fileroute)
         {
             List<QuestionModel> questions = new List<QuestionModel>();
-            using (var reader = new StreamReader(@"C:\Users\Turi\source\repos\CantCSharp\CantCSharp\wwwroot\csv\questions.csv"))
+            using (var reader = new StreamReader(fileroute))
             {
                 while (!reader.EndOfStream)
                 {
