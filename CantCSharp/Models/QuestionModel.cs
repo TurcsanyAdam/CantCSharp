@@ -8,10 +8,14 @@ namespace CantCSharp.Models
 {
     public class QuestionModel : IQuestion
     {
-        public int QuestionID { get; set; }
-        public string Question { get; set; }
-        public List <string> Answer { get; set; }
-        public DateTime PostTime { get; set; }
+        int QuestionID { get; set; }
+        DateTime PostTime { get; set; }
+        int ViewNumber { get; set; }
+        int VoteNumber { get; set; }
+        int QuestionTitle { get; set; }
+        string QuestionMessage { get; set; }
+        List <string> Answer { get; set; }
+       
 
         
     }
