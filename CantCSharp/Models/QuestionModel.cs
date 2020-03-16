@@ -14,7 +14,7 @@ namespace CantCSharp.Models
         public int VoteNumber { get; set; }
         public string QuestionTitle { get; set; }
         public string QuestionMessage { get; set; }
-        public List<IAnswer> Answer { get; set; }
+        public List<IAnswer> AnswerList { get; set; }
         public  bool Answered { get; private set; }
         public bool IsClosed { get; private set; }
 
@@ -29,7 +29,7 @@ namespace CantCSharp.Models
             QuestionID = questionid;
             QuestionTitle = questiontitle;
             QuestionMessage = question;
-            Answer = new List<IAnswer>();
+            AnswerList = new List<IAnswer>();
             PostTime = DateTime.Now;
             Answered = false;
             IsClosed = false;
@@ -37,7 +37,7 @@ namespace CantCSharp.Models
 
         public void AddAnswer(IAnswer answer)
         {
-            Answer.Add(answer);
+            AnswerList.Add(answer);
         }
         public void MarkAsAnswered()
         {
