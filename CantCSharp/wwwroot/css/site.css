@@ -48,7 +48,7 @@ html {
 
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-    background: #e6be8a !important;
+    background-image: radial-gradient(#ffd299, #c9a679) !important;
 }
 
 button.accept-policy {
