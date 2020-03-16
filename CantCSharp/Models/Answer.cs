@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CantCSharp.Models
 {
-    public class Answer
+    public class Answer : IAnswer
     {
         int Id { get; }
         string TheAnswer { get; set; }
@@ -18,6 +18,11 @@ namespace CantCSharp.Models
             TheAnswer = theAnswer;
             IsSolution = false;
 
+        }
+
+        public void MarkAsSolution()
+        {
+            IsSolution = true;
         }
 
     }
