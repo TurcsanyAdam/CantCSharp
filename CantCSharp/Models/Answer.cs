@@ -8,14 +8,17 @@ namespace CantCSharp.Models
     public class Answer : IAnswer
     {
         int Id { get; }
-        string TheAnswer { get; set; }
+        DateTime PostTime { get; set; }
+        int VoteNumber { get; set; }
+        int QuestionID { get; set; }
+        string AnswerMessage { get; set; }
 
         bool IsSolution { get; set; }
 
         public Answer(int id, string theAnswer)
         {
             Id = id;
-            TheAnswer = theAnswer;
+            AnswerMessage = theAnswer;
             IsSolution = false;
 
         }
