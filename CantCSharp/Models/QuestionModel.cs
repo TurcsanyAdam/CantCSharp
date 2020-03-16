@@ -14,14 +14,16 @@ namespace CantCSharp.Models
         int VoteNumber { get; set; }
         int QuestionTitle { get; set; }
         string QuestionMessage { get; set; }
-        List <string> Answer { get; set; }
+        List <IAnswer> AnswerList { get; set; }
+        bool Answered;
+        bool IsClosed;
        
 
         public QuestionModel(int questionid,string question)
         {
             QuestionID = questionid;
-            Question = question;
-            Answer = new List<IAnswer>();
+            QuestionMessage = question;
+            AnswerList = new List<IAnswer>();
             PostTime = DateTime.Now;
             Answered = false;
             IsClosed = false;
@@ -29,7 +31,7 @@ namespace CantCSharp.Models
 
         public void AddAnswer(IAnswer answer)
         {
-            Answer.Add(answer);
+            AnswerList.Add(answer);
         }
         public void MarkAsAnswered()
         {
