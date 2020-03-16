@@ -3,7 +3,6 @@
     ViewData["Title"] = "Question";
 }
 
-
 <html>
 <head>
     <title>Questions</title>
@@ -13,24 +12,19 @@
     <table>
         <tr>
             <th>Id </th>
-            <th>Question </th>
-            <th>Posted </th>
+            <th>Question Title </th>
+            <th>Question message </th>
         </tr>
-        <tr>
-            <td><a href="Question/1"> 1</a></td>
-            <td>Hello Good Sir how are you?</td>
-            <td>2020.03.16</td>
-        </tr>
-        <tr>
-            <td><a href="Question/1"> 1</a></td>
-            <td>Hello Good Sir how are you?</td>
-            <td>2020.03.16</td>
-        </tr>
-        <tr>
-            <td><a href="Question/1"> 1</a></td>
-            <td>Hello Good Sir how are you?</td>
-            <td>2020.03.16</td>
-        </tr>
+
+        @foreach (var d in CsvLoader.LoadData())
+        {
+            <tr>
+            <td><a href="Question/@d.QuestionID"> @d.QuestionID</a></td>
+            <td>@d.QuestionTitle</td>
+            <td>@d.QuestionMessage</td>
+
+            </tr>
+        }
     </table>
 </body>
 </html>
