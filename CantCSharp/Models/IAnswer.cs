@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CantCSharp.Models
 {
-    interface IAnswer
+    public interface IAnswer
     {
         void MarkAsSolution();
     }
