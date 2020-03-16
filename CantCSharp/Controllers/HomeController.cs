@@ -16,10 +16,10 @@ namespace CantCSharp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             CsvLoader csvLoader= new CsvLoader();
-            question = csvLoader.LoadData("~/csv/questions.csv");
+            //question = csvLoader.LoadData();
             _logger = logger;
         }
-        [HttpPost]
+        
         public IActionResult Index()
         {
             return View();
@@ -30,7 +30,7 @@ namespace CantCSharp.Controllers
             return View();
         }
 
-        public IActionResult Question()
+        public IActionResult About()
         {
             return View();
         }
