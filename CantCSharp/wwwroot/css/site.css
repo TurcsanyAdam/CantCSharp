@@ -105,11 +105,9 @@ body {
 
 .about-us-table-icon-header > th {
     text-align: center;
+    background: #ffd299;
 }
 
-tr:first-child {
-    background-image: radial-gradient(circle, #ffd299, #c9a679);
-}
 
 td:first-child {
     font-weight: bold;

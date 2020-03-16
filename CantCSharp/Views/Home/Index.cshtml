@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<CantCSharp.Models.QuestionModel>
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -19,4 +22,15 @@
         </label>
         <button>Submit</button>
     </form>
+
+    <table>
+        <tbody>
+            @foreach (var question in Model)
+            {
+                <tr>
+                    <td>@question.QuestionMessage</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

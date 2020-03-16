@@ -16,13 +16,14 @@ namespace CantCSharp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             CsvLoader csvLoader= new CsvLoader();
-            //question = csvLoader.LoadData();
+            question = csvLoader.LoadData($"wwwroot/csv/questions.csv");
             _logger = logger;
         }
         
         public IActionResult Index()
         {
-            return View();
+            var model = question;
+            return View(model);
         }
 
         public IActionResult Privacy()
