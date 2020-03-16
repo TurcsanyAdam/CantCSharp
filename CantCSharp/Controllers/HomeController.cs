@@ -16,7 +16,9 @@ namespace CantCSharp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+            question = CsvLoader.LoadData()
+        {
+            }
         [HttpPost]
         public IActionResult Index()
         {
