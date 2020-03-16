@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CantCSharp.Models
 {
-    interface IDataLoad
+    public interface IDataLoad
     {
         List<QuestionModel> LoadData(string fileroute);
     }

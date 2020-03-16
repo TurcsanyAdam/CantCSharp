@@ -12,18 +12,18 @@ namespace CantCSharp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDataLoad _loader;
         static public List<QuestionModel> question;
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDataLoad loader)
         {
-            CsvLoader csvLoader= new CsvLoader();
-            question = csvLoader.LoadData($"wwwroot/csv/questions.csv");
             _logger = logger;
+            _loader = loader;
         }
         
         public IActionResult Index()
         {
-            var model = question;
-            return View(model);
+            var questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+            return View(questionModel);
         }
 
         public IActionResult Privacy()
