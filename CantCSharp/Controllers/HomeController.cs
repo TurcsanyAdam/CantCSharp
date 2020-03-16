@@ -15,10 +15,10 @@ namespace CantCSharp.Controllers
         static public List<QuestionModel> question;
         public HomeController(ILogger<HomeController> logger)
         {
+            CsvLoader csvLoader= new CsvLoader();
+            question = csvLoader.LoadData("~/csv/questions.csv");
             _logger = logger;
-            question = CsvLoader.LoadData()
-        {
-            }
+        }
         [HttpPost]
         public IActionResult Index()
         {
