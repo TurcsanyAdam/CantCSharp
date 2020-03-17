@@ -17,15 +17,25 @@ a {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #e6be8a;
+    border-color: #fff;
+    margin: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #ffd399;
+    border-color: #fff;
+}
+
+.btn-container {
+    text-align: right;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -48,7 +58,7 @@ html {
 
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-    background: #E6BE8A !important;
+    background: #e6be8a !important;
 }
 
 button.accept-policy {
@@ -88,9 +98,9 @@ body {
     transition: all 500ms ease;
 }
 
-    .nav-item:hover {
-        background: #ffd399;
-    }
+.nav-item:hover {
+    background: #ffd399;
+}
 
 .about-us-table {
     margin-top: 10%;

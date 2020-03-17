@@ -48,9 +48,10 @@ namespace CantCSharp.Controllers
             return View(question);
         }
 
-        public IActionResult NewQuestion()
+        [HttpGet]
+        public IActionResult AskQuestion()
         {
-            return View();
+            return View("AskQuestion");
         }
 
        [HttpPost]
