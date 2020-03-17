@@ -13,6 +13,9 @@ namespace CantCSharp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataLoad _loader;
+
+        //private List<QuestionModel> questionModel;
+
         public HomeController(ILogger<HomeController> logger, IDataLoad loader)
         {
             _logger = logger;
@@ -35,9 +38,12 @@ namespace CantCSharp.Controllers
             return View();
         }
 
-        public IActionResult QuestionDetails()
+        [HttpGet]
+        public IActionResult QuestionDetails(int id)
         {
-            return View();
+            var questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+            var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
+            return View(question);
         }
 
         public IActionResult NewQuestion()

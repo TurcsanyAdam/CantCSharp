@@ -1,24 +1,21 @@
-﻿@model IEnumerable<CantCSharp.Models.QuestionModel>
+﻿@model CantCSharp.Models.QuestionModel
 
 @{
     ViewData["Title"] = "QuestionDetails";
 }
 
-<html>
-<head>
-    <title>Questions</title>
-</head>
-<body>
-    <hr />
+
     <table>
         <tr>
             <th>Id </th>
             <th>Question Title </th>
             <th>Question message </th>
         </tr>
-
+        <tr>
+            <td>@Model.QuestionID</td>
+            <td>@Model.QuestionTitle</td>
+            <td>@Model.QuestionMessage</td>
+        </tr>
         
     </table>
-</body>
-</html>
 
