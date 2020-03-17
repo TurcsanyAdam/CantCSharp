@@ -13,15 +13,17 @@ namespace CantCSharp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataLoad _loader;
+        private static List<QuestionModel> questionModel;
         public HomeController(ILogger<HomeController> logger, IDataLoad loader)
         {
             _logger = logger;
             _loader = loader;
+            questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+
         }
-        
         public IActionResult Index()
         {
-            var questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+            
             return View(questionModel);
         }
 
@@ -43,6 +45,13 @@ namespace CantCSharp.Controllers
         public IActionResult NewQuestion()
         {
             return View();
+        }
+
+       [HttpPost]
+        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message)
+        {
+            questionModel.Add(new QuestionModel(345, message, title));
+            return View(questionModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
