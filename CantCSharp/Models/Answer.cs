@@ -27,6 +27,5 @@ namespace CantCSharp.Models
         {
             IsSolution = true;
         }
-
     }
 }
