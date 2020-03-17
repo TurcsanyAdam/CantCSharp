@@ -23,21 +23,10 @@
         <button>Submit</button>
     </form>
 
-    <table>
-        <tr>
-            <th>Id </th>
-            <th>Question Title </th>
-            <th>Question Message </th>
-        </tr>
-        <tbody>
-            @foreach (var question in Model)
-            {
-                <tr>
-                    <td><a href="" @question.QuestionID> @question.QuestionID</a></td>
-                    <td>@question.QuestionTitle</td>
-                    <td>@question.QuestionMessage</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="list-group">
+        @foreach (var q in Model)
+        {
+            <a href="#" class="list-group-item list-group-item-action">@q.QuestionTitle</a>
+        }
+    </div>
 </div>
