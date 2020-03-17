@@ -13,7 +13,6 @@ namespace CantCSharp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataLoad _loader;
-        static public List<QuestionModel> question;
         public HomeController(ILogger<HomeController> logger, IDataLoad loader)
         {
             _logger = logger;

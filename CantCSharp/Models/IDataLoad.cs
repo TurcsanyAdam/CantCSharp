@@ -8,5 +8,6 @@ namespace CantCSharp.Models
     public interface IDataLoad
     {
         List<QuestionModel> LoadData(string fileroute);
+        void AddQuestion(string title, string message);
     }
 }
