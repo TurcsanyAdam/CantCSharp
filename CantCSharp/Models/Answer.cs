@@ -7,7 +7,7 @@ namespace CantCSharp.Models
 {
     public class Answer : IAnswer
     {
-        int Id { get; }
+        public int Id { get; }
         DateTime PostTime { get; set; }
         int VoteNumber { get; set; }
         int QuestionID { get; set; }

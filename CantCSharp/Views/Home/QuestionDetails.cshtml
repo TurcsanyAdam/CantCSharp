@@ -8,9 +8,15 @@
     <h2>@Model.QuestionMessage</h2>
     <h3>
         @Model.AnswerList.Count() answers:
+    </h3>
         @foreach (Answer answer in Model.AnswerList)
         {
             <ol>@answer</ol>
         }
-    </h3>
+    
+
+<form action="" method="post">
+    <input type="text" name="answer" placeholder="Your answer" />
+    <button>@Html.ActionLink("Submit", "NewAnswer", new { id = Model.QuestionID})</button>
+</form>
 

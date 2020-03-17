@@ -58,6 +58,16 @@ namespace CantCSharp.Controllers
             return View("Index",_loader.QuestionList);
         }
 
+        [HttpGet]
+        public IActionResult NewAnswer([FromForm(Name = "Answer")] string answer)
+        {
+            Answer newAnswer = new Answer(1, answer);
+            var question = questionModel.FirstOrDefault(q => q.QuestionID == newAnswer.Id);
+            question.AnswerList.Add(newAnswer);
+
+            return View(questionModel);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
