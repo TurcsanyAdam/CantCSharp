@@ -3,19 +3,14 @@
 @{
     ViewData["Title"] = "QuestionDetails";
 }
-
-
-    <table>
-        <tr>
-            <th>Id </th>
-            <th>Question Title </th>
-            <th>Question message </th>
-        </tr>
-        <tr>
-            <td>@Model.QuestionID</td>
-            <td>@Model.QuestionTitle</td>
-            <td>@Model.QuestionMessage</td>
-        </tr>
-        
-    </table>
+    <h1>@Model.QuestionTitle</h1>
+    <h6>Posted on : @Model.PostTime, Viewed: @Model.ViewNumber</h6>
+    <h2>@Model.QuestionMessage</h2>
+    <h3>
+        @Model.AnswerList.Count() answers:
+        @foreach (Answer answer in Model.AnswerList)
+        {
+            <ol>@answer</ol>
+        }
+    </h3>
 
