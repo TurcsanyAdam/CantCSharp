@@ -10,23 +10,13 @@
     <p>Questions are everywhere, answers are on Can't C# !</p>
 </div>
 <div>
-    <form method="post">
-        <label for="">
-            Username
-            <input type="text" id="name" name="username" required><br>
-        </label>
-        <label for="message">
-            The message:
-            <input id="textbox" type="text" name="message" required><br>
-
-        </label>
-        <button>Submit</button>
-    </form>
-
-    <div class="list-group">
-        @foreach (var q in Model)
-        {
-            <a href="#" class="list-group-item list-group-item-action">@q.QuestionTitle</a>
-        }
-    </div>
+    <a href ="/QuestionWriting">Do you have a question?You can put it on here!</a>
 </div>
+
+<div class="list-group">
+    @foreach (var q in Model)
+    {
+        <a href="#" class="list-group-item list-group-item-action">@q.QuestionTitle</a>
+    }
+</div>
+
