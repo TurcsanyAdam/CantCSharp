@@ -8,6 +8,13 @@ namespace CantCSharp.Models
 {
     public class CsvLoader: IDataLoad
     {
+        public List<QuestionModel> questionList;
+
+        public void AddQuestion(string message, string title)
+        {
+            questionList.Add(new QuestionModel(questionList.Count + 1, message, title));
+        }
+
         public List<QuestionModel> LoadData(string fileroute)
         {
             List<QuestionModel> questions = new List<QuestionModel>();
