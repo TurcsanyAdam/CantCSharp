@@ -9,7 +9,7 @@ namespace CantCSharp.Models
     {
         List<QuestionModel> QuestionList { get; set; }
         List<QuestionModel> LoadData(string fileroute);
-        void AddQuestion(string title, string message);
+        void AddQuestion(string title, string message, string user);
 
     }
 }

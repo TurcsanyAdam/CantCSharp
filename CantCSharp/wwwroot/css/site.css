@@ -5,7 +5,7 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   color: #fff !important;
-  font-style: italic !important;
+  font-weight: bold;
   font-size: 36px;
   word-break: break-all;
   margin-right: 5%;
@@ -48,7 +48,7 @@ html {
 
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-    background-image: radial-gradient(#ffd299, #c9a679) !important;
+    background: #E6BE8A !important;
 }
 
 button.accept-policy {
@@ -88,11 +88,9 @@ body {
     transition: all 500ms ease;
 }
 
-.nav-item:hover {
-    background: rgba(0,0,0,0);
-    color: #c7a477;
-    box-shadow: inset 0 0 0 3px #c7a477;
-}
+    .nav-item:hover {
+        background: #ffd399;
+    }
 
 .about-us-table {
     margin-top: 10%;
@@ -115,10 +113,6 @@ td:first-child {
 
 form {
     text-align: center;
-}
-
-.badge-danger {
-    font-size: 28px;
 }
 
 

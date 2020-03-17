@@ -24,8 +24,10 @@ namespace CantCSharp.Controllers
         }
         public IActionResult Index()
         {
-            
-            return View(_loader.QuestionList);
+            var questionModel = _loader.QuestionList;
+            questionModel[0].MarkAsAnswered();
+            questionModel[0].ViewNumber++;
+            return View(questionModel);
         }
 
         public IActionResult Privacy()
@@ -52,9 +54,9 @@ namespace CantCSharp.Controllers
         }
 
        [HttpPost]
-        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message)
+        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message, string user="noname")
         {
-            _loader.AddQuestion(title,message);
+            _loader.AddQuestion(title, message, user);
             return View("Index",_loader.QuestionList);
         }
 

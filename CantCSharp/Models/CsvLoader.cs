@@ -14,9 +14,9 @@ namespace CantCSharp.Models
         {
             LoadData("wwwroot/csv/questions.csv");
         }
-        public void AddQuestion(string message, string title)
+        public void AddQuestion(string message, string title, string user)
         {
-            QuestionList.Add(new QuestionModel(QuestionList.Count + 1, message, title));
+            QuestionList.Add(new QuestionModel(QuestionList.Count + 1, message, title, user));
         }
 
         public List<QuestionModel> LoadData(string fileroute)
@@ -29,7 +29,7 @@ namespace CantCSharp.Models
                     var line = reader.ReadLine();
                     var values = line.Split(';');
 
-                    QuestionList.Add(new QuestionModel(Convert.ToInt32(values[0]), values[1], values[2]));
+                    QuestionList.Add(new QuestionModel(Convert.ToInt32(values[0]), values[1], values[2], values[3]));
                 }
                    
             }
