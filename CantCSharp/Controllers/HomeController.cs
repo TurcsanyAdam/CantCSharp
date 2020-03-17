@@ -37,9 +37,12 @@ namespace CantCSharp.Controllers
             return View();
         }
 
-        public IActionResult QuestionDetails()
+        [HttpGet]
+        public IActionResult QuestionDetails(int id)
         {
-            return View();
+            var questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+            var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
+            return View(question);
         }
 
         public IActionResult NewQuestion()

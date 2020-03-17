@@ -13,10 +13,11 @@
     <a href ="~/Home/NewQuestion">Do you have a question?You can put it on here!</a>
 </div>
 
-<div class="list-group">
+<table class="list-group">
     @foreach (var q in Model)
     {
-        <a href="#" class="list-group-item list-group-item-action">@q.QuestionTitle</a>
+        <tr class="list-group-item list-group-item-action">
+            <td>@Html.ActionLink(q.QuestionMessage, "QuestionDetails", new { id = q.QuestionID })</td>
+        </tr>
     }
-</div>
-
+</table>
