@@ -35,7 +35,11 @@ namespace CantCSharp.Controllers
         {
             return View();
         }
-        public IActionResult QuestionWriting()
+        public IActionResult Question()
+        {
+            return View();
+        }
+        public IActionResult NewQuestion()
         {
             return View();
         }
