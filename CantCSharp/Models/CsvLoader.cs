@@ -8,16 +8,20 @@ namespace CantCSharp.Models
 {
     public class CsvLoader: IDataLoad
     {
-        public List<QuestionModel> questionList;
+        public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
+        public CsvLoader()
+        {
+            LoadData("wwwroot/csv/questions.csv");
+        }
         public void AddQuestion(string message, string title)
         {
-            questionList.Add(new QuestionModel(questionList.Count + 1, message, title));
+            QuestionList.Add(new QuestionModel(QuestionList.Count + 1, message, title));
         }
 
         public List<QuestionModel> LoadData(string fileroute)
         {
-            List<QuestionModel> questions = new List<QuestionModel>();
+            
             using (var reader = new StreamReader(fileroute))
             {
                 while (!reader.EndOfStream)
@@ -25,11 +29,11 @@ namespace CantCSharp.Models
                     var line = reader.ReadLine();
                     var values = line.Split(';');
 
-                    questions.Add(new QuestionModel(Convert.ToInt32(values[0]), values[1], values[2]));
+                    QuestionList.Add(new QuestionModel(Convert.ToInt32(values[0]), values[1], values[2]));
                 }
                    
             }
-            return questions;
+            return QuestionList;
         }
     }
 }

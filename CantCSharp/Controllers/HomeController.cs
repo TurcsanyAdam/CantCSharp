@@ -13,18 +13,19 @@ namespace CantCSharp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IDataLoad _loader;
-        private static List<QuestionModel> questionModel;
+        
         public HomeController(ILogger<HomeController> logger, IDataLoad loader)
         {
             _logger = logger;
             _loader = loader;
-            questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+            
+
 
         }
         public IActionResult Index()
         {
             
-            return View(questionModel);
+            return View(_loader.QuestionList);
         }
 
         public IActionResult Privacy()
@@ -40,7 +41,7 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult QuestionDetails(int id)
         {
-            var questionModel = _loader.LoadData("wwwroot/csv/questions.csv");
+            var questionModel = _loader.QuestionList;
             var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
             return View(question);
         }
@@ -53,8 +54,8 @@ namespace CantCSharp.Controllers
        [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message)
         {
-            questionModel.Add(new QuestionModel(345, message, title));
-            return View(questionModel);
+            _loader.AddQuestion(title,message);
+            return View("Index",_loader.QuestionList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
