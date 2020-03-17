@@ -34,10 +34,12 @@ namespace CantCSharp.Controllers
         {
             return View();
         }
-        public IActionResult Question()
+
+        public IActionResult QuestionDetails()
         {
             return View();
         }
+
         public IActionResult NewQuestion()
         {
             return View();
