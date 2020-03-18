@@ -128,3 +128,11 @@ form {
 .badge-danger, .badge-info {
     text-align: center;
 }
+
+/*td:nth-child(2n+1) {
+    background-color: yellow;
+}
+
+td:nth-child(2n) {
+    background-color: lightblue;
+}*/

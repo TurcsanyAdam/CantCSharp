@@ -3,20 +3,55 @@
 @{
     ViewData["Title"] = "QuestionDetails";
 }
-    <h1>@Model.QuestionTitle</h1>
-    <h6>Posted on : @Model.PostTime, Viewed: @Model.ViewNumber</h6>
-    <h2>@Model.QuestionMessage</h2>
-    <h3>
-        @Model.AnswerList.Count() answers:
-    </h3>
-        @foreach (Answer answer in Model.AnswerList)
-        {
-            <ol>@answer</ol>
-        }
-    
 
-<form action="" method="post">
-    <input type="text" name="answer" placeholder="Your answer" />
-    <button>@Html.ActionLink("Submit", "NewAnswer", new { id = Model.QuestionID})</button>
-</form>
+<div class="text-center">
+    <h1 class="display-4">@Model.QuestionTitle</h1>
+</div>
+
+<div class="list-group m-5">
+    <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
+        <tr>
+            <td width="2%">#@Model.QuestionID</td>
+
+            @if (Model.Answered)
+            {
+                <td align="left" width="3%" class="badge-info rounded">Solution</td>
+            }
+            else
+            {
+                <td align="left" width="3%" class="badge-danger rounded">Problem</td>
+            }
+
+            <td class="display-4" width="40%"></td>
+            <td width="5%">Views: @Model.ViewNumber</td>
+            <td width="5%">Answers: @Model.AnswerList.Count</td>
+
+        </tr>
+
+    </table>
+    <table class="list-group-item list-group-item-action flex-column align-items-start">
+        <tr class="align-text-top m-3">
+            <td height="350" width="30%">@Model.User</td>
+            <td>@Model.QuestionMessage</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <form method="post" action="/Home/NewAnswer">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="username">
+                <span class="input-group-text">Username</span>
+            </div>
+            <input class="form-control" type="text" name="username" placeholder="Phil Doors" required><br>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="answer">
+                <span class="input-group-text">Description of the problem</span>
+            </div>
+            <input class="form-control" type="text" name="answer" placeholder="Your answer..." required><br>
+        </div>
+        <button class="btn-primary">Submit</button>
+    </form>
+</div>
 
