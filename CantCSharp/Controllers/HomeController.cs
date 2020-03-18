@@ -46,6 +46,7 @@ namespace CantCSharp.Controllers
 
             return View(question);
         }
+
         [HttpPost]
         [ActionName("QuestionDetails")]
         public IActionResult DeleteQuestion([FromForm(Name = "TheId")] int ID)
