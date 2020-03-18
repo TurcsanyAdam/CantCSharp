@@ -84,6 +84,16 @@
                     <button>Delete</button>
                 </form>
             </td>
+            <td width="5%">
+                <form action="@Url.Action("VoteUp", "Home", new { answerID = answer.Id, questionId = answer.QuestionID})" method="post">
+                    <button><arrow class="up"></arrow></button>
+                </form>
+            </td>
+            <td width="5%">
+                <form action="@Url.Action("VoteDown", "Home", new { currentAnswer = answer, questionId = answer.QuestionID})" method="post">
+                    <button><arrow class="down"></arrow></button>
+                </form>
+            </td>
 
         </tr>
     </table>

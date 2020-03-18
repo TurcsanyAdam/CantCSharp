@@ -68,13 +68,13 @@ namespace CantCSharp.Controllers
             return View("AskQuestion");
         }
 
-        [HttpPost]
+       [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message,
                 [FromForm(Name = "username")] string user)
         {
             _loader.AddQuestion(title, message, user);
             return View("Index", _loader.QuestionList);
-        }
+        } 
 
         [HttpPost]
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
@@ -110,6 +110,48 @@ namespace CantCSharp.Controllers
 
             return View("Index", _loader.QuestionList);
         }
+        [HttpPost]
+        public IActionResult VoteUp(int answerID, int questionID)
+        {
+            foreach (QuestionModel question in _loader.QuestionList)
+            {
+                if (question.QuestionID == questionID + 1)
+                {
+                    foreach (Answer answer in question.AnswerList)
+                    {
+                        if (answer.Id == answerID)
+                        {
+                            answer.VoteNumber++;
+                            break;
+                        }
+                    }
+                }
+            }
+            return View("Index", _loader.QuestionList);
+
+
+        }
+        [HttpPost]
+        public IActionResult VoteDown(int answerID, int questionID)
+        {
+            foreach (QuestionModel question in _loader.QuestionList)
+            {
+                if (question.QuestionID == questionID + 1)
+                {
+                    foreach (Answer answer in question.AnswerList)
+                    {
+                        if (answer.Id == answerID)
+                        {
+                            answer.VoteNumber -= 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            return View("Index", _loader.QuestionList);
+
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
