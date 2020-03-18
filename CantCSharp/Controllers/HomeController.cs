@@ -62,9 +62,9 @@ namespace CantCSharp.Controllers
         }
 
         [HttpPost("QuestionDetails/{id}/NewAnswer")]
-        public IActionResult NewAnswer(int id,[FromForm(Name = "Answer")] string answer)
+        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username)
         {
-            Answer newAnswer = new Answer(1, answer);
+            Answer newAnswer = new Answer(1, username, answer);
             var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == newAnswer.Id);
             question.AnswerList.Add(newAnswer);
 

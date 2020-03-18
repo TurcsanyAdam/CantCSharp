@@ -7,6 +7,7 @@ namespace CantCSharp.Models
 {
     public class Answer : IAnswer
     {
+        string User { get; }
         public int Id { get; }
         DateTime PostTime { get; set; }
         int VoteNumber { get; set; }
@@ -15,11 +16,13 @@ namespace CantCSharp.Models
 
         bool IsSolution { get; set; }
 
-        public Answer(int id, string theAnswer)
+        public Answer(int id,string User, string theAnswer)
         {
+            this.User = User;
             Id = id;
             AnswerMessage = theAnswer;
             IsSolution = false;
+            PostTime = DateTime.Now;
 
         }
 
@@ -29,7 +32,7 @@ namespace CantCSharp.Models
         }
         public override string ToString()
         {
-            return AnswerMessage;
+            return PostTime + " " + User + ": " + AnswerMessage;
         }
     }
 }
