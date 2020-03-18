@@ -90,7 +90,7 @@
                 </form>
             </td>
             <td width="5%">
-                <form action="@Url.Action("VoteDown", "Home", new { currentAnswer = answer, questionId = answer.QuestionID})" method="post">
+                <form action="@Url.Action("VoteDown", "Home", new { answerID = answer.Id, questionId = answer.QuestionID})" method="post">
                     <button><arrow class="down"></arrow></button>
                 </form>
             </td>
