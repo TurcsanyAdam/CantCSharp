@@ -6,18 +6,35 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome To Can't C#</h1>
-    <p>Questions are everywhere, answers are on Can't C# !</p>
+    <h1 class="display-4">Welcome Stranger!</h1>
+    <p>Questions are everywhere, answers are on Can't C#</p>
 </div>
-<div>
-    <a href ="~/Home/NewQuestion">Do you have a question?You can put it on here!</a>
-</div>
+<form action="@Url.Action("AskQuestion", "Home")" class="btn-container">
+    <button  class="btn-primary">New Question</button>
+</form>
 
-<table class="list-group">
+<div class="list-group">
     @foreach (var q in Model)
     {
-        <tr class="list-group-item list-group-item-action">
-            <td>@Html.ActionLink(q.QuestionMessage, "QuestionDetails", new { id = q.QuestionID })</td>
-        </tr>
+        <a href="@Url.Action("QuestionDetails", "Home", new { id = q.QuestionID })" class="list-group-item list-group-item-action flex-column align-items-start">
+            <table>
+                <tr>
+                    <td width="2%">#@q.QuestionID</td>
+                    <td width="40%">@q.QuestionTitle</td>
+                    <td width="15%">Posted by: @q.User</td>
+                    <td width="5%">Views: @q.ViewNumber</td>
+                    <td width="5%">Answers: @q.AnswerList.Count</td>
+                    @if (q.Answered)
+                    {
+                        <td align="right" width="3%" class="badge-info rounded">Solution</td>
+                    }
+                    else
+                    {
+                        <td align="right" width="3%" class="badge-danger rounded">Problem</td>
+                    }
+                </tr>
+            </table>
+        </a>
     }
-</table>
+
+</div>

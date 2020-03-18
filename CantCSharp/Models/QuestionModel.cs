@@ -23,13 +23,14 @@ namespace CantCSharp.Models
 
 
 
-        public QuestionModel(int questionid,string question,string questiontitle)
+        public QuestionModel(int questionid,string question,string questiontitle,string user)
         {
             ViewNumber = 0;
             VoteNumber = 0;
             QuestionID = questionid;
             QuestionTitle = questiontitle;
             QuestionMessage = question;
+            User = user;
             AnswerList = new List<IAnswer>();
             PostTime = DateTime.Now;
             Answered = false;

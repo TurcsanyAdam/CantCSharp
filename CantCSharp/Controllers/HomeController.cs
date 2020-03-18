@@ -18,14 +18,13 @@ namespace CantCSharp.Controllers
         {
             _logger = logger;
             _loader = loader;
-            
-
-
         }
+
         public IActionResult Index()
         {
-            
-            return View(_loader.QuestionList);
+            var questionModel = _loader.QuestionList;
+            questionModel[0].MarkAsAnswered();
+            return View(questionModel);
         }
 
         public IActionResult Privacy()
@@ -43,18 +42,22 @@ namespace CantCSharp.Controllers
         {
             var questionModel = _loader.QuestionList;
             var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
+            question.ViewNumber++;
+
             return View(question);
         }
 
-        public IActionResult NewQuestion()
+        [HttpGet]
+        public IActionResult AskQuestion()
         {
-            return View();
+            return View("AskQuestion");
         }
 
        [HttpPost]
-        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message)
+        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message, 
+               [FromForm(Name = "username")] string user)
         {
-            _loader.AddQuestion(title,message);
+            _loader.AddQuestion(title, message, user);
             return View("Index",_loader.QuestionList);
         }
 

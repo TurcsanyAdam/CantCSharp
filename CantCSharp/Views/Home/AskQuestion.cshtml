@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "AskQuestion";
+}
+
+<h1>NewQuestion</h1>
+<div>
+    <form method="post">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="Username">
+                <span class="input-group-text">Username</span>
+            </div>
+            <input class="form-control" type="text" name="username" placeholder="Jacob Gypsum" required><br>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="Title">
+                <span class="input-group-text">Question Title</span>
+            </div>
+            <input class="form-control" type="text" name="title" placeholder="What is programming?" required><br>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="message">
+                <span class="input-group-text">Description of the problem</span>
+            </div>
+            <input class="form-control" type="text" name="message" placeholder="I really can't come up with a good summary of what it is. As you see on line 19..." required><br>
+        </div>
+        <button class="btn-primary">Submit</button>
+    </form>
+</div>
+
