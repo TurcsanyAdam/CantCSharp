@@ -125,4 +125,6 @@ form {
     text-align: center;
 }
 
-
+.badge-danger, .badge-info {
+    text-align: center;
+}

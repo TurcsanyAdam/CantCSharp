@@ -19,17 +19,18 @@
         <a href="@Url.Action("QuestionDetails", "Home", new { id = q.QuestionID })" class="list-group-item list-group-item-action flex-column align-items-start">
             <table>
                 <tr>
-                    <td width="5%">@q.QuestionID</td>
-                    <td width="25%">@q.QuestionTitle</td>
+                    <td width="2%">#@q.QuestionID</td>
+                    <td width="40%">@q.QuestionTitle</td>
                     <td width="15%">Posted by: @q.User</td>
                     <td width="5%">Views: @q.ViewNumber</td>
+                    <td width="5%">Answers: @q.AnswerList.Count</td>
                     @if (q.Answered)
                     {
-                        <td align="right" width="5%" class="badge-info">Solved</td>
+                        <td align="right" width="3%" class="badge-info rounded">Solution</td>
                     }
                     else
                     {
-                        <td align="right" width="5%" class="badge-danger">Problem</td>
+                        <td align="right" width="3%" class="badge-danger rounded">Problem</td>
                     }
                 </tr>
             </table>

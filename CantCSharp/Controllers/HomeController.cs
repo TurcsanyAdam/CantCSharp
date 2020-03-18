@@ -18,15 +18,12 @@ namespace CantCSharp.Controllers
         {
             _logger = logger;
             _loader = loader;
-            
-
-
         }
+
         public IActionResult Index()
         {
             var questionModel = _loader.QuestionList;
             questionModel[0].MarkAsAnswered();
-            questionModel[0].ViewNumber++;
             return View(questionModel);
         }
 
@@ -45,6 +42,8 @@ namespace CantCSharp.Controllers
         {
             var questionModel = _loader.QuestionList;
             var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
+            question.ViewNumber++;
+
             return View(question);
         }
 
@@ -55,7 +54,8 @@ namespace CantCSharp.Controllers
         }
 
        [HttpPost]
-        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message, string user="noname")
+        public IActionResult NewQuestion([FromForm(Name = "Title")] string title, [FromForm(Name = "message")] string message, 
+               [FromForm(Name = "username")] string user)
         {
             _loader.AddQuestion(title, message, user);
             return View("Index",_loader.QuestionList);
