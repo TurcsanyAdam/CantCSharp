@@ -71,17 +71,17 @@
             {
                 <td align="left" width="3%" class="badge-info rounded">Solution</td>
             }
-            <td width="40%">Posted on: @Model.PostTime</td>
+            <td width="40%">Posted on: @answer.PostTime</td>
             <td width="5%">Upvotes: @answer.VoteNumber</td>
 
         </tr>
     </table>
-        <table class="list-group-item list-group-item-action flex-column align-items-start">
-            <tr class="align-text-top m-3">
-                <td height="350" width="30%">@Model.User</td>
-                <td>@answer.AnswerMessage</td>
-            </tr>
-        </table>
+    <table class="list-group-item list-group-item-action flex-column align-items-start">
+        <tr class="align-text-top m-3">
+            <td height="350" width="100">@answer.User</td>
+            <td>@answer.AnswerMessage</td>
+        </tr>
+    </table>
     }
 
         
