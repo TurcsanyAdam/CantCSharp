@@ -14,7 +14,10 @@
             <ol>@answer</ol>
         }
     
-
+<form method="post">
+    <input type = "hidden" name="TheId" value="@Model.QuestionID" />
+    <button>Delete Question</button>
+</form>
 <form action="" method="post">
     <input type="text" name="answer" placeholder="Your answer" />
     <button>@Html.ActionLink("Submit", "NewAnswer", new { id = Model.QuestionID})</button>
