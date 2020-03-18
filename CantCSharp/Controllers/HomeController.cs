@@ -62,10 +62,10 @@ namespace CantCSharp.Controllers
         public IActionResult NewAnswer([FromForm(Name = "Answer")] string answer)
         {
             Answer newAnswer = new Answer(1, answer);
-            var question = questionModel.FirstOrDefault(q => q.QuestionID == newAnswer.Id);
+            var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == newAnswer.Id);
             question.AnswerList.Add(newAnswer);
 
-            return View(questionModel);
+            return View(_loader.QuestionList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
