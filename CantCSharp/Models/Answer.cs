@@ -27,5 +27,9 @@ namespace CantCSharp.Models
         {
             IsSolution = true;
         }
+        public override string ToString()
+        {
+            return AnswerMessage;
+        }
     }
 }

@@ -11,12 +11,12 @@
     </h3>
         @foreach (Answer answer in Model.AnswerList)
         {
-            <ol>@answer</ol>
+            <ol>@answer.ToString()</ol>
         }
     
 
-<form action="" method="post">
+<form action="@Url.Action("NewAnswer", "Home", new { id = Model.QuestionID })" method="post">
     <input type="text" name="answer" placeholder="Your answer" />
-    <button>@Html.ActionLink("Submit", "NewAnswer", new { id = Model.QuestionID})</button>
+    <button>Submit</button>
 </form>
 
