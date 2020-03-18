@@ -86,6 +86,26 @@ namespace CantCSharp.Controllers
 
             return View(_loader.QuestionList);
         }
+        [HttpPost]
+        public IActionResult DeleteAnswer(int answerID, int questionID)
+        {
+            foreach(QuestionModel question in _loader.QuestionList)
+            {
+               if(question.QuestionID == questionID+1)
+                {
+                    foreach(Answer answer in question.AnswerList)
+                    {
+                        if(answer.Id == answerID)
+                        {
+                            question.AnswerList.Remove(answer);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return View("Index", _loader.QuestionList);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

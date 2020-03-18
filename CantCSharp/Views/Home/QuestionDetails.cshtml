@@ -79,6 +79,11 @@
             }
             <td width="40%">Posted on: @answer.PostTime</td>
             <td width="5%">Upvotes: @answer.VoteNumber</td>
+            <td width="5%">
+                <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = answer.QuestionID})" method="post">
+                    <button>Delete</button>
+                </form>
+            </td>
 
         </tr>
     </table>
