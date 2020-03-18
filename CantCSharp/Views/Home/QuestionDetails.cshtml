@@ -82,10 +82,20 @@
 
         </tr>
     </table>
-    <table class="list-group-item list-group-item-action flex-column align-items-start">
+    
+    <table class="list-group-item list-group-item-action flex-column align-items-start" >
         <tr class="align-text-top m-3">
-            <td height="350" width="100">@answer.User</td>
-            <td>@answer.AnswerMessage</td>
+            <td  height="350" width="100">@answer.User</td>
+            
+            <td>
+                <div style=" word-wrap:break-word;width:800px">
+
+                    @answer.AnswerMessage
+                    <div><img src="@answer.ImageSource" height="200" width="200" /></div>
+
+                </div>
+                
+            </td>
         </tr>
     </table>
     }
