@@ -51,8 +51,14 @@
             </div>
             <input class="form-control" type="text" name="answer" placeholder="Your answer..." required><br>
         </div>
-        <button class="btn-primary">Submit</button>
-    </form>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="imageUrl">
+                <span class="input-group-text">Image</span>
+            </div>
+            <input class="form-control" type="text" name="Image" placeholder=""><br>
+        </div>
+            <button class="btn-primary">Submit</button>
+</form>
     <form method="post">
         <input type="hidden" name="TheId" value="@Model.QuestionID"/>
         <button class="btn-primary">Delete Question</button>

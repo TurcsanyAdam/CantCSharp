@@ -67,20 +67,20 @@ namespace CantCSharp.Controllers
             return View("AskQuestion");
         }
 
-       [HttpPost]
-        public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
-               [FromForm(Name = "username")] string user)
+        [HttpPost]
+        public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message,
+                [FromForm(Name = "username")] string user)
         {
             _loader.AddQuestion(title, message, user);
-            return View("Index",_loader.QuestionList);
+            return View("Index", _loader.QuestionList);
         }
 
         [HttpPost]
-        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,
+        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
            int id)
         {
             var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == id);
-            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer);
+            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer, imagesource);
             question.AnswerList.Add(newAnswer);
 
             return View(_loader.QuestionList);

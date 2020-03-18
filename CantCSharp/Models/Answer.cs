@@ -13,16 +13,19 @@ namespace CantCSharp.Models
         int VoteNumber { get; set; }
         int QuestionID { get; set; }
         string AnswerMessage { get; set; }
+        string ImageSource { get; set; }
 
         bool IsSolution { get; set; }
 
-        public Answer(int id,string User, string theAnswer)
+        public Answer(int id,string User, string theAnswer,string imageSource)
         {
             this.User = User;
             Id = id;
             AnswerMessage = theAnswer;
             IsSolution = false;
             PostTime = DateTime.Now;
+            ImageSource = imageSource;
+
 
         }
 
