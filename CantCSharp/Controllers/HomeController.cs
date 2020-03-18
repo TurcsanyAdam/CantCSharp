@@ -75,11 +75,11 @@ namespace CantCSharp.Controllers
             return View("Index",_loader.QuestionList);
         }
 
-        [HttpGet]
-        public IActionResult NewAnswer([FromForm(Name = "Answer")] string answer)
+        [HttpPost("QuestionDetails/{id}/NewAnswer")]
+        public IActionResult NewAnswer(int id,[FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username)
         {
-            Answer newAnswer = new Answer(1, answer);
-            var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == newAnswer.Id);
+            var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == id);
+            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer);
             question.AnswerList.Add(newAnswer);
 
             return View(_loader.QuestionList);
