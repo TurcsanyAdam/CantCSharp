@@ -10,8 +10,8 @@
 
 <div class="list-group m-5">
     <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
-        <tr>
-            <td width="2%">#@Model.QuestionID</td>
+        <tr class="text-center">
+            <td width="2%" >#@Model.QuestionID</td>
 
             @if (Model.Answered)
             {
@@ -22,13 +22,12 @@
                 <td align="left" width="3%" class="badge-danger rounded">Problem</td>
             }
 
-            <td class="display-4" width="40%"></td>
+            <td width="40%">Posted on: @Model.PostTime</td>
             <td width="5%">Views: @Model.ViewNumber</td>
             <td width="5%">Answers: @Model.AnswerList.Count</td>
-
         </tr>
-
     </table>
+
     <table class="list-group-item list-group-item-action flex-column align-items-start">
         <tr class="align-text-top m-3">
             <td height="350" width="30%">@Model.User</td>
@@ -55,3 +54,32 @@
     </form>
 </div>
 
+
+
+<div class="list-group m-5">
+    @foreach (Answer answer in Model.AnswerList)
+    {
+    <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
+        <tr>
+            <td width="2%">#@Model.QuestionID</td>
+
+            @if (answer.IsSolution)
+            {
+                <td align="left" width="3%" class="badge-info rounded">Solution</td>
+            }
+            <td width="40%">Posted on: @Model.PostTime</td>
+            <td width="5%">Upvotes: @answer.VoteNumber</td>
+
+        </tr>
+    </table>
+        <table class="list-group-item list-group-item-action flex-column align-items-start">
+            <tr class="align-text-top m-3">
+                <td height="350" width="30%">@Model.User</td>
+                <td>@answer.AnswerMessage</td>
+            </tr>
+        </table>
+    }
+
+        
+
+</div>

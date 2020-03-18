@@ -7,14 +7,14 @@ namespace CantCSharp.Models
 {
     public class Answer : IAnswer
     {
-        string User { get; }
+        public string User { get; }
         public int Id { get; }
-        DateTime PostTime { get; set; }
-        int VoteNumber { get; set; }
-        int QuestionID { get; set; }
-        string AnswerMessage { get; set; }
+        public DateTime PostTime { get; set; }
+        public int VoteNumber { get; set; }
+        public int QuestionID { get; set; }
+        public string AnswerMessage { get; set; }
 
-        bool IsSolution { get; set; }
+        public bool IsSolution { get; set; }
 
         public Answer(int id,string User, string theAnswer)
         {
@@ -23,7 +23,6 @@ namespace CantCSharp.Models
             AnswerMessage = theAnswer;
             IsSolution = false;
             PostTime = DateTime.Now;
-
         }
 
         public void MarkAsSolution()
