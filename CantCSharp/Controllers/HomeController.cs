@@ -77,7 +77,7 @@ namespace CantCSharp.Controllers
 
         [HttpPost]
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,
-            [FromForm(Name = "id")] int id)
+           int id)
         {
             var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == id);
             Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer);
