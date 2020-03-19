@@ -14,7 +14,7 @@ namespace CantCSharp.Models
         public int QuestionID { get; set; }
         public string AnswerMessage { get; set; }
         public string ImageSource { get; set; }
-
+        public List<string> Link { get; set; }
         public bool IsSolution { get; set; }
 
         public Answer(int id,string User, string theAnswer,string imageSource, int QuesitonId)
@@ -26,6 +26,7 @@ namespace CantCSharp.Models
             IsSolution = false;
             PostTime = DateTime.Now;
             ImageSource = imageSource;
+            Link = new List<string>();
 
 
         }
