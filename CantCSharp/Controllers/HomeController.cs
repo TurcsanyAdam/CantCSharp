@@ -118,6 +118,8 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult VoteUp(int answerID, int questionID)
         {
+            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == questionID).FirstOrDefault();
+
             foreach (QuestionModel question in _loader.QuestionList)
             {
                 if (question.QuestionID == questionID)
@@ -132,13 +134,17 @@ namespace CantCSharp.Controllers
                     }
                 }
             }
-            return View("Index", _loader.QuestionList);
+
+            return View("QuestionDetails", questionModel);
 
 
         }
+
         [HttpPost]
         public IActionResult VoteDown(int answerID, int questionID)
         {
+            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == questionID).FirstOrDefault();
+
             foreach (QuestionModel question in _loader.QuestionList)
             {
                 if (question.QuestionID == questionID)
@@ -153,7 +159,7 @@ namespace CantCSharp.Controllers
                     }
                 }
             }
-            return View("Index", _loader.QuestionList);
+            return View("QuestionDetails", questionModel);
 
         }
 
