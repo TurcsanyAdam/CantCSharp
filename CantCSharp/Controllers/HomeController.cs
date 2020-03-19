@@ -87,7 +87,7 @@ namespace CantCSharp.Controllers
             {
                 imagesource = "https://mytrendingstories.com/media/photologue/photos/cache/keep-calm-and-git-gud-10_article_large.png";
             }
-            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer, imagesource);
+            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer, imagesource,id);
             if (link != null)
             {
                 newAnswer.Link = link.Split(' ');
