@@ -116,6 +116,23 @@ namespace CantCSharp.Controllers
             return View("Index", _loader.QuestionList);
         }
         [HttpPost]
+        
+        public IActionResult EditQuestion(int EditID)
+        {
+            
+            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditID).FirstOrDefault();
+            return View("EditQuestion", questionModel);
+
+        }
+        [HttpPost]
+        
+        public IActionResult EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmessage )
+        {
+            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditedID).FirstOrDefault();
+            questionModel.QuestionMessage = editedmessage;
+            return View("Index", _loader.QuestionList);
+        }
+        [HttpPost]
         public IActionResult VoteUp(int answerID, int questionID)
         {
             QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == questionID).FirstOrDefault();

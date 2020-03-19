@@ -8,8 +8,7 @@
     <h1 class="display-4">@Model.QuestionTitle</h1>
 </div>
 
-<form method="post" class="btn-edit-container">
-    <input type="hidden" name="EditID" value="@Model.QuestionID" />
+<form method="post" action="@Url.Action("EditQuestion","Home", new { EditID = Model.QuestionID })"  class="btn-edit-container">
     <button class="btn-primary" align="left">Edit Question</button>
 </form>
 <div class="list-group m-5">

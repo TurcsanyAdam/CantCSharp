@@ -23,7 +23,7 @@ namespace CantCSharp.Models
 
 
 
-        public QuestionModel(int questionid,string questionMessage, string questionTitle, string user)
+        public QuestionModel(int questionid,string questionTitle, string questionMessage, string user)
         {
             ViewNumber = 0;
             VoteNumber = 0;
