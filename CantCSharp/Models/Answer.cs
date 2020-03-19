@@ -17,9 +17,10 @@ namespace CantCSharp.Models
 
         public bool IsSolution { get; set; }
 
-        public Answer(int id,string User, string theAnswer,string imageSource)
+        public Answer(int id,string User, string theAnswer,string imageSource, int QuesitonId)
         {
             this.User = User;
+            this.QuestionID = QuestionID;
             Id = id;
             AnswerMessage = theAnswer;
             IsSolution = false;
