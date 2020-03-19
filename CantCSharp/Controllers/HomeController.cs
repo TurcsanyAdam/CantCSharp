@@ -95,7 +95,7 @@ namespace CantCSharp.Controllers
         {
             foreach(QuestionModel question in _loader.QuestionList)
             {
-               if(question.QuestionID == questionID+1)
+               if(question.QuestionID == questionID)
                 {
                     foreach(Answer answer in question.AnswerList)
                     {
@@ -115,7 +115,7 @@ namespace CantCSharp.Controllers
         {
             foreach (QuestionModel question in _loader.QuestionList)
             {
-                if (question.QuestionID == questionID + 1)
+                if (question.QuestionID == questionID)
                 {
                     foreach (Answer answer in question.AnswerList)
                     {
@@ -136,7 +136,7 @@ namespace CantCSharp.Controllers
         {
             foreach (QuestionModel question in _loader.QuestionList)
             {
-                if (question.QuestionID == questionID + 1)
+                if (question.QuestionID == questionID)
                 {
                     foreach (Answer answer in question.AnswerList)
                     {

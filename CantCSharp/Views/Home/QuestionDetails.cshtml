@@ -86,17 +86,17 @@
             <td width="40%">Posted on: @answer.PostTime</td>
             <td width="5%">Upvotes: @answer.VoteNumber</td>
             <td width="5%">
-                <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = answer.QuestionID})" method="post">
+                <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
                     <button>Delete</button>
                 </form>
             </td>
             <td width="5%">
-                <form action="@Url.Action("VoteUp", "Home", new { answerID = answer.Id, questionId = answer.QuestionID})" method="post">
+                <form action="@Url.Action("VoteUp", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
                     <button><arrow class="up"></arrow></button>
                 </form>
             </td>
             <td width="5%">
-                <form action="@Url.Action("VoteDown", "Home", new { answerID = answer.Id, questionId = answer.QuestionID})" method="post">
+                <form action="@Url.Action("VoteDown", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
                     <button><arrow class="down"></arrow></button>
                 </form>
             </td>
