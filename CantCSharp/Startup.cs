@@ -29,8 +29,15 @@ namespace CantCSharp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime,IDataLoad _loader)
         {
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
+            void OnShutdown()
+            {
+                CsvWriter csvWriter = new CsvWriter(_loader.QuestionList);
+                csvWriter.WriteQuestions("wwwroot/csv/questions.csv");
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -30,7 +30,7 @@ namespace CantCSharp.Models
                     string questionMessage = question.QuestionMessage;
                     bool answer = question.Answered;
                     bool IsClosed = question.IsClosed;
-                    var line = string.Format($"{user},{questionID},{dateTime},{viewNumber},{voteNumber},{questionTitle},{questionMessage},{answer},{IsClosed} +\n");
+                    var line = string.Format($"{user};{questionID};{dateTime};{viewNumber};{voteNumber};{questionTitle};{questionMessage};{answer};{IsClosed}");
                     w.WriteLine(line);
                     w.Flush();
                 }
