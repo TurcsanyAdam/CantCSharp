@@ -41,7 +41,7 @@
 </div>
 
 <div>
-    <form method="post" action="@Url.Action("NewAnswer", "Home", new { id = Model.QuestionID})">
+    <form method="post" action="@Url.Action("NewAnswer", "Home", new { id = Model.QuestionID })">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend" for="username">
                 <span class="input-group-text">Username</span>
@@ -80,57 +80,57 @@
 <div class="list-group m-5">
     @foreach (Answer answer in Model.AnswerList)
     {
-    <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
-        <tr>
-            <td width="2%">#@Model.QuestionID</td>
+        <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
+            <tr>
+                <td width="2%">#@Model.QuestionID</td>
 
-            @if (answer.IsSolution)
-            {
-                <td align="left" width="3%" class="badge-info rounded">Solution</td>
-            }
-            <td width="40%">Posted on: @answer.PostTime</td>
-            <td width="5%">Upvotes: @answer.VoteNumber</td>
-            <td width="5%">
-                <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
-                    <button>Delete</button>
-                </form>
-            </td>
-            <td width="5%">
-                <form action="@Url.Action("VoteUp", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
-                    <button><arrow class="up"></arrow></button>
-                </form>
-            </td>
-            <td width="5%">
-                <form action="@Url.Action("VoteDown", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
-                    <button><arrow class="down"></arrow></button>
-                </form>
-            </td>
+                @if (answer.IsSolution)
+                {
+                    <td align="left" width="3%" class="badge-info rounded">Solution</td>
+                }
+                <td width="40%">Posted on: @answer.PostTime</td>
+                <td width="5%">Upvotes: @answer.VoteNumber</td>
+                <td width="5%">
+                    <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
+                        <button>Delete</button>
+                    </form>
+                </td>
+                <td width="5%">
+                    <form action="@Url.Action("VoteUp", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
+                        <button><arrow class="up"></arrow></button>
+                    </form>
+                </td>
+                <td width="5%">
+                    <form action="@Url.Action("VoteDown", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
+                        <button><arrow class="down"></arrow></button>
+                    </form>
+                </td>
 
-        </tr>
-    </table>
-    
-    <table class="list-group-item list-group-item-action flex-column align-items-start" >
-        <tr class="align-text-top m-3">
-            <td  height="350" width="100">@answer.User</td>
-            
-            <td>
-                <div style=" word-wrap:break-word;width:800px">
-                    @answer.AnswerMessage
-                    @if (answer.Link != null)
-                    {
-                        @foreach (string links in answer.Link)
+            </tr>
+        </table>
+
+        <table class="list-group-item list-group-item-action flex-column align-items-start">
+            <tr class="align-text-top m-3">
+                <td height="350" width="100">@answer.User</td>
+
+                <td>
+                    <div style=" word-wrap:break-word;width:800px">
+                        @answer.AnswerMessage
+                        @if (answer.Link != null)
                         {
-                            <p><a href="@links">@links</a></p>
+                            @foreach (string links in answer.Link)
+                            {
+                                <p><a href="@links">@links</a></p>
+                            }
                         }
-                    }
-                    <div><img class="answer-img" src="@answer.ImageSource" height="200" width="200"  /></div>
-                </div>
-                
-            </td>
-        </tr>
-    </table>
+                        <div><img class="answer-img" src="@answer.ImageSource" height="200" width="200" /></div>
+                    </div>
+
+                </td>
+            </tr>
+        </table>
     }
 
-        
+
 
 </div>

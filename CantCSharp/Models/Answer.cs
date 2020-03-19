@@ -45,6 +45,13 @@ namespace CantCSharp.Models
         {
             IsSolution = true;
         }
+
+        public int CompareTo(IAnswer otherAnswer)
+        {
+            // implement your custom comparison here...
+
+            return VoteNumber.CompareTo(otherAnswer.VoteNumber); // e.g.
+        }
         public override string ToString()
         {
             return PostTime + " " + User + ": " + AnswerMessage;
