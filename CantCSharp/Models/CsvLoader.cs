@@ -13,6 +13,7 @@ namespace CantCSharp.Models
         public CsvLoader()
         {
             LoadData("wwwroot/csv/questions.csv");
+            SetupSortTest();
         }
         public void AddQuestion(string message, string title, string user)
         {
@@ -34,6 +35,12 @@ namespace CantCSharp.Models
                    
             }
             return QuestionList;
+        }
+
+        public void SetupSortTest()
+        {
+            QuestionList[0].PostTime = QuestionList[0].PostTime.AddDays(3.0);
+            QuestionList[2].PostTime = QuestionList[0].PostTime.AddDays(5.0);
         }
     }
 }

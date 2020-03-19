@@ -13,28 +13,45 @@
     <button  class="btn-primary">New Question</button>
 </form>
 
-<div class="list-group">
-    @foreach (var q in Model)
-    {
-        <a href="@Url.Action("QuestionDetails", "Home", new { id = q.QuestionID })" class="list-group-item list-group-item-action flex-column align-items-start">
+<div class="list-group"> 
+    <ul>
+        <li class="list-group-item flex-column align-items-start border-0 font-weight-bold">
             <table>
                 <tr>
-                    <td width="2%">#@q.QuestionID</td>
-                    <td width="40%">@q.QuestionTitle</td>
-                    <td width="15%">Posted by: @q.User</td>
-                    <td width="5%">Views: @q.ViewNumber</td>
-                    <td width="5%">Answers: @q.AnswerList.Count</td>
-                    @if (q.Answered)
-                    {
-                        <td align="right" width="3%" class="badge-info rounded">Solution</td>
-                    }
-                    else
-                    {
-                        <td align="right" width="3%" class="badge-danger rounded">Problem</td>
-                    }
+                    <td width="2%">ID</td>
+                    <td width="20%">Title</td>
+                    <td width="10%">User</td>
+                    <td width="8%"><a href="@Url.Action("SortByDate", "Home")">Date</a></td>
+                    <td class="text-center" width="5%"><a href="@Url.Action("SortByViews", "Home")">Views</a></td>
+                    <td class="text-center" width="5%"><a href="@Url.Action("SortByAnswersCount", "Home")">Answers</a></td>
+                    <td align="right" width="4%"></td>
                 </tr>
             </table>
-        </a>
-    }
-
+        </li>
+        @foreach (var q in Model)
+        {
+        <li class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="@Url.Action("QuestionDetails", "Home", new { id = q.QuestionID })" class="list-group-item-action flex-column align-items-start">
+                <table>
+                    <tr>
+                        <td width="2%">#@q.QuestionID</td>
+                        <td width="20%">@q.QuestionTitle</td>
+                        <td width="10%">@q.User</td>
+                        <td width="8%">@q.PostTime</td>
+                        <td class="text-center" width="5%">@q.ViewNumber</td>
+                        <td class="text-center" width="5%">@q.AnswerList.Count</td>
+                        @if (q.Answered)
+                        {
+                            <td align="right" width="3%" class="badge-info rounded">Solution</td>
+                        }
+                        else
+                        {
+                            <td align="right" width="3%" class="badge-danger rounded">Problem</td>
+                        }
+                    </tr>
+                </table>
+            </a>
+        </li>
+        }
+    </ul>
 </div>

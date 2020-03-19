@@ -23,7 +23,7 @@ namespace CantCSharp.Controllers
         public IActionResult Index()
         {
             var questionModel = _loader.QuestionList;
-            questionModel[0].MarkAsAnswered();
+            questionModel.Sort((q1, q2) => q1.QuestionID.CompareTo(q2.QuestionID));
             return View(questionModel);
         }
 
@@ -68,9 +68,11 @@ namespace CantCSharp.Controllers
             return View("AskQuestion");
         }
 
-       [HttpPost]
-        public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message,
-                [FromForm(Name = "username")] string user)
+        
+
+        [HttpPost]
+        public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
+               [FromForm(Name = "username")] string user)
         {
             _loader.AddQuestion(title, message, user);
             return View("Index", _loader.QuestionList);
@@ -155,6 +157,26 @@ namespace CantCSharp.Controllers
 
         }
 
+        public IActionResult SortByDate()
+        {
+            var questionModel = _loader.QuestionList;
+            questionModel.Sort((q1, q2) => q2.PostTime.CompareTo(q1.PostTime));
+            return View("Index", questionModel);
+        }
+
+        public IActionResult SortByViews()
+        {
+            var questionModel = _loader.QuestionList;
+            questionModel.Sort((q1, q2) => q2.ViewNumber.CompareTo(q1.ViewNumber));
+            return View("Index", questionModel);
+        }
+
+        public IActionResult SortByAnswersCount()
+        {
+            var questionModel = _loader.QuestionList;
+            questionModel.Sort((q1, q2) => q2.AnswerList.Count.CompareTo(q1.AnswerList.Count));
+            return View("Index", questionModel);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

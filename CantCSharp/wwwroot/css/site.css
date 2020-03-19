@@ -117,10 +117,6 @@ body {
 }
 
 
-td:first-child {
-    font-weight: bold;
-}
-
 form {
     text-align: center;
 }
@@ -153,4 +149,16 @@ arrow {
 .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+
+/*td:nth-child(2n+1) {
+    background-color: lightcoral;
+}
+
+td:nth-child(2n) {
+    background-color: lightgray;
+}*/
+
+li {
+    display: inline-block;
 }
