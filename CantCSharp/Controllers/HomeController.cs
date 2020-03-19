@@ -151,6 +151,7 @@ namespace CantCSharp.Controllers
                     }
                 }
             }
+            questionModel.AnswerList.Sort((x, y) => y.VoteNumber.CompareTo(x.VoteNumber));
 
             return View("QuestionDetails", questionModel);
 
@@ -176,6 +177,8 @@ namespace CantCSharp.Controllers
                     }
                 }
             }
+            questionModel.AnswerList.Sort((x, y) => y.VoteNumber.CompareTo(x.VoteNumber));
+
             return View("QuestionDetails", questionModel);
 
         }

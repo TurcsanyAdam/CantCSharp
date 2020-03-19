@@ -37,5 +37,28 @@ namespace CantCSharp.Models
             }
         }
 
+        public void WriteAnswers(string path)
+        {
+            using (var w = new StreamWriter(path))
+            {
+                foreach(QuestionModel question in QuestionList)
+                {
+                    foreach(Answer answer in question.AnswerList)
+                    {
+                        var link = "";
+                        if(answer.Link != null)
+                        {
+                            link = answer.Link[0];
+                        }
+                         
+                        var line = string.Format($"{answer.User};{answer.Id};{answer.PostTime};{answer.VoteNumber};{question.QuestionID};{answer.AnswerMessage};{answer.ImageSource};{link};{answer.IsSolution}");
+                        w.WriteLine(line);
+                        w.Flush();
+                    }
+                }
+            }
+
+        }
+
     }
 }

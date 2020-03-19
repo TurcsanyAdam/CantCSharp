@@ -36,6 +36,7 @@ namespace CantCSharp
             {
                 CsvWriter csvWriter = new CsvWriter(_loader.QuestionList);
                 csvWriter.WriteQuestions("wwwroot/csv/questions.csv");
+                csvWriter.WriteAnswers("wwwroot/csv/answers.csv");
             }
 
             if (env.IsDevelopment())
