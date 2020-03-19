@@ -117,14 +117,22 @@ body {
 }
 
 
-td:first-child {
-    font-weight: bold;
-}
-
 form {
     text-align: center;
 }
 
 .badge-danger, .badge-info {
     text-align: center;
+}
+
+/*td:nth-child(2n+1) {
+    background-color: lightcoral;
+}
+
+td:nth-child(2n) {
+    background-color: lightgray;
+}*/
+
+li {
+    display: inline-block;
 }
