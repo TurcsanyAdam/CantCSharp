@@ -110,10 +110,15 @@
             
             <td>
                 <div style=" word-wrap:break-word;width:800px">
-
                     @answer.AnswerMessage
-                    <div><img src="@answer.ImageSource" height="200" width="200"  /></div>
-
+                    @if (answer.Link != null)
+                    {
+                        @foreach (string links in answer.Link)
+                        {
+                            <p><a href="@links">@links</a></p>
+                        }
+                    }
+                    <div><img class="answer-img" src="@answer.ImageSource" height="200" width="200"  /></div>
                 </div>
                 
             </td>

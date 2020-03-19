@@ -78,7 +78,7 @@ namespace CantCSharp.Controllers
 
         [HttpPost]
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
-           int id)
+           int id, [FromForm(Name = "Link")]string link)
         {
             var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == id);
             if(imagesource== null)
@@ -86,8 +86,11 @@ namespace CantCSharp.Controllers
                 imagesource = "https://mytrendingstories.com/media/photologue/photos/cache/keep-calm-and-git-gud-10_article_large.png";
             }
             Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer, imagesource);
+            if (link != null)
+            {
+                newAnswer.Link = link.Split(' ');
+            }
             question.AnswerList.Add(newAnswer);
-
             return View(_loader.QuestionList);
         }
         [HttpPost]
