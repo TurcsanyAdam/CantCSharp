@@ -50,8 +50,20 @@
             </div>
             <input class="form-control" type="text" name="answer" placeholder="Your answer..." required><br>
         </div>
-        <button class="btn-primary">Submit</button>
-    </form>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="imageUrl">
+                <span class="input-group-text">Image</span>
+            </div>
+            <input class="form-control" type="text" name="Image" placeholder=""><br>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="imageUrl">
+                <span class="input-group-text">Link</span>
+            </div>
+            <input class="form-control" type="text" name="Link" placeholder=""><br>
+        </div>
+            <button class="btn-primary">Submit</button>
+</form>
     <form method="post">
         <input type="hidden" name="TheId" value="@Model.QuestionID"/>
         <button class="btn-primary">Delete Question</button>
@@ -73,13 +85,38 @@
             }
             <td width="40%">Posted on: @answer.PostTime</td>
             <td width="5%">Upvotes: @answer.VoteNumber</td>
+            <td width="5%">
+                <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
+                    <button>Delete</button>
+                </form>
+            </td>
+            <td width="5%">
+                <form action="@Url.Action("VoteUp", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
+                    <button><arrow class="up"></arrow></button>
+                </form>
+            </td>
+            <td width="5%">
+                <form action="@Url.Action("VoteDown", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
+                    <button><arrow class="down"></arrow></button>
+                </form>
+            </td>
 
         </tr>
     </table>
-    <table class="list-group-item list-group-item-action flex-column align-items-start">
+    
+    <table class="list-group-item list-group-item-action flex-column align-items-start" >
         <tr class="align-text-top m-3">
-            <td height="350" width="100">@answer.User</td>
-            <td>@answer.AnswerMessage</td>
+            <td  height="350" width="100">@answer.User</td>
+            
+            <td>
+                <div style=" word-wrap:break-word;width:800px">
+
+                    @answer.AnswerMessage
+                    <div><img src="@answer.ImageSource" height="200" width="200"  /></div>
+
+                </div>
+                
+            </td>
         </tr>
     </table>
     }

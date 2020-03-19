@@ -75,18 +75,83 @@ namespace CantCSharp.Controllers
                [FromForm(Name = "username")] string user)
         {
             _loader.AddQuestion(title, message, user);
-            return View("Index",_loader.QuestionList);
-        }
+            return View("Index", _loader.QuestionList);
+        } 
 
         [HttpPost]
-        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,
+        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
            int id)
         {
             var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == id);
-            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer);
+            if(imagesource== null)
+            {
+                imagesource = "https://mytrendingstories.com/media/photologue/photos/cache/keep-calm-and-git-gud-10_article_large.png";
+            }
+            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer, imagesource, id);
             question.AnswerList.Add(newAnswer);
 
             return View(_loader.QuestionList);
+        }
+        [HttpPost]
+        public IActionResult DeleteAnswer(int answerID, int questionID)
+        {
+            foreach(QuestionModel question in _loader.QuestionList)
+            {
+               if(question.QuestionID == questionID)
+                {
+                    foreach(Answer answer in question.AnswerList)
+                    {
+                        if(answer.Id == answerID)
+                        {
+                            question.AnswerList.Remove(answer);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return View("Index", _loader.QuestionList);
+        }
+        [HttpPost]
+        public IActionResult VoteUp(int answerID, int questionID)
+        {
+            foreach (QuestionModel question in _loader.QuestionList)
+            {
+                if (question.QuestionID == questionID)
+                {
+                    foreach (Answer answer in question.AnswerList)
+                    {
+                        if (answer.Id == answerID)
+                        {
+                            answer.VoteNumber++;
+                            break;
+                        }
+                    }
+                }
+            }
+            return View("Index", _loader.QuestionList);
+
+
+        }
+        [HttpPost]
+        public IActionResult VoteDown(int answerID, int questionID)
+        {
+            foreach (QuestionModel question in _loader.QuestionList)
+            {
+                if (question.QuestionID == questionID)
+                {
+                    foreach (Answer answer in question.AnswerList)
+                    {
+                        if (answer.Id == answerID)
+                        {
+                            answer.VoteNumber -= 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            return View("Index", _loader.QuestionList);
+
         }
 
         public IActionResult SortByDate()
