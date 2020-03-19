@@ -8,6 +8,10 @@
     <h1 class="display-4">@Model.QuestionTitle</h1>
 </div>
 
+<form method="post" class="btn-edit-container">
+    <input type="hidden" name="EditID" value="@Model.QuestionID" />
+    <button class="btn-primary" align="left">Edit Question</button>
+</form>
 <div class="list-group m-5">
     <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
         <tr class="text-center">

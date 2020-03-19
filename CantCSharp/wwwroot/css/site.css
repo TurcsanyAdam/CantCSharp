@@ -23,6 +23,7 @@ a {
     margin: 10px;
 }
 
+
 .btn-primary:hover {
     background-color: #ffd399;
     border-color: #fff;
@@ -30,6 +31,12 @@ a {
 
 .btn-container {
     text-align: right;
+    
+}
+.btn-edit-container {
+    text-align: right;
+    margin-right: 37px;
+    margin-bottom:-5%;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
