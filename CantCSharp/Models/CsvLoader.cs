@@ -30,7 +30,7 @@ namespace CantCSharp.Models
                     var line = reader.ReadLine();
                     var values = line.Split(';');
 
-                    QuestionList.Add(new QuestionModel(Convert.ToInt32(values[0]), values[1], values[2], values[3]));
+                    QuestionList.Add(new QuestionModel(values[0], Convert.ToInt32(values[1]), values[2], Convert.ToInt32(values[3]), Convert.ToInt32(values[4]), values[5], values[6], Convert.ToBoolean(values[7]), Convert.ToBoolean(values[8])));
                 }
                    
             }
