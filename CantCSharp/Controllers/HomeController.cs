@@ -23,15 +23,13 @@ namespace CantCSharp.Controllers
         public IActionResult Index()
         {
             var questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
-
             return View(questionListModel);
         }
 
         public IActionResult AllQuestions()
         {
-            var questionModel = _loader.QuestionList;
-            questionModel.Sort((q1, q2) => q1.PostTime.CompareTo(q2.PostTime));
-            return View(questionModel);
+            var questionListModel = _loader.GetDataList("SELECT * FROM question;");
+            return View(questionListModel);
         }
 
         public IActionResult Privacy()
@@ -47,11 +45,9 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult QuestionDetails(int id)
         {
-            var questionModel = _loader.QuestionList;
-            var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
-            question.ViewNumber++;
-
-            return View(question);
+            var questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
+            questionModel.ViewNumber++;
+            return View(questionModel);
         }
 
         [HttpPost]
