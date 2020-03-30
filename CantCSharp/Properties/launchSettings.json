@@ -1,37 +1,41 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:52107",
       "sslPort": 44372
     }
   },
-    "profiles": {
-        "IIS Express": {
-            "commandName": "IISExpress",
-            "launchBrowser": true,
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
-        },
-        "CantCSharp": {
-            "commandName": "Project",
-            "launchBrowser": true,
-            "applicationUrl": "https://localhost:5001;http://localhost:5000",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
-        },
-        "Watch": {
-            "executablePath": "dotnet.exe",
-            "workingDirectory": "$(ProjectDir)",
-            "commandLineArgs": "watch run",
-            "launchBrowser": true,
-            "launchUrl": "http://localhost:5000/",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
-        }
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "DB_USER": "postgres",
+        "DB_NAME": "askmate",
+        "DB_PASS": "admin",
+        "DB_HOST": "localhost",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "CantCSharp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    },
+    "Watch": {
+      "executablePath": "dotnet.exe",
+      "commandLineArgs": "watch run",
+      "workingDirectory": "$(ProjectDir)",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5000/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
+  }
 }

@@ -8,10 +8,10 @@ namespace CantCSharp.Models
 {
     public class DataBaseLoader : IDataLoad
     {
-        private static readonly string dbHost = "localhost";//Environment.GetEnvironmentVariable("DB_HOST");
-        private static readonly string dbUser = "postgres";//Environment.GetEnvironmentVariable("DB_USER");
-        private static readonly string dbPass = "admin";//Environment.GetEnvironmentVariable("DB_PASS");
-        private static readonly string dbName = "askmate";//Environment.GetEnvironmentVariable("DB_NAME");
+        private static readonly string dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+        private static readonly string dbUser = Environment.GetEnvironmentVariable("DB_USER");
+        private static readonly string dbPass = Environment.GetEnvironmentVariable("DB_PASS");
+        private static readonly string dbName = Environment.GetEnvironmentVariable("DB_NAME");
         public static readonly string connectingString = $"Host={dbHost};Username={dbUser};Password={dbPass};Database={dbName}";
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
