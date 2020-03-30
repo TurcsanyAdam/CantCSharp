@@ -90,6 +90,11 @@
                 <td width="40%">Posted on: @answer.PostTime</td>
                 <td width="5%">Upvotes: @answer.VoteNumber</td>
                 <td width="5%">
+                    <form action="@Url.Action("EditAnswer", "Home", new { editAnswerID = answer.Id, editQuestionId = Model.QuestionID})" method="post">
+                        <button>Edit</button>
+                    </form>
+                </td>
+                <td width="5%">
                     <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = Model.QuestionID})" method="post">
                         <button>Delete</button>
                     </form>

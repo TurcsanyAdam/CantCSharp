@@ -1,0 +1,22 @@
+﻿@model CantCSharp.Models.QuestionModel
+
+@{
+    ViewData["Title"] = "EditAnswer";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit the question...</h1>
+</div>
+
+<div>
+    <form method="post" action="@Url.Action("EditAnswerConfirm","Home", new { editAnswerID = Model.AnswerList. ,editQuestionID = Model.QuestionID})">
+
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="message">
+                <span class="input-group-text">Description of the problem</span>
+            </div>
+            <textarea class="form-control" rows="1" type="text" name="EditedAnswer" required>@Model.QuestionMessage</textarea><br>
+        </div>
+        <button class="btn-primary">Edit</button>
+    </form>
+</div>

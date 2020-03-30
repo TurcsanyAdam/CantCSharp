@@ -124,6 +124,34 @@ namespace CantCSharp.Controllers
             return View("Index", _loader.QuestionList);
         }
         [HttpPost]
+
+        public IActionResult EditAnswer(int editAnswerID, int editQuestionID)
+        {
+            foreach (QuestionModel question in _loader.QuestionList)
+            {
+                if (question.QuestionID == editQuestionID)
+                {
+                    foreach (Answer answer in question.AnswerList)
+                    {
+                        if (answer.Id == editAnswerID)
+                        {
+                            return View("EditAnswer", answer);
+                            
+                        }
+                    }
+                }
+                
+            }
+            return View("Index", _loader.QuestionList);
+        }
+        public IActionResult EditAnswerConfirm(int EditedID, [FromForm(Name = "EditedAnswer")] string editedAnswer,)
+        {
+            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditedID).FirstOrDefault();
+            questionModel.QuestionMessage = editedAnswer;
+            return View("Index", _loader.QuestionList);
+        }
+
+        [HttpPost]
         
         public IActionResult EditQuestion(int EditID)
         {
