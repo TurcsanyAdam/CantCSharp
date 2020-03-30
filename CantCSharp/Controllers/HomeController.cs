@@ -18,7 +18,6 @@ namespace CantCSharp.Controllers
         {
             _logger = logger;
             _loader = loader;
-            questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
         }
 
         public IActionResult Index()
