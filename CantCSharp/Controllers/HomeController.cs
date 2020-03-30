@@ -18,11 +18,13 @@ namespace CantCSharp.Controllers
         {
             _logger = logger;
             _loader = loader;
+            questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
         }
 
         public IActionResult Index()
         {
-            var questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
+            List<QuestionModel> questionListModel = new List<QuestionModel>();
+            questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
 
             return View(questionListModel);
         }
