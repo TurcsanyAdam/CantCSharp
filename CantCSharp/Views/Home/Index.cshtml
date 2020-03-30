@@ -10,16 +10,6 @@
     <p>Questions are everywhere, answers are on Can't C#</p>
 </div>
 
-<div class="btn-group btn-container w-100 justify-content-between">
-    <form action="@Url.Action("AskQuestion", "Home")">
-        <button class="btn-primary m-2">New Question</button>
-    </form>
-    <form>
-        <button class="btn-primary">Search</button>
-        <input class="m-2" type="text" />
-    </form>
-</div>
-
 <div class="list-group"> 
     <ul class="w-100 p-2">
         <li class="list-group-item flex-column align-items-start border-0 font-weight-bold">
@@ -28,9 +18,9 @@
                     <td width="2%">ID</td>
                     <td width="20%">Title</td>
                     <td width="10%">User</td>
-                    <td width="8%"><a href="@Url.Action("SortByDate", "Home")">Date</a></td>
-                    <td class="text-center" width="5%"><a href="@Url.Action("SortByViews", "Home")">Views</a></td>
-                    <td class="text-center" width="5%"><a href="@Url.Action("SortByAnswersCount", "Home")">Answers</a></td>
+                    <td width="8%">Date</td>
+                    <td class="text-center" width="5%">Views</td>
+                    <td class="text-center" width="5%">Answers</td>
                     <td align="right" width="4%"></td>
                 </tr>
             </table>
