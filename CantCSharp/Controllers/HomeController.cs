@@ -219,25 +219,37 @@ namespace CantCSharp.Controllers
 
         }
 
+        public IActionResult SortByTitle()
+        {
+            
+            return View();
+        }
+
+        public IActionResult SortByVotes()
+        {
+
+            return View();
+        }
+
         public IActionResult SortByDate()
         {
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.PostTime.CompareTo(q1.PostTime));
-            return View("Index", questionModel);
+            return View("AllQuestions", questionModel);
         }
 
         public IActionResult SortByViews()
         {
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.ViewNumber.CompareTo(q1.ViewNumber));
-            return View("Index", questionModel);
+            return View("AllQuestions", questionModel);
         }
 
         public IActionResult SortByAnswersCount()
         {
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.AnswerList.Count.CompareTo(q1.AnswerList.Count));
-            return View("Index", questionModel);
+            return View("AllQuestions", questionModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
