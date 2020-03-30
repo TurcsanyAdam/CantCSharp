@@ -9,12 +9,19 @@
     <h1 class="display-4">Welcome Stranger!</h1>
     <p>Questions are everywhere, answers are on Can't C#</p>
 </div>
-<form action="@Url.Action("AskQuestion", "Home")" class="btn-container">
-    <button  class="btn-primary">New Question</button>
-</form>
+
+<div class="btn-group btn-container w-100 justify-content-between">
+    <form action="@Url.Action("AskQuestion", "Home")">
+        <button class="btn-primary m-2">New Question</button>
+    </form>
+    <form>
+        <button class="btn-primary">Search</button>
+        <input class="m-2" type="text" />
+    </form>
+</div>
 
 <div class="list-group"> 
-    <ul>
+    <ul class="w-100 p-2">
         <li class="list-group-item flex-column align-items-start border-0 font-weight-bold">
             <table>
                 <tr>
@@ -55,3 +62,4 @@
         }
     </ul>
 </div>
+
