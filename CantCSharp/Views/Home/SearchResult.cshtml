@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CantCSharp.Models.QuestionModel>
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Search Finished</h1>
+    <p>Here's what we found!</p>
+</div>
+
+<div class="btn-group btn-container w-100 justify-content-between">
+    <form action="/Home/AllQuestions">
+        <button class="btn-primary m-2">Back to Question List</button>
+    </form>
+</div>
+
+@if (Model.Count() == 0)
+{
+    <p class="h6 text-center">No results found! Try again with different keywords!</p>
+}
+else
+{
+    <div class="list-group">
+        <ul class="w-100 p-2">
+            <li class="list-group-item flex-column align-items-start border-0 font-weight-bold text-center">
+                <table>
+                    <tr>
+                        <td class="text-left" width="2%">ID</td>
+                        <td class="text-left" width="20%"><a href="@Url.Action("SortByTitle", "Home")">Title</a></td>
+                        <td width="10%"><a href="@Url.Action("SortByDate", "Home")">Date</a></td>
+                        <td width="5%"><a href="@Url.Action("SortByVotes", "Home")">Upvotes</a></td>
+                        <td width="5%"><a href="@Url.Action("SortByViews", "Home")">Views</a></td>
+                        <td width="5%"><a href="@Url.Action("SortByAnswersCount", "Home")">Answers</a></td>
+                        <td align="right" width="4%"></td>
+                    </tr>
+                </table>
+            </li>
+            @foreach (var q in Model)
+            {
+                <li class="list-group-item list-group-item-action flex-column align-items-start text-center">
+                    <a href="@Url.Action("QuestionDetails", "Home", new { id = q.QuestionID })" class="list-group-item-action flex-column align-items-start">
+                        <table>
+                            <tr>
+                                <td class="text-left" width="2%">#@q.QuestionID</td>
+                                <td class="text-left" width="20%">@q.QuestionTitle</td>
+                                <td width="10%">@q.PostTime</td>
+                                <td width="5%">@q.VoteNumber</td>
+                                <td width="5%">@q.ViewNumber</td>
+                                <td width="5%">@q.AnswerList.Count</td>
+                                @if (q.Answered)
+                                {
+                                    <td align="right" width="3%" class="badge-info rounded">Solution</td>
+                                }
+                                else
+                                {
+                                    <td align="right" width="3%" class="badge-danger rounded">Problem</td>
+                                }
+                            </tr>
+                        </table>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
