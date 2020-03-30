@@ -23,7 +23,15 @@ namespace CantCSharp.Controllers
         public IActionResult Index()
         {
             var questionModel = _loader.QuestionList;
-            questionModel.Sort((q1, q2) => q1.QuestionID.CompareTo(q2.QuestionID));
+            var topFiveQuestions = questionModel.OrderByDescending(q => q.PostTime).Take(5).ToList();
+
+            return View(topFiveQuestions);
+        }
+
+        public IActionResult AllQuestions()
+        {
+            var questionModel = _loader.QuestionList;
+            questionModel.Sort((q1, q2) => q1.PostTime.CompareTo(q2.PostTime));
             return View(questionModel);
         }
 
