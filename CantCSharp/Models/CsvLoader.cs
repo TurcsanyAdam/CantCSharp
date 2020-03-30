@@ -12,7 +12,7 @@ namespace CantCSharp.Models
 
         public CsvLoader()
         {
-            LoadData("wwwroot/csv/questions.csv");
+            LoadData("wwwroot/csv/questions.csv","something");
             LoadAnswer("wwwroot/csv/answers.csv");
 
             SetupSortTest();
@@ -22,7 +22,7 @@ namespace CantCSharp.Models
             QuestionList.Add(new QuestionModel(QuestionList.Count + 1, message, title, user));
         }
 
-        public List<QuestionModel> LoadData(string fileroute)
+        public List<QuestionModel> LoadData(string fileroute,string justsomething)
         {
             
             using (var reader = new StreamReader(fileroute))
