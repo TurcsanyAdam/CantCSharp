@@ -20,9 +20,9 @@ namespace CantCSharp.Models
             QuestionList.Add(new QuestionModel(QuestionList.Count + 1, message, title, user));
         }
 
-        List<QuestionModel> LoadData(string select)
-        { 
-            using(NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+        List<QuestionModel> LoadData(string select, string valami)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand(select, connection);
