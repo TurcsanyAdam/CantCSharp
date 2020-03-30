@@ -25,7 +25,7 @@ namespace CantCSharp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton(typeof(IDataLoad), new CsvLoader());
+            services.AddSingleton(typeof(IDataLoad), new DataBaseLoader());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

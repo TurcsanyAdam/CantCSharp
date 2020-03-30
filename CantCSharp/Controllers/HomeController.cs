@@ -22,10 +22,9 @@ namespace CantCSharp.Controllers
 
         public IActionResult Index()
         {
-            var questionModel = _loader.QuestionList;
-            var topFiveQuestions = questionModel.OrderByDescending(q => q.PostTime).Take(5).ToList();
+            var questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
 
-            return View(topFiveQuestions);
+            return View(questionListModel);
         }
 
         public IActionResult AllQuestions()
