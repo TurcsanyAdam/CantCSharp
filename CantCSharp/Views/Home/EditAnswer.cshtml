@@ -1,4 +1,4 @@
-﻿@model CantCSharp.Models.QuestionModel
+﻿@model CantCSharp.Models.Answer
 
 @{
     ViewData["Title"] = "EditAnswer";
@@ -9,13 +9,13 @@
 </div>
 
 <div>
-    <form method="post" action="@Url.Action("EditAnswerConfirm","Home", new { editAnswerID = Model.AnswerList. ,editQuestionID = Model.QuestionID})">
+    <form method="post" action="@Url.Action("EditAnswerConfirm","Home", new { editedAnswerID = Model.Id ,editedQuestionID = Model.QuestionID})">
 
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend" for="message">
                 <span class="input-group-text">Description of the problem</span>
             </div>
-            <textarea class="form-control" rows="1" type="text" name="EditedAnswer" required>@Model.QuestionMessage</textarea><br>
+            <textarea class="form-control" rows="1" type="text" name="EditedAnswer" required>@Model.AnswerMessage</textarea><br>
         </div>
         <button class="btn-primary">Edit</button>
     </form>

@@ -22,17 +22,14 @@ namespace CantCSharp.Controllers
 
         public IActionResult Index()
         {
-            var questionModel = _loader.QuestionList;
-            var topFiveQuestions = questionModel.OrderByDescending(q => q.PostTime).Take(5).ToList();
-
-            return View(topFiveQuestions);
+            var questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
+            return View(questionListModel);
         }
 
         public IActionResult AllQuestions()
         {
-            var questionModel = _loader.QuestionList;
-            questionModel.Sort((q1, q2) => q1.PostTime.CompareTo(q2.PostTime));
-            return View(questionModel);
+            var questionListModel = _loader.GetDataList("SELECT * FROM question;");
+            return View(questionListModel);
         }
 
         public IActionResult Privacy()
@@ -48,11 +45,9 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult QuestionDetails(int id)
         {
-            var questionModel = _loader.QuestionList;
-            var question = questionModel.FirstOrDefault(q => q.QuestionID == id);
-            question.ViewNumber++;
-
-            return View(question);
+            var questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
+            questionModel.ViewNumber++;
+            return View(questionModel);
         }
 
         [HttpPost]
@@ -144,12 +139,27 @@ namespace CantCSharp.Controllers
             }
             return View("Index", _loader.QuestionList);
         }
-        public IActionResult EditAnswerConfirm(int EditedID, [FromForm(Name = "EditedAnswer")] string editedAnswer,)
+
+        public IActionResult EditAnswerConfirm(int editedAnswerID, int editedQuestionID,[FromForm(Name = "EditedAnswer")] string editedAnswer)
         {
-            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditedID).FirstOrDefault();
-            questionModel.QuestionMessage = editedAnswer;
+            foreach (QuestionModel question in _loader.QuestionList)
+            {
+                if (question.QuestionID == editedQuestionID)
+                {
+                    foreach (Answer answer in question.AnswerList)
+                    {
+                        if (answer.Id == editedAnswerID)
+                        {
+                            answer.AnswerMessage = editedAnswer;
+
+                        }
+                    }
+                }
+
+            }
             return View("Index", _loader.QuestionList);
         }
+    
 
         [HttpPost]
         
@@ -219,25 +229,37 @@ namespace CantCSharp.Controllers
 
         }
 
+        public IActionResult SortByTitle()
+        {
+            
+            return View();
+        }
+
+        public IActionResult SortByVotes()
+        {
+
+            return View();
+        }
+
         public IActionResult SortByDate()
         {
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.PostTime.CompareTo(q1.PostTime));
-            return View("Index", questionModel);
+            return View("AllQuestions", questionModel);
         }
 
         public IActionResult SortByViews()
         {
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.ViewNumber.CompareTo(q1.ViewNumber));
-            return View("Index", questionModel);
+            return View("AllQuestions", questionModel);
         }
 
         public IActionResult SortByAnswersCount()
         {
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.AnswerList.Count.CompareTo(q1.AnswerList.Count));
-            return View("Index", questionModel);
+            return View("AllQuestions", questionModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
