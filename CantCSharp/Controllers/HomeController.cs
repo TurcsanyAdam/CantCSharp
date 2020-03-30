@@ -22,13 +22,13 @@ namespace CantCSharp.Controllers
 
         public IActionResult Index()
         {
-            var questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
+            List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
             return View(questionListModel);
         }
 
         public IActionResult AllQuestions()
         {
-            var questionListModel = _loader.GetDataList("SELECT * FROM question;");
+            List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
             return View(questionListModel);
         }
 
@@ -45,7 +45,7 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult QuestionDetails(int id)
         {
-            var questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
+            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
             questionModel.ViewNumber++;
             return View(questionModel);
         }
@@ -231,30 +231,29 @@ namespace CantCSharp.Controllers
 
         public IActionResult SortByTitle()
         {
-            
-            return View();
+            List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY question_title ASC;");
+            return View("AllQuestions", questionModelList);
         }
 
         public IActionResult SortByVotes()
         {
-
-            return View();
+            List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY vote_number DESC;");
+            return View("AllQuestions", questionModelList);
         }
 
         public IActionResult SortByDate()
         {
-            var questionModel = _loader.QuestionList;
-            questionModel.Sort((q1, q2) => q2.PostTime.CompareTo(q1.PostTime));
-            return View("AllQuestions", questionModel);
+            List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time DESC;");
+            return View("AllQuestions", questionModelList);
         }
 
         public IActionResult SortByViews()
         {
-            var questionModel = _loader.QuestionList;
-            questionModel.Sort((q1, q2) => q2.ViewNumber.CompareTo(q1.ViewNumber));
-            return View("AllQuestions", questionModel);
+            List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY view_number DESC;");
+            return View("AllQuestions", questionModelList);
         }
 
+        // NOT DONE!
         public IActionResult SortByAnswersCount()
         {
             var questionModel = _loader.QuestionList;
