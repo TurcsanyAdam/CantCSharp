@@ -71,8 +71,6 @@ namespace CantCSharp.Controllers
             return View("AskQuestion");
         }
 
-        
-
         [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user)
@@ -98,6 +96,7 @@ namespace CantCSharp.Controllers
             question.AnswerList.Add(newAnswer);
             return View(_loader.QuestionList);
         }
+
         [HttpPost]
         public IActionResult DeleteAnswer(int answerID, int questionID)
         {
@@ -118,8 +117,8 @@ namespace CantCSharp.Controllers
 
             return View("Index", _loader.QuestionList);
         }
-        [HttpPost]
 
+        [HttpPost]
         public IActionResult EditAnswer(int editAnswerID, int editQuestionID)
         {
             foreach (QuestionModel question in _loader.QuestionList)
@@ -131,12 +130,12 @@ namespace CantCSharp.Controllers
                         if (answer.Id == editAnswerID)
                         {
                             return View("EditAnswer", answer);
-                            
                         }
                     }
                 }
                 
             }
+
             return View("Index", _loader.QuestionList);
         }
 
@@ -160,9 +159,7 @@ namespace CantCSharp.Controllers
             return View("Index", _loader.QuestionList);
         }
     
-
         [HttpPost]
-        
         public IActionResult EditQuestion(int EditID)
         {
             
@@ -170,14 +167,15 @@ namespace CantCSharp.Controllers
             return View("EditQuestion", questionModel);
 
         }
+
         [HttpPost]
-        
         public IActionResult EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmessage )
         {
             QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditedID).FirstOrDefault();
             questionModel.QuestionMessage = editedmessage;
             return View("Index", _loader.QuestionList);
         }
+
         [HttpPost]
         public IActionResult VoteUp(int answerID, int questionID)
         {
@@ -259,6 +257,14 @@ namespace CantCSharp.Controllers
             var questionModel = _loader.QuestionList;
             questionModel.Sort((q1, q2) => q2.AnswerList.Count.CompareTo(q1.AnswerList.Count));
             return View("AllQuestions", questionModel);
+        }
+
+        [HttpGet]
+        public IActionResult Search(string searchPattern)
+        {
+            Console.WriteLine(searchPattern);
+            List<QuestionModel> questionModelList = _loader.GetDataList($"SELECT * FROM question WHERE question_title ILIKE '%{searchPattern}%' OR question_message ILIKE '%{searchPattern}%';");
+            return View("SearchResult", questionModelList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

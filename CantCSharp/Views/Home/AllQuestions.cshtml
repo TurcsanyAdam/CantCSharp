@@ -8,13 +8,13 @@
     <p>Please use our dedicated search button before creating another post.</p>
 </div>
 
-<div class="btn-group btn-container w-100 justify-content-between">
+<div class="btn-group btn-container w-100 justify-content-between" for="searchPattern">
     <form action="@Url.Action("AskQuestion", "Home")">
         <button class="btn-primary m-2">New Question</button>
     </form>
-    <form>
+    <form action="/Home/Search">
         <button class="btn-primary">Search</button>
-        <input class="m-2" type="text" />
+        <input class="m-2 p-1" type="text" name="searchPattern" placeholder="Keywords"/>
     </form>
 </div>
 
