@@ -28,6 +28,7 @@ namespace CantCSharp.Models
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
+                QuestionList.Clear();
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
                 NpgsqlDataReader dataReader = command.ExecuteReader();
