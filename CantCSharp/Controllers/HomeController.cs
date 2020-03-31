@@ -22,8 +22,7 @@ namespace CantCSharp.Controllers
 
         public IActionResult Index()
         {
-            List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time DESC LIMIT 5;");
-            return View(questionListModel);
+            return View(ListLastFiveQuestions());
         }
 
         public IActionResult AllQuestions()
@@ -57,7 +56,7 @@ namespace CantCSharp.Controllers
             _loader.DeleteDataRow($"DELETE FROM question WHERE question_id = {Convert.ToString(ID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
 
-            return View("Index", questionModel);
+            return View("Index", ListLastFiveQuestions());
         }
 
         [HttpGet]
@@ -71,7 +70,6 @@ namespace CantCSharp.Controllers
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user)
         {
-            
             _loader.InsertQuestion(title, message, user);
 
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
@@ -102,7 +100,6 @@ namespace CantCSharp.Controllers
             QuestionModel questionModel = _loader.GetDataList($"DELETE FROM answer WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
             return View("QuestionDetails", questionModel);
-
         }
 
         [HttpPost]
@@ -110,9 +107,6 @@ namespace CantCSharp.Controllers
         {
             IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer Where answer_id = {Convert.ToString(editAnswerID)} and question_id = {Convert.ToString(editQuestionID)} ")[0];
             return View("EditAnswer", answer);
-              
-
-            
         }
 
         public IActionResult EditAnswerConfirm(int editedAnswerID, int editedQuestionID,[FromForm(Name = "EditedAnswer")] string editedAnswer)
@@ -125,10 +119,8 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult EditQuestion(int EditID)
         {
-
             QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM  question WHERE question_id = {Convert.ToString(EditID)}")[0];
             return View("EditQuestion", questionModel);
-
         }
 
         [HttpPost]
@@ -145,8 +137,6 @@ namespace CantCSharp.Controllers
             QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
             return View("QuestionDetails",questionModel);
-
-
         }
 
         [HttpPost]
@@ -155,7 +145,6 @@ namespace CantCSharp.Controllers
             QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number - 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
             return View("QuestionDetails", questionModel);
-
         }
 
         public IActionResult SortByTitle()
@@ -203,6 +192,11 @@ namespace CantCSharp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private List<QuestionModel> ListLastFiveQuestions()
+        {
+            return _loader.GetDataList("SELECT * FROM question ORDER BY submission_time DESC LIMIT 5;");
         }
     }
 }
