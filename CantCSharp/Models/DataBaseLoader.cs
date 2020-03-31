@@ -16,7 +16,7 @@ namespace CantCSharp.Models
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
        
-        public void AddQuestion(string message, string title, string user)
+        public void AddQuestion(QuestionModel question)
         {
             // a kapott questiont insertelje be a DB-be
         }
