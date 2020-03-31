@@ -64,7 +64,8 @@ namespace CantCSharp.Models
                                                        dataReader[4].ToString(),
                                                        dataReader[5].ToString(),
                                                        "TestUser");
-                    question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
+                    AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
+                    question.AnswerList = AnswerList;
                     QuestionList.Add(question);
                 }
             }
