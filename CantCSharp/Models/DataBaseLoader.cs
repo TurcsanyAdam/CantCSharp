@@ -19,9 +19,9 @@ namespace CantCSharp.Models
         {
             
         }
-        public void AddQuestion(string message, string title, string user)
+        public void AddQuestion(QuestionModel question)
         {
-            //QuestionList.Add(new QuestionModel(QuestionList.Count + 1, message, title, user));
+            // a kapott questiont insertelje be a DB-be
         }
 
         public List<QuestionModel> GetDataList(string queryString)

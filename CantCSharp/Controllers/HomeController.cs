@@ -75,8 +75,10 @@ namespace CantCSharp.Controllers
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user)
         {
-            _loader.AddQuestion(title, message, user);
-            return View("Index", _loader.QuestionList);
+            // implement logic to create QuestionModel object and pass it to _loader.AddQuestion for INSERT
+
+            List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
+            return View("AllQuestions", questionListModel);
         } 
 
         [HttpPost]
@@ -262,7 +264,6 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult Search(string searchPattern)
         {
-            Console.WriteLine(searchPattern);
             List<QuestionModel> questionModelList = _loader.GetDataList($"SELECT * FROM question WHERE question_title ILIKE '%{searchPattern}%' OR question_message ILIKE '%{searchPattern}%';");
             return View("SearchResult", questionModelList);
         }
