@@ -49,7 +49,7 @@ namespace CantCSharp.Models
                                                        dataReader[4].ToString(),
                                                        dataReader[5].ToString(),
                                                        "TestUser");
-                    question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID}");
+                    question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
                     QuestionList.Add(question);
                 }
             }
