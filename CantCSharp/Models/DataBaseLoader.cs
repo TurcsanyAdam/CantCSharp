@@ -16,9 +16,18 @@ namespace CantCSharp.Models
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
        
-        public void AddQuestion(QuestionModel question)
+        public void InsertQuestion(string title, string message, string user)
         {
-            // a kapott questiont insertelje be a DB-be
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image)" +
+                    $"VALUES ((@time), 0, 0, (@title), (@message), null)", connection);
+                command.Parameters.AddWithValue("time", DateTime.Now);
+                command.Parameters.AddWithValue("title", title);
+                command.Parameters.AddWithValue("message", message);
+                command.ExecuteNonQuery();
+            }
         }
 
         public List<QuestionModel> GetDataList(string queryString)

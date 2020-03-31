@@ -70,7 +70,7 @@ namespace CantCSharp.Controllers
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user)
         {
-            // implement logic to create QuestionModel object and pass it to _loader.AddQuestion for INSERT
+            _loader.InsertQuestion(title, message, user);
 
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
             return View("AllQuestions", questionListModel);
