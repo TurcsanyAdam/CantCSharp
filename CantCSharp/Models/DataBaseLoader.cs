@@ -14,7 +14,6 @@ namespace CantCSharp.Models
         private static readonly string dbName = Environment.GetEnvironmentVariable("DB_NAME");
         public static readonly string connectingString = $"Host={dbHost};Username={dbUser};Password={dbPass};Database={dbName}";
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
-        public List<IAnswer> AnswerList { get; set; } = new List<IAnswer>();
 
        
         public void InsertQuestion(string title, string message, string user)
@@ -74,6 +73,8 @@ namespace CantCSharp.Models
         }
         public List<IAnswer> GetAnswerList(string queryString)
         {
+            List<IAnswer> AnswerList  = new List<IAnswer>();
+
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 AnswerList.Clear();
