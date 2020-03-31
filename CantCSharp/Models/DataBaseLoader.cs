@@ -95,7 +95,10 @@ namespace CantCSharp.Models
                                                        dataReader[5].ToString(),
                                                        "TestUser");
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
+                    question.QuestionComment = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
                     QuestionList.Add(question);
+                    
+
                 }
             }
 
@@ -128,31 +131,28 @@ namespace CantCSharp.Models
 
             return AnswerList;
         }
-        //public List<Comment> GetCommentList(string queryString)
-        //{
-        //    List<Comment> commentList = new List<Comment>();
-        //    using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
-        //    {
+        public List<Comment> GetCommentList(string queryString)
+        {
+            List<Comment> commentList = new List<Comment>();
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
 
-        //        connection.Open();
-        //        NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
-        //        NpgsqlDataReader dataReader = command.ExecuteReader();
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
 
-        //        while (dataReader.Read())
-        //        {
-        //            Comment comment = new Comment(Convert.ToInt32(dataReader[0]),
-        //                                               DateTime.Parse(dataReader[1].ToString()),
-        //                                               Convert.ToInt32(dataReader[2]),
-        //                                               Convert.ToInt32(dataReader[3]),
-        //                                               dataReader[4].ToString(),
-        //                                               dataReader[5].ToString(),
-        //                                               "TestUser");
-        //            question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
-        //            QuestionList.Add(question);
-        //        }
-        //    }
+                while (dataReader.Read())
+                {
+                    commentList.Add (new Comment(dataReader[2].ToString(),
+                                                       DateTime.Parse(dataReader[3].ToString()),
+                                                       Convert.ToInt32(dataReader[4]),
+                                                       "TestUser"));
+                 
+                }
+            }
+            return commentList;
 
-        //}
+        }
 
 
         public void DeleteDataRow(string queryString)
