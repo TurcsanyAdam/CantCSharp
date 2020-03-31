@@ -27,6 +27,25 @@
             </div>
             <textarea class="form-control" rows="1" type="text" name="message" placeholder="I really can't come up with a good summary of what it is. As you see on line 19..." required></textarea><br>
         </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="tags">
+                <span class="input-group-text">Tags (separated by ",")</span>
+            </div>
+            <textarea class="form-control" rows="1" type="text" name="message" placeholder="C#,GameDev,Java..." required></textarea><br>
+        </div>
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+            <div id="myDropdown" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                <a href="#about">About</a>
+                <a href="#base">Base</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+                <a href="#custom">Custom</a>
+                <a href="#support">Support</a>
+                <a href="#tools">Tools</a>
+            </div>
+        </div>
         <button class="btn-primary">Submit</button>
     </form>
 </div>
