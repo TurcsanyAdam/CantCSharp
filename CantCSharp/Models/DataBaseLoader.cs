@@ -128,6 +128,31 @@ namespace CantCSharp.Models
 
             return AnswerList;
         }
+        //public List<Comment> GetCommentList(string queryString)
+        //{
+        //    List<Comment> commentList = new List<Comment>();
+        //    using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+        //    {
+
+        //        connection.Open();
+        //        NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
+        //        NpgsqlDataReader dataReader = command.ExecuteReader();
+
+        //        while (dataReader.Read())
+        //        {
+        //            Comment comment = new Comment(Convert.ToInt32(dataReader[0]),
+        //                                               DateTime.Parse(dataReader[1].ToString()),
+        //                                               Convert.ToInt32(dataReader[2]),
+        //                                               Convert.ToInt32(dataReader[3]),
+        //                                               dataReader[4].ToString(),
+        //                                               dataReader[5].ToString(),
+        //                                               "TestUser");
+        //            question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
+        //            QuestionList.Add(question);
+        //        }
+        //    }
+
+        //}
 
 
         public void DeleteDataRow(string queryString)

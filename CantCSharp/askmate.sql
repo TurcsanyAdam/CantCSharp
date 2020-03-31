@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS question_tag;
 DROP TABLE IF EXISTS tag;
-DROP TABLE IF EXISTS askmate_comment;
+DROP TABLE IF EXISTS askmate_question_comment;
+DROP TABLE IF EXISTS askmate_answer_comment;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS question;
 
@@ -17,7 +18,7 @@ CREATE TABLE answer(
 answer_id SERIAL PRIMARY KEY,
 submission_time TIMESTAMP,
 vote_number INT,
-question_id INT REFERENCES question(question_id),
+question_id INT REFERENCES question(question_id) ON DELETE CASCADE,
 answer_message TEXT,
 answer_image TEXT	
 );
@@ -25,17 +26,24 @@ CREATE TABLE tag(
 tag_id SERIAL PRIMARY KEY,
 tag_name TEXT
 );
-CREATE TABLE askmate_comment(
+CREATE TABLE askmate_answer_comment(
 comment_ID SERIAL PRIMARY KEY,
-question_id INT REFERENCES question(question_id),
-answer_id INT REFERENCES answer(answer_id),
+answer_id INT REFERENCES answer(answer_id) ON DELETE CASCADE,
 comment_message TEXT,
 submission_time TIMESTAMP,
 edited_number INT
 );
+CREATE TABLE askmate_question_comment(
+comment_ID SERIAL PRIMARY KEY,
+question_id INT REFERENCES question(question_id) ON DELETE CASCADE,
+comment_message TEXT,
+submission_time TIMESTAMP,
+edited_number INT
+);
+
 CREATE TABLE question_tag(
-question_id INT REFERENCES question(question_id),
-tag_id INT REFERENCES tag(tag_id)
+question_id INT REFERENCES question(question_id) ON DELETE CASCADE,
+tag_id INT REFERENCES tag(tag_id) ON DELETE CASCADE
 );
 
 INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image)
@@ -62,8 +70,8 @@ VALUES ('2020-03-23 07:32:56', 17, 1, 'I would say there is about a 80% similari
 INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image)
 VALUES ('2020-01-02 12:45:03', 12, 1, 'Original answer is great, i would like to add a little to it: C# seems a bit more modern while Java has more support online!', null);
 
-INSERT INTO askmate_comment(question_id, answer_id, comment_message, submission_time, edited_number)
-VALUES (3, 3, '+1 to this answer. Get some nice rest and have a great time! A fresh mind is always more succesfull than a stressed one.', '2019-12-25 08:22:57', 0);
+INSERT INTO askmate_question_comment(question_id,comment_message, submission_time, edited_number)
+VALUES (3,'+1 to this answer. Get some nice rest and have a great time! A fresh mind is always more succesfull than a stressed one.', '2019-12-25 08:22:57', 0);
 
 INSERT INTO tag(tag_name) VALUES ('JavaVSC#');
 INSERT INTO tag(tag_name) VALUES ('OOP');

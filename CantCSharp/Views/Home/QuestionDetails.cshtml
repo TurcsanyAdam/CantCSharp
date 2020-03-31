@@ -8,13 +8,16 @@
     <h1 class="display-4">@Model.QuestionTitle</h1>
 </div>
 
-<form method="post" action="@Url.Action("EditQuestion","Home", new { EditID = Model.QuestionID })"  class="btn-edit-container">
+<form method="post" action="@Url.Action("WriteQuestionComment","Home", new { EditID = Model.QuestionID })" class="btn-comment-container">
+    <button class="btn-primary" align="left">Comment</button>
+</form>
+<form method="post" action="@Url.Action("EditQuestion","Home", new { EditID = Model.QuestionID })" class="btn-edit-container">
     <button class="btn-primary" align="left">Edit Question</button>
 </form>
 <div class="list-group m-5">
     <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
         <tr class="text-center">
-            <td width="2%" >#@Model.QuestionID</td>
+            <td width="2%">#@Model.QuestionID</td>
 
             @if (Model.Answered)
             {
@@ -24,7 +27,6 @@
             {
                 <td align="left" width="3%" class="badge-danger rounded">Problem</td>
             }
-
             <td width="40%">Posted on: @Model.PostTime</td>
             <td width="5%">Views: @Model.ViewNumber</td>
             <td width="5%">Answers: @Model.AnswerList.Count</td>
@@ -35,6 +37,7 @@
         <tr class="align-text-top m-3">
             <td height="350" width="30%">@Model.User</td>
             <td><textbox>@Model.QuestionMessage</textbox></td>
+
         </tr>
     </table>
 </div>
@@ -57,8 +60,7 @@
             <div class="input-group-prepend" for="imageUrl">
                 <span class="input-group-text">Image</span>
             </div>
-            <input class="form-control" type="text" name="Image" placeholder="https://mytrendingstories.com/media/photologue/photos/cache/keep-calm-and-git-gud-10_article_large.png"
-            ><br>
+            <input class="form-control" type="text" name="Image" placeholder="https://mytrendingstories.com/media/photologue/photos/cache/keep-calm-and-git-gud-10_article_large.png"><br>
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend" for="imageUrl">
@@ -66,10 +68,10 @@
             </div>
             <input class="form-control" type="text" name="Link" placeholder="https://www.google.com/"><br>
         </div>
-            <button class="btn-primary">Submit</button>
-</form>
+        <button class="btn-primary">Submit</button>
+    </form>
     <form method="post">
-        <input type="hidden" name="TheId" value="@Model.QuestionID"/>
+        <input type="hidden" name="TheId" value="@Model.QuestionID" />
         <button class="btn-primary">Delete Question</button>
     </form>
 </div>
