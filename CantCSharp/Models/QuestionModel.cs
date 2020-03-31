@@ -37,6 +37,8 @@ namespace CantCSharp.Models
             Answered = false;
             IsClosed = false;
         }
+
+
         public QuestionModel(string user, int questionid, string postTime, int viewNumber, int voteNumber, string questionTitle, string questionMessage, bool answered, bool isClosed)
         {
 

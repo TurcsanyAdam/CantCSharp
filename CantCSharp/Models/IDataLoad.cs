@@ -9,6 +9,6 @@ namespace CantCSharp.Models
     {
         List<QuestionModel> QuestionList { get; set; }
         List<QuestionModel> GetDataList(string queryString);
-        void AddQuestion(QuestionModel question);
+        void InsertQuestion(string title, string message, string user);
     }
 }
