@@ -22,7 +22,7 @@ namespace CantCSharp.Controllers
 
         public IActionResult Index()
         {
-            List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time LIMIT 5;");
+            List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time DESC LIMIT 5;");
             return View(questionListModel);
         }
 
