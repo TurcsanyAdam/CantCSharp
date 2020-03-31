@@ -118,42 +118,18 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult EditAnswer(int editAnswerID, int editQuestionID)
         {
-            foreach (QuestionModel question in _loader.QuestionList)
-            {
-                if (question.QuestionID == editQuestionID)
-                {
-                    foreach (Answer answer in question.AnswerList)
-                    {
-                        if (answer.Id == editAnswerID)
-                        {
-                            return View("EditAnswer", answer);
-                        }
-                    }
-                }
-                
-            }
+            IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer Where answer_id = {Convert.ToString(editAnswerID)} and question_id = {Convert.ToString(editQuestionID)} ")[0];
+            return View("EditAnswer", answer);
+              
 
-            return View("Index", _loader.QuestionList);
+            
         }
 
         public IActionResult EditAnswerConfirm(int editedAnswerID, int editedQuestionID,[FromForm(Name = "EditedAnswer")] string editedAnswer)
         {
-            foreach (QuestionModel question in _loader.QuestionList)
-            {
-                if (question.QuestionID == editedQuestionID)
-                {
-                    foreach (Answer answer in question.AnswerList)
-                    {
-                        if (answer.Id == editedAnswerID)
-                        {
-                            answer.AnswerMessage = editedAnswer;
-
-                        }
-                    }
-                }
-
-            }
-            return View("Index", _loader.QuestionList);
+            _loader.UpdateDataRow($"Update answer SET answer_message = '{editedAnswer}' Where answer_id = {Convert.ToString(editedAnswerID)} and question_id = {Convert.ToString(editedQuestionID)}");
+            var questionModel = _loader.GetDataList("SELECT * FROM question;");
+            return View("Index", questionModel);
         }
     
         [HttpPost]

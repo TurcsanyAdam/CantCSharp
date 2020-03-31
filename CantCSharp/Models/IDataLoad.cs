@@ -14,5 +14,7 @@ namespace CantCSharp.Models
         void DeleteDataRow(string querryString);
 
         void UpdateDataRow(string querryString);
+        List<IAnswer> GetAnswerList(string queryString);
+
     }
 }
