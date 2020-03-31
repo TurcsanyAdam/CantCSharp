@@ -147,18 +147,18 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult EditQuestion(int EditID)
         {
-            
-            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditID).FirstOrDefault();
+
+            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM  question WHERE question_id = {Convert.ToString(EditID)}")[0];
             return View("EditQuestion", questionModel);
 
         }
 
         [HttpPost]
-        public IActionResult EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmessage )
+        public IActionResult EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmMessage )
         {
-            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == EditedID).FirstOrDefault();
-            questionModel.QuestionMessage = editedmessage;
-            return View("Index", _loader.QuestionList);
+            _loader.UpdateDataRow($"Update question SET question_message = '{editedmMessage}' WHERE question_id = {Convert.ToString(EditedID)}");
+            var questionModel = _loader.GetDataList("SELECT * FROM question;");
+            return View("Index", questionModel);
         }
 
         [HttpPost]
