@@ -44,5 +44,14 @@ namespace CantCSharp.Models
 
             return QuestionList;
         }
+        public void DeleteDataRow(string queryString)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+            }
+        }
     }
 }

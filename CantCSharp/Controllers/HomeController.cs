@@ -54,7 +54,7 @@ namespace CantCSharp.Controllers
         [ActionName("QuestionDetails")]
         public IActionResult DeleteQuestion([FromForm(Name = "TheId")] int ID)
         {
-            _loader.GetDataList($"DELETE FROM question WHERE question_id = {Convert.ToString(ID)}");
+            _loader.DeleteDataRow($"DELETE FROM question WHERE question_id = {Convert.ToString(ID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
 
             return View("Index", questionModel);
