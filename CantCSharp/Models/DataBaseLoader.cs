@@ -62,5 +62,16 @@ namespace CantCSharp.Models
                 NpgsqlDataReader dataReader = command.ExecuteReader();
             }
         }
+
+        public void UpdateDataRow(string queryString)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+            }
+
+        }
     }
 }
