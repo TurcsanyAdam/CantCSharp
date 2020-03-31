@@ -31,6 +31,21 @@ namespace CantCSharp.Models
             }
         }
 
+        public void InsertAnswer(string answer, string username, string imageSource,int id, string link)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image)" +
+                    $"VALUES ((@time), 0, (@id), (@answer), (@answer_image))", connection);
+                command.Parameters.AddWithValue("time", DateTime.Now);
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("answer", answer);
+                command.Parameters.AddWithValue("answer_image", imageSource);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public List<QuestionModel> GetDataList(string queryString)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
