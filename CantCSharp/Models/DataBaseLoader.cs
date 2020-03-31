@@ -56,7 +56,26 @@ namespace CantCSharp.Models
                 command.ExecuteNonQuery();
             }
         }
+        public List<Tag> GetTagsList(string queryString)
+        {
+            List<Tag> tagList = new List<Tag>();
 
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                QuestionList.Clear();
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Tag tag = new Tag(dataReader[1].ToString());
+                    tagList.Add(tag);
+                }
+            }
+
+            return tagList;
+        }
         public List<QuestionModel> GetDataList(string queryString)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))

@@ -12,7 +12,7 @@ namespace CantCSharp.Models
         void InsertQuestion(string title, string message, string user);
         void InsertAnswer(string answer, string username, string imageSource, int id, string link);
         void InsertTag(string tag);
-
+        List<Tag> GetTagsList(string tagName);
         void DeleteDataRow(string querryString);
 
         void UpdateDataRow(string querryString);

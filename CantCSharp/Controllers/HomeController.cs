@@ -63,13 +63,15 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult AskQuestion()
         {
-            return View("AskQuestion");
+            List <Tag> tagList = _loader.GetTagsList("SELECT * FROM tag");
+            return View("AskQuestion",tagList);
         }
 
         [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user)
         {
+            
             _loader.InsertQuestion(title, message, user);
 
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
