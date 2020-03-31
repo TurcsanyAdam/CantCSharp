@@ -15,11 +15,8 @@ namespace CantCSharp.Models
         public static readonly string connectingString = $"Host={dbHost};Username={dbUser};Password={dbPass};Database={dbName}";
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
-        public DataBaseLoader()
-        {
-            
-        }
-        public void AddQuestion(QuestionModel question)
+       
+        public void AddQuestion(string message, string title, string user)
         {
             // a kapott questiont insertelje be a DB-be
         }

@@ -54,15 +54,10 @@ namespace CantCSharp.Controllers
         [ActionName("QuestionDetails")]
         public IActionResult DeleteQuestion([FromForm(Name = "TheId")] int ID)
         {
-            foreach(QuestionModel question in _loader.QuestionList)
-            {
-                if(question.QuestionID == ID)
-                {
-                    _loader.QuestionList.Remove(question);
-                    break;
-                }
-            }
-            return View("Index", _loader.QuestionList);
+            _loader.GetDataList($"DELETE FROM question WHERE question_id = {Convert.ToString(ID)}");
+            var questionModel = _loader.GetDataList("SELECT * FROM question;");
+
+            return View("Index", questionModel);
         }
 
         [HttpGet]
