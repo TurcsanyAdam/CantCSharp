@@ -180,11 +180,13 @@ namespace CantCSharp.Controllers
             return View("AllQuestions", questionModelList);
         }
 
-        // NOT DONE!
+        
         public IActionResult SortByAnswersCount()
         {
-            var questionModel = _loader.QuestionList;
-            questionModel.Sort((q1, q2) => q2.AnswerList.Count.CompareTo(q1.AnswerList.Count));
+            var questionModel = _loader.GetDataList("Select question.question_id, question.submission_time, view_number, question.vote_number, question_title, question_message, question_image from question left join answer on question.question_id = answer.question_id " +
+                                                    "group by question.question_id " +
+                                                    "Order by count(answer_id) desc");
+            
             return View("AllQuestions", questionModel);
         }
 
