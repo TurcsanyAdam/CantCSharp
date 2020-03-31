@@ -23,7 +23,7 @@ namespace CantCSharp.Models
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image)" +
                     $"VALUES ((@time), 0, 0, (@title), (@message), null)", connection);
-                command.Parameters.AddWithValue("time", DateTime.Now);
+                command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("title", title);
                 command.Parameters.AddWithValue("message", message);
                 command.ExecuteNonQuery();
@@ -37,7 +37,7 @@ namespace CantCSharp.Models
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image)" +
                     $"VALUES ((@time), 0, (@id), (@answer), (@answer_image))", connection);
-                command.Parameters.AddWithValue("time", DateTime.Now);
+                command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("id", id);
                 command.Parameters.AddWithValue("answer", answer);
                 command.Parameters.AddWithValue("answer_image", imageSource);
