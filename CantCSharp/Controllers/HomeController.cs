@@ -80,39 +80,27 @@ namespace CantCSharp.Controllers
         public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
            int id, [FromForm(Name = "Link")]string link)
         {
-            var question = _loader.QuestionList.FirstOrDefault(q => q.QuestionID == id);
-            if(imagesource== null)
+            if(imagesource != null)
             {
-                imagesource = "https://mytrendingstories.com/media/photologue/photos/cache/keep-calm-and-git-gud-10_article_large.png";
+                _loader.InsertAnswer(answer, username, imagesource, id, link);
             }
-            Answer newAnswer = new Answer(question.AnswerList.Count+1, username, answer, imagesource,id);
-            if (link != null)
+            else
             {
-                newAnswer.Link = link.Split(' ');
+                _loader.InsertAnswer(answer, username, "", id, link);
+
             }
-            question.AnswerList.Add(newAnswer);
-            return View(_loader.QuestionList);
+
+            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
+            return View("QuestionDetails", questionModel);
         }
 
         [HttpPost]
         public IActionResult DeleteAnswer(int answerID, int questionID)
         {
-            foreach(QuestionModel question in _loader.QuestionList)
-            {
-               if(question.QuestionID == questionID)
-                {
-                    foreach(Answer answer in question.AnswerList)
-                    {
-                        if(answer.Id == answerID)
-                        {
-                            question.AnswerList.Remove(answer);
-                            break;
-                        }
-                    }
-                }
-            }
+            QuestionModel questionModel = _loader.GetDataList($"DELETE FROM answer WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
-            return View("Index", _loader.QuestionList);
+            return View("QuestionDetails", questionModel);
+
         }
 
         [HttpPost]
