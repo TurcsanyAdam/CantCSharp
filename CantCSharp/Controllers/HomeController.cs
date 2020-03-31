@@ -176,25 +176,9 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult VoteUp(int answerID, int questionID)
         {
-            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == questionID).FirstOrDefault();
+            QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
-            foreach (QuestionModel question in _loader.QuestionList)
-            {
-                if (question.QuestionID == questionID)
-                {
-                    foreach (Answer answer in question.AnswerList)
-                    {
-                        if (answer.Id == answerID)
-                        {
-                            answer.VoteNumber++;
-                            break;
-                        }
-                    }
-                }
-            }
-            questionModel.AnswerList.Sort((x, y) => y.VoteNumber.CompareTo(x.VoteNumber));
-
-            return View("QuestionDetails", questionModel);
+            return View("QuestionDetails",questionModel);
 
 
         }
@@ -202,23 +186,7 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult VoteDown(int answerID, int questionID)
         {
-            QuestionModel questionModel = _loader.QuestionList.Where(q => q.QuestionID == questionID).FirstOrDefault();
-
-            foreach (QuestionModel question in _loader.QuestionList)
-            {
-                if (question.QuestionID == questionID)
-                {
-                    foreach (Answer answer in question.AnswerList)
-                    {
-                        if (answer.Id == answerID)
-                        {
-                            answer.VoteNumber -= 1;
-                            break;
-                        }
-                    }
-                }
-            }
-            questionModel.AnswerList.Sort((x, y) => y.VoteNumber.CompareTo(x.VoteNumber));
+            QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number - 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
             return View("QuestionDetails", questionModel);
 
