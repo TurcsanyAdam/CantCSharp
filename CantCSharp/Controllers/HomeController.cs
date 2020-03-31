@@ -184,8 +184,27 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult Search(string searchPattern)
         {
-            List<QuestionModel> questionModelList = _loader.GetDataList($"SELECT * FROM question WHERE question_title ILIKE '%{searchPattern}%' OR question_message ILIKE '%{searchPattern}%';");
-            return View("SearchResult", questionModelList);
+            List<QuestionModel> questionModelList = _loader.GetDataList("SELECT q.* FROM question q " +
+                                                "LEFT JOIN answer a ON q.question_id = a.question_id " +
+                                                $"WHERE q.question_title ILIKE '%{searchPattern}%' " +
+                                                $"OR q.question_message ILIKE '%{searchPattern}%' " +
+                                                $"OR a.answer_message ILIKE '%{searchPattern}%' " +
+                                                "GROUP BY q.question_id");
+
+            Dictionary<QuestionModel, List<Answer>> resultDict = new Dictionary<QuestionModel, List<Answer>>();
+            foreach (QuestionModel question in questionModelList)
+            {
+                resultDict.Add(question, new List<Answer>());
+                foreach (Answer answer in question.AnswerList)
+                {
+                    if (answer.AnswerMessage.ToLower().Contains(searchPattern.ToLower()))
+                    {
+                        resultDict[question].Add(answer);
+                    }
+                }
+            }
+
+            return View("SearchResult", resultDict);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

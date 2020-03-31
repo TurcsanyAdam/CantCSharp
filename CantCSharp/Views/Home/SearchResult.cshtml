@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CantCSharp.Models.QuestionModel>
+﻿@model Dictionary<QuestionModel, List<Answer>>
 @{
     ViewData["Title"] = "Search Results";
 }
@@ -35,19 +35,19 @@ else
                     </tr>
                 </table>
             </li>
-            @foreach (var q in Model)
+            @foreach (var result in Model)
             {
                 <li class="list-group-item list-group-item-action flex-column align-items-start text-center">
-                    <a href="@Url.Action("QuestionDetails", "Home", new { id = q.QuestionID })" class="list-group-item-action flex-column align-items-start">
+                    <a href="@Url.Action("QuestionDetails", "Home", new { id = result.Key.QuestionID })" class="list-group-item-action flex-column align-items-start">
                         <table>
                             <tr>
-                                <td class="text-left" width="2%">#@q.QuestionID</td>
-                                <td class="text-left" width="20%">@q.QuestionTitle</td>
-                                <td width="10%">@q.PostTime</td>
-                                <td width="5%">@q.VoteNumber</td>
-                                <td width="5%">@q.ViewNumber</td>
-                                <td width="5%">@q.AnswerList.Count</td>
-                                @if (q.Answered)
+                                <td class="text-left" width="2%">#@result.Key.QuestionID</td>
+                                <td class="text-left" width="20%">@result.Key.QuestionTitle</td>
+                                <td width="10%">@result.Key.PostTime</td>
+                                <td width="5%">@result.Key.VoteNumber</td>
+                                <td width="5%">@result.Key.ViewNumber</td>
+                                <td width="5%">@result.Key.AnswerList.Count</td>
+                                @if (result.Key.Answered)
                                 {
                                     <td align="right" width="3%" class="badge-info rounded">Solution</td>
                                 }
@@ -59,6 +59,26 @@ else
                         </table>
                     </a>
                 </li>
+
+                @if (result.Value.Count != 0)
+                {
+                    <li class="list-group-item flex-column text-center border-left-0 border-right-0 bg-light w-75 mr-0 ml-auto">
+                                Answers containing the keyword(s)
+                    </li>
+                }
+
+                foreach (Answer answer in result.Value)
+                {
+                    <li class="list-group-item flex-column text-xl-center border-left-0 border-right-0 bg-light w-75 mr-0 ml-auto">
+                        <table>
+                            <tr>
+                                <td width="15%">@answer.User</td>
+                                <td width="70%">@answer.AnswerMessage</td>
+                                <td width="15%">@answer.PostTime</td>
+                            </tr>
+                        </table>
+                    </li>
+                }
             }
         </ul>
     </div>
