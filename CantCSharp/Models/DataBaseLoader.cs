@@ -45,6 +45,18 @@ namespace CantCSharp.Models
             }
         }
 
+        public void InsertTag(string tag)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question_tag(tag_id, tag_name)" +
+                    $"VALUES ((@tag_name))", connection);
+                command.Parameters.AddWithValue("tag_name", tag);
+                command.ExecuteNonQuery();
+            }
+        }
+
         public List<QuestionModel> GetDataList(string queryString)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
@@ -97,6 +109,8 @@ namespace CantCSharp.Models
 
             return AnswerList;
         }
+
+
         public void DeleteDataRow(string queryString)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
