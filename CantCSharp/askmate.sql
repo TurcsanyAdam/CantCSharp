@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS question;
 
 CREATE TABLE question(
 question_id SERIAL PRIMARY KEY,
-submission_time DATE,
+submission_time TIMESTAMP,
 view_number INT,
 vote_number INT,
 question_title TEXT,
@@ -15,7 +15,7 @@ question_image TEXT
 );
 CREATE TABLE answer(
 answer_id SERIAL PRIMARY KEY,
-submission_time DATE,
+submission_time TIMESTAMP,
 vote_number INT,
 question_id INT REFERENCES question(question_id),
 answer_message TEXT,
@@ -30,7 +30,7 @@ comment_ID SERIAL PRIMARY KEY,
 question_id INT REFERENCES question(question_id),
 answer_id INT REFERENCES answer(answer_id),
 comment_message TEXT,
-submission_time DATE,
+submission_time TIMESTAMP,
 edited_number INT
 );
 CREATE TABLE question_tag(
