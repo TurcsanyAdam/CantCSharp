@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "CommentToQuestion";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Write a comment...</h1>
+</div>
+
+<div>
+    <form method="post" action="/Home/NewQuestion">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="username">
+                <span class="input-group-text">Username</span>
+            </div>
+            <input class="form-control" type="text" name="username" placeholder="Jacob Gypsum" required><br>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="message">
+                <span class="input-group-text">Comment</span>
+            </div>
+            <textarea class="form-control" rows="1" type="text" name="message" placeholder="Write your comment here" required></textarea><br>
+        </div>
+        <button class="btn-primary">Comment</button>
+    </form>
+ </div>

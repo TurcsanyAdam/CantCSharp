@@ -8,7 +8,7 @@
     <h1 class="display-4">@Model.QuestionTitle</h1>
 </div>
 
-<form method="post" action="@Url.Action("WriteQuestionComment","Home", new { EditID = Model.QuestionID })" class="btn-comment-container">
+<form method="post" action="@Url.Action("WriteQuestionComment","Home")" class="btn-comment-container">
     <button class="btn-primary" align="left">Comment</button>
 </form>
 <form method="post" action="@Url.Action("EditQuestion","Home", new { EditID = Model.QuestionID })" class="btn-edit-container">

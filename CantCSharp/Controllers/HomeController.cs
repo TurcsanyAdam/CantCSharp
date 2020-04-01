@@ -220,6 +220,11 @@ namespace CantCSharp.Controllers
             QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
             return View("AllComments", questionModel);
         }
+        [HttpPost]
+        public IActionResult WriteQuestionComment()
+        {
+            return View("CommentToQuestion");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
