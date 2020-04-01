@@ -70,11 +70,18 @@ namespace CantCSharp.Controllers
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
         {
-            string[] newTags = newTag.Split(",");
-            foreach(string newtag in newTags)
+            string[] newTags = new string[0];
+            if (newTag.Length > 0)
             {
-                _loader.InsertTag(newtag);
+                newTags = newTag.Split(",");
+                foreach (string newtag in newTags)
+                {
+                    _loader.InsertTag(newtag);
+                }
+
             }
+
+
             string[] combinedTags = tags.Concat(newTags).ToArray();
 
             int questionID = _loader.InsertQuestion(title, message, user);
@@ -110,6 +117,15 @@ namespace CantCSharp.Controllers
         public IActionResult DeleteAnswer(int answerID, int questionID)
         {
             QuestionModel questionModel = _loader.GetDataList($"DELETE FROM answer WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
+
+            return View("QuestionDetails", questionModel);
+        }
+        [HttpPost]
+        public IActionResult DeleteTag(string tagName, int questionID)
+        {
+            int tagID = _loader.ReturnTagID(tagName);
+
+            QuestionModel questionModel = _loader.GetDataList($"DELETE FROM question_tag WHERE tag_id = {tagID} AND question_ID = {questionID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
             return View("QuestionDetails", questionModel);
         }

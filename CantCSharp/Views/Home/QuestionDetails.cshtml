@@ -37,10 +37,6 @@
     <table class="list-group-item list-group-item-action flex-column align-items-start">
         <tr class="align-text-top m-3">
             <td height="350" width="30%">@Model.User</td>
-            @foreach (Tag tag in Model.TagList)
-            {
-                <td height="100" width="2%">@tag.TagName</td>
-            }
             <td><textbox>@Model.QuestionMessage</textbox></td>
 
         </tr>
@@ -49,7 +45,13 @@
         <tr class="align-text-top m-3">
             @foreach (Tag tag in Model.TagList)
             {
-                <td align="left" class="btn btn-primary">@tag.TagName</td>
+            <td align="left" class="btn btn-primary">
+                @tag.TagName
+                <form method="post" action="@Url.Action("DeleteTag","Home", new { tagName = tag.TagName,questionId = Model.QuestionID })">
+                    <button class="btn-primary">X</button>
+                </form>
+            </td>
+
             }
 
         </tr>
