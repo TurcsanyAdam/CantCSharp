@@ -191,7 +191,7 @@ namespace CantCSharp.Controllers
                                                 $"OR a.answer_message ILIKE '%{searchPattern}%' " +
                                                 "GROUP BY q.question_id");
 
-            Dictionary<QuestionModel, List<Answer>> resultDict = new Dictionary<QuestionModel, List<Answer>>();
+            SortedDictionary<QuestionModel, List<Answer>> resultDict = new SortedDictionary<QuestionModel, List<Answer>>();
             foreach (QuestionModel question in questionModelList)
             {
                 resultDict.Add(question, new List<Answer>());

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace CantCSharp.Models
 {
-    public class QuestionModel : IQuestion
+    public class QuestionModel : IQuestion, IComparable
     {
         public string User { get; private set; }
         public int QuestionID { get; set; }
@@ -19,9 +19,6 @@ namespace CantCSharp.Models
         public  bool Answered { get; private set; }
         public bool IsClosed { get; private set; }
         public List<Comment> QuestionComment { get; set; }
-
-
-
 
 
         public QuestionModel(int questionid, DateTime date, int viewNum, int voteNum,
@@ -69,7 +66,11 @@ namespace CantCSharp.Models
         {
             IsClosed = true;
         }
-    }
 
-   
+        public int CompareTo(object obj)
+        {
+            QuestionModel otherQuestion = obj as QuestionModel;
+            return otherQuestion.VoteNumber.CompareTo(this.VoteNumber);
+        }
+    }
 }
