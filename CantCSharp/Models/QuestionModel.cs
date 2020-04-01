@@ -21,11 +21,10 @@ namespace CantCSharp.Models
         public List<Comment> QuestionComment { get; set; }
 
 
-        public QuestionModel(int questionid, DateTime date, int viewNum, int voteNum,
-            string questionTitle, string questionMessage, string user)
+        public QuestionModel(int questionid, DateTime date, int viewNum,
+            string questionTitle, string questionMessage, string user, int voteNum = 0)
         {
             ViewNumber = viewNum;
-            VoteNumber = voteNum;
             QuestionID = questionid;
             QuestionTitle = questionTitle;
             QuestionMessage = questionMessage;
@@ -35,6 +34,7 @@ namespace CantCSharp.Models
             Answered = false;
             IsClosed = false;
             QuestionComment = new List<Comment>();
+            VoteNumber = voteNum;
         }
 
 
@@ -65,6 +65,14 @@ namespace CantCSharp.Models
         public void Close()
         {
             IsClosed = true;
+        }
+
+        public void CalculateUpvotes()
+        {
+            foreach (Answer answer in AnswerList)
+            {
+                VoteNumber += answer.VoteNumber;
+            }
         }
 
         public int CompareTo(object obj)
