@@ -68,7 +68,7 @@ namespace CantCSharp.Controllers
 
         [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
-               [FromForm(Name = "username")] string user)
+               [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags)
         {
             _loader.InsertQuestion(title, message, user);
 
