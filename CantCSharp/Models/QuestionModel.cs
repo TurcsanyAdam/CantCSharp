@@ -16,6 +16,7 @@ namespace CantCSharp.Models
         public string QuestionTitle { get; set; }
         public string QuestionMessage { get; set; }
         public List<IAnswer> AnswerList { get; set; }
+        public List<Tag> TagList { get; set; }
         public  bool Answered { get; private set; }
         public bool IsClosed { get; private set; }
         public List<Comment> QuestionComments { get; set; }
@@ -30,6 +31,7 @@ namespace CantCSharp.Models
             QuestionMessage = questionMessage;
             User = user;
             AnswerList = new List<IAnswer>();
+            TagList = new List<Tag>();
             PostTime = date;
             Answered = false;
             IsClosed = false;
@@ -47,6 +49,7 @@ namespace CantCSharp.Models
             QuestionMessage = questionMessage;
             User = user;
             AnswerList = new List<IAnswer>();
+            TagList = new List<Tag>();
             PostTime = Convert.ToDateTime(postTime);
             Answered = answered;
             IsClosed = isClosed;

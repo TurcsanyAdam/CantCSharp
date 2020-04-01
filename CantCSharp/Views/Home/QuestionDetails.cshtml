@@ -27,6 +27,7 @@
             {
                 <td align="left" width="3%" class="badge-danger rounded">Problem</td>
             }
+
             <td width="40%">Posted on: @Model.PostTime</td>
             <td width="5%">Views: @Model.ViewNumber</td>
             <td width="5%">Answers: @Model.AnswerList.Count</td>
@@ -36,7 +37,20 @@
     <table class="list-group-item list-group-item-action flex-column align-items-start">
         <tr class="align-text-top m-3">
             <td height="350" width="30%">@Model.User</td>
+            @foreach (Tag tag in Model.TagList)
+            {
+                <td height="100" width="2%">@tag.TagName</td>
+            }
             <td><textbox>@Model.QuestionMessage</textbox></td>
+
+        </tr>
+    </table>
+    <table class="list-group-item list-group-item-action flex-column align-items-start">
+        <tr class="align-text-top m-3">
+            @foreach (Tag tag in Model.TagList)
+            {
+                <td align="left" width="30%" class="badge-info rounded">@tag.TagName</td>
+            }
 
         </tr>
     </table>

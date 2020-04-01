@@ -121,7 +121,7 @@ namespace CantCSharp.Models
 
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
-                QuestionList.Clear();
+                tagList.Clear();
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
                 NpgsqlDataReader dataReader = command.ExecuteReader();
@@ -154,6 +154,7 @@ namespace CantCSharp.Models
                                                        user:"TestUser");
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
                     question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
+                    question.TagList = GetTagsList($"SELECT * FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id WHERE question_id = {question.QuestionID} ");
                     question.CalculateUpvotes();
                     QuestionList.Add(question);
                 }
