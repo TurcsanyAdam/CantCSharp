@@ -16,8 +16,13 @@
                         <td width="2%">#@comment.Id</td>
 
                         <td width="40%">Posted on: @comment.SubmissionTime</td>
+                        <td width="5%">
+                            <form action="@Url.Action("EditQuestionComment", "Home", new { editCommentID = comment.Id ,GivenQuestionId = comment.QuestionID} )" method="post">
+                                <button>Edit</button>
+                            </form>
+                        </td>
 
-                </table>
+                        </table>
                 <table class="list-group-item list-group-item-action flex-column align-items-start">
                     <tr class="align-text-top m-3">
                         <td height="70" width="100">@comment.User</td>

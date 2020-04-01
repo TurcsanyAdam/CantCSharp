@@ -1,0 +1,22 @@
+﻿@model CantCSharp.Models.Comment
+@{
+    ViewData["Title"] = "EditQuestionComment";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit your comment here...</h1>
+</div>
+
+<div>
+    <form method="post" action="@Url.Action("ConfirmEditedQuestion","Home", new { EditedCommentID = Model.Id,EditedCommentQuestionID = Model.QuestionID})">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend" for="message">
+                <span class="input-group-text">Comment</span>
+            </div>
+            <textarea class="form-control" rows="1" type="text" name="EditComment"  required>@Model.Message</textarea><br>
+        </div>
+        <button class="btn-primary">Edit comment</button>
+    </form>
+</div>
+
+

@@ -12,15 +12,17 @@ namespace CantCSharp.Models
         public int EditedNumber { get; set; }
         public string User { get; private set; }
         public int Id { get; private set; }
+        public int QuestionID { get; private set; }
 
 
-        public Comment(string message,DateTime submissionTime,int editedNumber,string user,int id)
+        public Comment(string message,DateTime submissionTime,int editedNumber,string user,int id,int questionID )
         {
             Message = message;
             SubmissionTime = submissionTime;
             EditedNumber = editedNumber;
             User = user;
             Id = id;
+            QuestionID = questionID;
         }
     }
 }

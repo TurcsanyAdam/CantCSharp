@@ -205,7 +205,8 @@ namespace CantCSharp.Models
                                                        DateTime.Parse(dataReader[3].ToString()),
                                                        Convert.ToInt32(dataReader[4]),
                                                        "TestUser",
-                                                       Convert.ToInt32(dataReader[0])));
+                                                       Convert.ToInt32(dataReader[0]),
+                                                       Convert.ToInt32(dataReader[1])));
                  
                 }
             }

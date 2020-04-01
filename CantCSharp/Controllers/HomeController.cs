@@ -241,6 +241,20 @@ namespace CantCSharp.Controllers
             return View("AllComments", questionListModel);
         }
 
+        [HttpPost]
+        public IActionResult EditQuestionComment(int editCommentID,int GivenQuestionId)
+        {
+            Comment comment = _loader.GetCommentList($"SELECT * FROM  askmate_question_comment WHERE comment_id = {Convert.ToString(editCommentID)} and question_id= {Convert.ToString(GivenQuestionId)}")[0];
+            return View("EditQuestionComment", comment);
+        }
+        [HttpPost]
+        public IActionResult ConfirmEditedQuestion(int EditedCommentID,int EditedCommentQuestionID, [FromForm(Name = "EditComment")] string editedcomment)
+        {
+            _loader.UpdateDataRow($"Update askmate_question_comment SET comment_message = '{editedcomment}' Where comment_id = {Convert.ToString(EditedCommentID)} and question_id = {Convert.ToString(EditedCommentQuestionID)}");
+            var questionModel = _loader.GetDataList("SELECT * FROM question;");
+            return View("Index", questionModel);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
