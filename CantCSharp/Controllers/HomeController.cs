@@ -204,7 +204,9 @@ namespace CantCSharp.Controllers
                 }
             }
 
-            return View("SearchResult", resultDict);
+            SearchDataModel searchDataModel = new SearchDataModel(resultDict, searchPattern);
+
+            return View("SearchResult", searchDataModel);
         }
 
         [HttpPost]
