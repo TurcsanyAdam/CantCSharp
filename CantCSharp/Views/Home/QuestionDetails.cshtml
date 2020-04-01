@@ -43,7 +43,7 @@
 </div>
 <div>
     <form method="post" action="@Url.Action("AllQuestionComment","Home", new { QuestionCommentID = Model.QuestionID })" class="btn-Allcomments-container">
-        <button class="btn-primary" align="left">AllComments : @Model.QuestionComment.Count()</button>
+        <button class="btn-primary" align="left">AllComments : @Model.QuestionComments.Count()</button>
 
     </form>
     
@@ -91,7 +91,7 @@
     {
         <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
             <tr>
-                <td width="2%">#@Model.QuestionID</td>
+                <td width="2%">#@answer.Id</td>
 
                 @if (answer.IsSolution)
                 {

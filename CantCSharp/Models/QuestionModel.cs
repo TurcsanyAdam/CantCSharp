@@ -18,7 +18,7 @@ namespace CantCSharp.Models
         public List<IAnswer> AnswerList { get; set; }
         public  bool Answered { get; private set; }
         public bool IsClosed { get; private set; }
-        public List<Comment> QuestionComment { get; set; }
+        public List<Comment> QuestionComments { get; set; }
 
 
 
@@ -37,7 +37,7 @@ namespace CantCSharp.Models
             PostTime = date;
             Answered = false;
             IsClosed = false;
-            QuestionComment = new List<Comment>();
+            QuestionComments = new List<Comment>();
         }
 
 
@@ -54,7 +54,7 @@ namespace CantCSharp.Models
             PostTime = Convert.ToDateTime(postTime);
             Answered = answered;
             IsClosed = isClosed;
-            QuestionComment = new List<Comment>();
+            QuestionComments = new List<Comment>();
         }
 
         public void AddAnswer(IAnswer answer)

@@ -1,7 +1,43 @@
-﻿
+﻿@model CantCSharp.Models.QuestionModel
 @{
     ViewData["Title"] = "AllComments";
 }
 
-<h1>AllComments</h1>
+    <div class="text-center">
+        <h1 class="display-4">Comments to : @Model.QuestionTitle</h1>
+    </div>
+    <div class="list-group m-5">
+        @if (Model.QuestionComments.Count() > 0)
+        {
+            @foreach (Comment comment in Model.QuestionComments)
+            {
+                <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
+                    <tr>
+                        <td width="2%">#@comment.Id</td>
+
+                        <td width="40%">Posted on: @comment.SubmissionTime</td>
+
+                </table>
+                <table class="list-group-item list-group-item-action flex-column align-items-start">
+                    <tr class="align-text-top m-3">
+                        <td height="70" width="100">@comment.User</td>
+
+                        <td>
+                            <div style=" word-wrap:break-word;width:800px">
+                                @comment.Message
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            }
+        }
+        else
+        {
+            <p class="h6 text-center">There is no comment to this question yet!</p>
+        }
+    </div>
+
+
 
