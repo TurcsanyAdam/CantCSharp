@@ -31,7 +31,7 @@
             <div class="input-group-prepend" for="tags">
                 <span class="input-group-text">Tag</span>
             </div>
-            <select id="country" name="country">
+            <select multiple id="tag" name="tag[]">
                 @foreach (var tag in Model)
                 {
                     <option value="@tag.TagName">@tag.TagName</option>
