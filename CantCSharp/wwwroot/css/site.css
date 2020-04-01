@@ -43,6 +43,11 @@ a {
     margin-left: 37px;
     margin-bottom: -49px;
 }
+.btn-Allcomments-container {
+    text-align: right;
+    margin-right: 37px;
+    margin-top: -55px;
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;

@@ -56,6 +56,34 @@ namespace CantCSharp.Models
                 command.ExecuteNonQuery();
             }
         }
+        public void InsertQuestionComment(int questionID,string comment)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_question_comment(question_id,comment_message,submission_time,edited_number)" +
+                    $"VALUES ((@id),(@comment),(@time),0)",connection);
+                command.Parameters.AddWithValue("id", questionID);
+                command.Parameters.AddWithValue("comment", comment);
+                command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                command.ExecuteNonQuery();
+
+            }
+        }
+        public void InsertAnswerComment(int answerID, string comment)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_answer_comment(answer_id,comment_message,submission_time,edited_number)" +
+                    $"VALUES ((@id),(@comment),(@time),0)", connection);
+                command.Parameters.AddWithValue("id", answerID);
+                command.Parameters.AddWithValue("comment", comment);
+                command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                command.ExecuteNonQuery();
+
+            }
+        }
         public List<Tag> GetTagsList(string queryString)
         {
             List<Tag> tagList = new List<Tag>();
