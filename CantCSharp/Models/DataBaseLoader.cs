@@ -153,7 +153,7 @@ namespace CantCSharp.Models
                                                        questionMessage:dataReader[5].ToString(),
                                                        user:"TestUser");
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
-                    question.QuestionComment = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
+                    question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
                     question.CalculateUpvotes();
                     QuestionList.Add(question);
                 }
@@ -203,7 +203,8 @@ namespace CantCSharp.Models
                     commentList.Add (new Comment(dataReader[2].ToString(),
                                                        DateTime.Parse(dataReader[3].ToString()),
                                                        Convert.ToInt32(dataReader[4]),
-                                                       "TestUser"));
+                                                       "TestUser",
+                                                       Convert.ToInt32(dataReader[0])));
                  
                 }
             }
