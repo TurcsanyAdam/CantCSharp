@@ -149,13 +149,12 @@ namespace CantCSharp.Models
                     QuestionModel question = new QuestionModel(questionid:Convert.ToInt32(dataReader[0]),
                                                        date:DateTime.Parse(dataReader[1].ToString()),
                                                        viewNum:Convert.ToInt32(dataReader[2]),
-                                                       voteNum:Convert.ToInt32(dataReader[3]),
                                                        questionTitle:dataReader[4].ToString(),
                                                        questionMessage:dataReader[5].ToString(),
                                                        user:"TestUser");
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
                     question.QuestionComment = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
-                    if (question.VoteNumber == 0) question.CalculateUpvotes();
+                    question.CalculateUpvotes();
                     QuestionList.Add(question);
                 }
             }
