@@ -24,7 +24,8 @@ answer_image TEXT
 );
 CREATE TABLE tag(
 tag_id SERIAL PRIMARY KEY,
-tag_name TEXT
+tag_name TEXT,
+UNIQUE (tag_name)
 );
 CREATE TABLE askmate_answer_comment(
 comment_ID SERIAL PRIMARY KEY,
@@ -76,7 +77,7 @@ VALUES (3,'+1 to this answer. Get some nice rest and have a great time! A fresh 
 INSERT INTO tag(tag_name) VALUES ('JavaVSC#');
 INSERT INTO tag(tag_name) VALUES ('OOP');
 INSERT INTO tag(tag_name) VALUES ('ASP');
-INSERT INTO tag(tag_name) VALUES ('OOP');
+INSERT INTO tag(tag_name) VALUES ('.NET');
 INSERT INTO tag(tag_name) VALUES ('Offtopic');
 INSERT INTO tag(tag_name) VALUES ('GameDev');
 
