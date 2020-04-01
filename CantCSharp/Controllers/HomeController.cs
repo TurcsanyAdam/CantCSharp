@@ -207,6 +207,13 @@ namespace CantCSharp.Controllers
             return View("SearchResult", resultDict);
         }
 
+        [HttpPost]
+        public IActionResult AllQuestionComment(int QuestionCommentID)
+        {
+            QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
+            return View("AllComments", questionModel);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
