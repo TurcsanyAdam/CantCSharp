@@ -71,6 +71,10 @@ namespace CantCSharp.Controllers
                [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags)
         {
             _loader.InsertQuestion(title, message, user);
+            foreach(string tag in tags)
+            {
+                _loader.InsertQuestionTagRelation(title, tag);
+            }
 
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
             return View("AllQuestions", questionListModel);

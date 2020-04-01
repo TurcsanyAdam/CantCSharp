@@ -50,7 +50,7 @@ namespace CantCSharp.Models
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question_tag(tag_id, tag_name)" +
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO tag(tag_name)" +
                     $"VALUES ((@tag_name))", connection);
                 command.Parameters.AddWithValue("tag_name", tag);
                 command.ExecuteNonQuery();
