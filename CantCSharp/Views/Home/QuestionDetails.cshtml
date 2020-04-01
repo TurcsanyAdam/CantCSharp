@@ -42,7 +42,7 @@
     </table>
 </div>
 <div>
-    <form method="post" action="@Url.Action("AllComment","Home", new { EditID = Model.QuestionID })" class="btn-Allcomments-container">
+    <form method="post" action="@Url.Action("AllQuestionComment","Home", new { QuestionCommentID = Model.QuestionID })" class="btn-Allcomments-container">
         <button class="btn-primary" align="left">AllComments : @Model.QuestionComment.Count()</button>
 
     </form>
