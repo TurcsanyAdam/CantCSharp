@@ -227,6 +227,19 @@ namespace CantCSharp.Controllers
             QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
             return View("AllComments", questionModel);
         }
+        [HttpPost]
+        public IActionResult WriteQuestionComment(int QuestionCommentID)
+        {
+            QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
+            return View("CommentToQuestion", questionModel);
+        }
+        [HttpPost]
+        public IActionResult PostTheQuestionComment(int NewCommentedQuestionID, [FromForm(Name = "username")] string username, [FromForm(Name = "comment")] string comment)
+        {
+            _loader.InsertQuestionComment(NewCommentedQuestionID, comment);
+            QuestionModel questionListModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
+            return View("AllComments", questionListModel);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
