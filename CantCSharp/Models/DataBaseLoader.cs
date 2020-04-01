@@ -16,17 +16,20 @@ namespace CantCSharp.Models
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
        
-        public void InsertQuestion(string title, string message, string user)
+        public int InsertQuestion(string title, string message, string user)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image)" +
-                    $"VALUES ((@time), 0, 0, (@title), (@message), null)", connection);
+                    $"VALUES ((@time), 0, 0, (@title), (@message), null) RETURNING question_id", connection);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("title", title);
                 command.Parameters.AddWithValue("message", message);
-                command.ExecuteNonQuery();
+                int question_ID = Convert.ToInt32(command.ExecuteScalar());
+
+                return question_ID;
+
             }
         }
 
@@ -84,6 +87,34 @@ namespace CantCSharp.Models
 
             }
         }
+        public void InsertQuestionTagRelation(int question_ID, int tag_ID)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question_tag(question_id, tag_id) VALUES((@question_ID), (@tag_ID))", connection);
+                command.Parameters.AddWithValue("question_ID", question_ID);
+                command.Parameters.AddWithValue("tag_ID", tag_ID);
+                command.ExecuteNonQuery();
+
+            }
+        }
+        public int ReturnTagID(string tag_name)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"SELECT tag_ID FROM tag WHERE tag_name = '{tag_name}'", connection);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    return Convert.ToInt32(dataReader[0]);
+
+                }
+            }
+            return 0;
+        }
+
         public List<Tag> GetTagsList(string queryString)
         {
             List<Tag> tagList = new List<Tag>();

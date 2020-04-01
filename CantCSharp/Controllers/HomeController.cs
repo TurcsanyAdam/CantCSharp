@@ -70,10 +70,11 @@ namespace CantCSharp.Controllers
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
                [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags)
         {
-            _loader.InsertQuestion(title, message, user);
+            int questionID = _loader.InsertQuestion(title, message, user);
             foreach(string tag in tags)
             {
-                _loader.InsertQuestionTagRelation(title, tag);
+                int tagID = _loader.ReturnTagID(tag);
+                _loader.InsertQuestionTagRelation(questionID, tagID);
             }
 
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");

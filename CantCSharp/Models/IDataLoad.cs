@@ -9,10 +9,11 @@ namespace CantCSharp.Models
     {
         List<QuestionModel> QuestionList { get; set; }
         List<QuestionModel> GetDataList(string queryString);
-        void InsertQuestion(string title, string message, string user);
+        int InsertQuestion(string title, string message, string user);
         void InsertAnswer(string answer, string username, string imageSource, int id, string link);
         void InsertTag(string tag);
-        void InsertQuestionTagRelation(string question_title, string tag_name);
+        void InsertQuestionTagRelation(int question_ID, int tag_ID);
+        int ReturnTagID(string tag_name);
 
         List<Tag> GetTagsList(string tagName);
         void DeleteDataRow(string querryString);
