@@ -1,4 +1,4 @@
-﻿
+﻿@model CantCSharp.Models.QuestionModel
 @{
     ViewData["Title"] = "CommentToQuestion";
 }
@@ -8,7 +8,7 @@
 </div>
 
 <div>
-    <form method="post" action="/Home/NewQuestion">
+    <form method="post" action="@Url.Action("PostTheQuestionComment","Home", new { NewCommentedQuestionID = Model.QuestionID })">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend" for="username">
                 <span class="input-group-text">Username</span>
@@ -19,8 +19,8 @@
             <div class="input-group-prepend" for="message">
                 <span class="input-group-text">Comment</span>
             </div>
-            <textarea class="form-control" rows="1" type="text" name="message" placeholder="Write your comment here" required></textarea><br>
+            <textarea class="form-control" rows="1" type="text" name="comment" placeholder="Write your comment here" required></textarea><br>
         </div>
         <button class="btn-primary">Comment</button>
     </form>
- </div>
+</div>
