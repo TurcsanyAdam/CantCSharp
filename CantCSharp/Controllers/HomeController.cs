@@ -68,10 +68,17 @@ namespace CantCSharp.Controllers
 
         [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
-               [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags)
+               [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
         {
+            string[] newTags = newTag.Split(",");
+            foreach(string newtag in newTags)
+            {
+                _loader.InsertTag(newtag);
+            }
+            string[] combinedTags = tags.Concat(newTags).ToArray();
+
             int questionID = _loader.InsertQuestion(title, message, user);
-            foreach(string tag in tags)
+            foreach(string tag in combinedTags)
             {
                 int tagID = _loader.ReturnTagID(tag);
                 _loader.InsertQuestionTagRelation(questionID, tagID);
