@@ -71,6 +71,10 @@ namespace CantCSharp.Controllers
                [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags)
         {
             _loader.InsertQuestion(title, message, user);
+            foreach(string tag in tags)
+            {
+                _loader.InsertQuestionTagRelation(title, tag);
+            }
 
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
             return View("AllQuestions", questionListModel);
@@ -191,7 +195,7 @@ namespace CantCSharp.Controllers
                                                 $"OR a.answer_message ILIKE '%{searchPattern}%' " +
                                                 "GROUP BY q.question_id");
 
-            Dictionary<QuestionModel, List<Answer>> resultDict = new Dictionary<QuestionModel, List<Answer>>();
+            SortedDictionary<QuestionModel, List<Answer>> resultDict = new SortedDictionary<QuestionModel, List<Answer>>();
             foreach (QuestionModel question in questionModelList)
             {
                 resultDict.Add(question, new List<Answer>());

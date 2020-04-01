@@ -50,7 +50,7 @@ namespace CantCSharp.Models
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question_tag(tag_id, tag_name)" +
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO tag(tag_name)" +
                     $"VALUES ((@tag_name))", connection);
                 command.Parameters.AddWithValue("tag_name", tag);
                 command.ExecuteNonQuery();
@@ -115,18 +115,16 @@ namespace CantCSharp.Models
 
                 while (dataReader.Read())
                 {
-                    QuestionModel question = new QuestionModel(Convert.ToInt32(dataReader[0]),
-                                                       DateTime.Parse(dataReader[1].ToString()),
-                                                       Convert.ToInt32(dataReader[2]),
-                                                       Convert.ToInt32(dataReader[3]),
-                                                       dataReader[4].ToString(),
-                                                       dataReader[5].ToString(),
-                                                       "TestUser");
+                    QuestionModel question = new QuestionModel(questionid:Convert.ToInt32(dataReader[0]),
+                                                       date:DateTime.Parse(dataReader[1].ToString()),
+                                                       viewNum:Convert.ToInt32(dataReader[2]),
+                                                       questionTitle:dataReader[4].ToString(),
+                                                       questionMessage:dataReader[5].ToString(),
+                                                       user:"TestUser");
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
-                    question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
+                    question.QuestionComment = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
+                    question.CalculateUpvotes();
                     QuestionList.Add(question);
-                    
-
                 }
             }
 
@@ -174,8 +172,7 @@ namespace CantCSharp.Models
                     commentList.Add (new Comment(dataReader[2].ToString(),
                                                        DateTime.Parse(dataReader[3].ToString()),
                                                        Convert.ToInt32(dataReader[4]),
-                                                       "TestUser",
-                                                       Convert.ToInt32(dataReader[0])));
+                                                       "TestUser"));
                  
                 }
             }

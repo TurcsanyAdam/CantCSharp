@@ -28,27 +28,23 @@ else
                 <table>
                     <tr>
                         <td class="text-left" width="2%">ID</td>
-                        <td class="text-left" width="20%"><a href="@Url.Action("SortByTitle", "Home")">Title</a></td>
-                        <td width="10%"><a href="@Url.Action("SortByDate", "Home")">Date</a></td>
-                        <td width="5%"><a href="@Url.Action("SortByVotes", "Home")">Upvotes</a></td>
-                        <td width="5%"><a href="@Url.Action("SortByViews", "Home")">Views</a></td>
-                        <td width="5%"><a href="@Url.Action("SortByAnswersCount", "Home")">Answers</a></td>
+                        <td class="text-left" width="15%">Title</td>
+                        <td width="25%">Description</td>
+                        <td width="5%">Upvotes</td>
                         <td align="right" width="4%"></td>
                     </tr>
                 </table>
             </li>
             @foreach (var result in Model.ResultDict)
             {
-                <li class="list-group-item list-group-item-action flex-column align-items-start text-center">
+                <li class="list-group-item list-group-item-action flex-column align-items-start text-left">
                     <a href="@Url.Action("QuestionDetails", "Home", new { id = result.Key.QuestionID })" class="list-group-item-action flex-column align-items-start">
                         <table>
                             <tr>
-                                <td class="text-left" width="2%">#@result.Key.QuestionID</td>
-                                <td class="text-left" width="20%">@result.Key.QuestionTitle</td>
-                                <td width="10%">@result.Key.PostTime</td>
-                                <td width="5%">@result.Key.VoteNumber</td>
-                                <td width="5%">@result.Key.ViewNumber</td>
-                                <td width="5%">@result.Key.AnswerList.Count</td>
+                                <td width="2%">#@result.Key.QuestionID</td>
+                                <td width="15%">@result.Key.QuestionTitle</td>
+                                <td width="25%">@result.Key.QuestionMessage</td>
+                                <td class="text-center" width="5%">@result.Key.VoteNumber</td>
                                 @if (result.Key.Answered)
                                 {
                                     <td align="right" width="3%" class="badge-info rounded">Solution</td>

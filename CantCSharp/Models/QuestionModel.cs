@@ -6,7 +6,7 @@ using System.IO;
 
 namespace CantCSharp.Models
 {
-    public class QuestionModel : IQuestion
+    public class QuestionModel : IQuestion, IComparable
     {
         public string User { get; private set; }
         public int QuestionID { get; set; }
@@ -21,14 +21,10 @@ namespace CantCSharp.Models
         public List<Comment> QuestionComments { get; set; }
 
 
-
-
-
-        public QuestionModel(int questionid, DateTime date, int viewNum, int voteNum,
+        public QuestionModel(int questionid, DateTime date, int viewNum,
             string questionTitle, string questionMessage, string user)
         {
             ViewNumber = viewNum;
-            VoteNumber = voteNum;
             QuestionID = questionid;
             QuestionTitle = questionTitle;
             QuestionMessage = questionMessage;
@@ -69,7 +65,19 @@ namespace CantCSharp.Models
         {
             IsClosed = true;
         }
-    }
 
-   
+        public void CalculateUpvotes()
+        {
+            foreach (Answer answer in AnswerList)
+            {
+                VoteNumber += answer.VoteNumber;
+            }
+        }
+
+        public int CompareTo(object obj)
+        {
+            QuestionModel otherQuestion = obj as QuestionModel;
+            return otherQuestion.VoteNumber.CompareTo(this.VoteNumber);
+        }
+    }
 }
