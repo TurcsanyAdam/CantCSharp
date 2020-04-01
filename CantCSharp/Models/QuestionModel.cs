@@ -22,7 +22,7 @@ namespace CantCSharp.Models
 
 
         public QuestionModel(int questionid, DateTime date, int viewNum,
-            string questionTitle, string questionMessage, string user, int voteNum = 0)
+            string questionTitle, string questionMessage, string user)
         {
             ViewNumber = viewNum;
             QuestionID = questionid;
@@ -34,7 +34,6 @@ namespace CantCSharp.Models
             Answered = false;
             IsClosed = false;
             QuestionComment = new List<Comment>();
-            VoteNumber = voteNum;
         }
 
 
