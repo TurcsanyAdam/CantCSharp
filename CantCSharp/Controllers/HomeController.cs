@@ -42,9 +42,9 @@ namespace CantCSharp.Controllers
         }
 
         [HttpGet]
-        public IActionResult QuestionDetails(int ID)
+        public IActionResult QuestionDetails(int id)
         {
-            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {ID};")[0];
+            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
             questionModel.ViewNumber++;
             return View(questionModel);
         }
@@ -271,7 +271,7 @@ namespace CantCSharp.Controllers
         {
             _loader.UpdateDataRow($"Update askmate_question_comment SET comment_message = '{editedcomment}' Where comment_id = {Convert.ToString(EditedCommentID)} and question_id = {Convert.ToString(EditedCommentQuestionID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
-            Response.Redirect($"QuestionDetails/{EditedCommentID}");
+            Response.Redirect($"QuestionDetails/{EditedCommentQuestionID}");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
