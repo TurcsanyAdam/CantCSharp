@@ -154,7 +154,7 @@ namespace CantCSharp.Models
                                                        viewNum:Convert.ToInt32(dataReader[2]),
                                                        questionTitle:dataReader[4].ToString(),
                                                        questionMessage:dataReader[5].ToString(),
-                                                       user: dataReader[6].ToString());
+                                                       user: dataReader[7].ToString());
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
                     question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
                     question.TagList = GetTagsList($"SELECT * FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id WHERE question_id = {question.QuestionID} ");
