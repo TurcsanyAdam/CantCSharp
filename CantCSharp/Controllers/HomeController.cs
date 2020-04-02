@@ -42,7 +42,7 @@ namespace CantCSharp.Controllers
         }
 
         [HttpGet]
-        public IActionResult QuestionDetails( int ID)
+        public IActionResult QuestionDetails(int ID)
         {
             QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {ID};")[0];
             questionModel.ViewNumber++;
@@ -96,7 +96,7 @@ namespace CantCSharp.Controllers
         } 
 
         [HttpPost]
-        public void NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
+        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
            int id, [FromForm(Name = "Link")]string link)
         {
             if(imagesource != null)
@@ -110,8 +110,9 @@ namespace CantCSharp.Controllers
             }
 
             QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
+
+            return View("QuestionDetails", questionModel);
             
-            Response.Redirect($"QuestionDetails/{questionModel.QuestionID}");
         }
 
         [HttpPost]
