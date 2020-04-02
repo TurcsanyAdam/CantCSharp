@@ -34,14 +34,16 @@ comment_ID SERIAL PRIMARY KEY,
 answer_id INT REFERENCES answer(answer_id) ON DELETE CASCADE,
 comment_message TEXT,
 submission_time TIMESTAMP,
-edited_number INT
+edited_number INT,
+answer_comment_username TEXT
 );
 CREATE TABLE askmate_question_comment(
 comment_ID SERIAL PRIMARY KEY,
 question_id INT REFERENCES question(question_id) ON DELETE CASCADE,
 comment_message TEXT,
 submission_time TIMESTAMP,
-edited_number INT
+edited_number INT,
+question_comment_username TEXT
 );
 
 CREATE TABLE question_tag(
@@ -73,8 +75,8 @@ VALUES ('2020-03-23 07:32:56', 17, 1, 'I would say there is about a 80% similari
 INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image, answer_username)
 VALUES ('2020-01-02 12:45:03', 12, 1, 'Original answer is great, i would like to add a little to it: C# seems a bit more modern while Java has more support online!', null, 'Czibók László');
 
-INSERT INTO askmate_question_comment(question_id,comment_message, submission_time, edited_number)
-VALUES (3,'+1 to this answer. Get some nice rest and have a great time! A fresh mind is always more succesfull than a stressed one.', '2019-12-25 08:22:57', 0);
+INSERT INTO askmate_question_comment(question_id,comment_message, submission_time, edited_number, question_comment_username)
+VALUES (3,'+1 to this answer. Get some nice rest and have a great time! A fresh mind is always more succesfull than a stressed one.', '2019-12-25 08:22:57', 0, 'Sláger Tibó');
 
 INSERT INTO tag(tag_name) VALUES ('JavaVSC#');
 INSERT INTO tag(tag_name) VALUES ('OOP');

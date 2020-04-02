@@ -60,16 +60,18 @@ namespace CantCSharp.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void InsertQuestionComment(int questionID,string comment)
+        public void InsertQuestionComment(int questionID,string comment, string username)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_question_comment(question_id,comment_message,submission_time,edited_number)" +
-                    $"VALUES ((@id),(@comment),(@time),0)",connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_question_comment(question_id,comment_message,submission_time,edited_number, question_comment_username)" +
+                    $"VALUES ((@id),(@comment),(@time),0, (@username))",connection);
                 command.Parameters.AddWithValue("id", questionID);
                 command.Parameters.AddWithValue("comment", comment);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                command.Parameters.AddWithValue("username", username);
+
                 command.ExecuteNonQuery();
 
             }
@@ -205,7 +207,7 @@ namespace CantCSharp.Models
                     commentList.Add (new Comment(dataReader[2].ToString(),
                                                        DateTime.Parse(dataReader[3].ToString()),
                                                        Convert.ToInt32(dataReader[4]),
-                                                       "TestUser",
+                                                       dataReader[5].ToString(),
                                                        Convert.ToInt32(dataReader[0]),
                                                        Convert.ToInt32(dataReader[1])));
                  

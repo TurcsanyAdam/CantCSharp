@@ -255,7 +255,7 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult PostTheQuestionComment(int NewCommentedQuestionID, [FromForm(Name = "username")] string username, [FromForm(Name = "comment")] string comment)
         {
-            _loader.InsertQuestionComment(NewCommentedQuestionID, comment);
+            _loader.InsertQuestionComment(NewCommentedQuestionID, comment,username);
             QuestionModel questionListModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
             return View("AllComments", questionListModel);
         }
