@@ -138,13 +138,13 @@ namespace CantCSharp.Controllers
             return View("EditAnswer", answer);
         }
 
-        public IActionResult EditAnswerConfirm(int editedAnswerID, int editedQuestionID,[FromForm(Name = "EditedAnswer")] string editedAnswer)
+        public void EditAnswerConfirm(int editedAnswerID, int editedQuestionID,[FromForm(Name = "EditedAnswer")] string editedAnswer)
         {
             _loader.UpdateDataRow($"Update answer SET answer_message = '{editedAnswer}' Where answer_id = {Convert.ToString(editedAnswerID)} and question_id = {Convert.ToString(editedQuestionID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
-            return View("Index", questionModel);
+            Response.Redirect($"QuestionDetails/{editedQuestionID}");
         }
-    
+
         [HttpPost]
         public IActionResult EditQuestion(int EditID)
         {
@@ -153,11 +153,11 @@ namespace CantCSharp.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmMessage )
+        public void EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmMessage )
         {
             _loader.UpdateDataRow($"Update question SET question_message = '{editedmMessage}' WHERE question_id = {Convert.ToString(EditedID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
-            return View("Index", questionModel);
+            Response.Redirect($"QuestionDetails/{EditedID}");
         }
 
         [HttpPost]
@@ -221,20 +221,22 @@ namespace CantCSharp.Controllers
                                                 $"OR a.answer_message ILIKE '%{searchPattern}%' " +
                                                 "GROUP BY q.question_id");
 
-            SortedDictionary<QuestionModel, List<Answer>> resultDict = new SortedDictionary<QuestionModel, List<Answer>>();
-            foreach (QuestionModel question in questionModelList)
+            foreach(QuestionModel question in questionModelList)
             {
-                resultDict.Add(question, new List<Answer>());
+                List<IAnswer> resultAnswerList = new List<IAnswer>();
                 foreach (Answer answer in question.AnswerList)
                 {
                     if (answer.AnswerMessage.ToLower().Contains(searchPattern.ToLower()))
                     {
-                        resultDict[question].Add(answer);
+                        resultAnswerList.Add(answer);
                     }
                 }
+
+                question.AnswerList = resultAnswerList;
             }
 
-            SearchDataModel searchDataModel = new SearchDataModel(resultDict, searchPattern);
+            questionModelList.Sort((q1, q2) => q2.VoteNumber.CompareTo(q1.VoteNumber));
+            SearchDataModel searchDataModel = new SearchDataModel(questionModelList, searchPattern);
 
             return View("SearchResult", searchDataModel);
         }
@@ -266,11 +268,11 @@ namespace CantCSharp.Controllers
             return View("EditQuestionComment", comment);
         }
         [HttpPost]
-        public IActionResult ConfirmEditedQuestion(int EditedCommentID,int EditedCommentQuestionID, [FromForm(Name = "EditComment")] string editedcomment)
+        public void ConfirmEditedQuestion(int EditedCommentID,int EditedCommentQuestionID, [FromForm(Name = "EditComment")] string editedcomment)
         {
             _loader.UpdateDataRow($"Update askmate_question_comment SET comment_message = '{editedcomment}' Where comment_id = {Convert.ToString(EditedCommentID)} and question_id = {Convert.ToString(EditedCommentQuestionID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
-            return View("Index", questionModel);
+            Response.Redirect($"QuestionDetails/{EditedCommentID}");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
