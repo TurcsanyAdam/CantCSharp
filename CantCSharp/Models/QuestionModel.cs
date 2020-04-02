@@ -80,7 +80,7 @@ namespace CantCSharp.Models
         public int CompareTo(object obj)
         {
             QuestionModel otherQuestion = obj as QuestionModel;
-            return otherQuestion.VoteNumber.CompareTo(this.VoteNumber);
+            return otherQuestion.QuestionID.CompareTo(this.QuestionID);
         }
     }
 }

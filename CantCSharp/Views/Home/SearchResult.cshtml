@@ -15,7 +15,7 @@
     </form>
 </div>
 
-@if (Model.ResultDict.Count() == 0)
+@if (Model.ResultList.Count() == 0)
 {
     <p class="h6 text-center">No results found! Try again with different keywords!</p>
 }
@@ -35,17 +35,17 @@ else
                     </tr>
                 </table>
             </li>
-            @foreach (var result in Model.ResultDict)
+            @foreach (var result in Model.ResultList)
             {
                 <li class="list-group-item list-group-item-action flex-column align-items-start text-left">
-                    <a href="@Url.Action("QuestionDetails", "Home", new { id = result.Key.QuestionID })" class="list-group-item-action flex-column align-items-start">
+                    <a href="@Url.Action("QuestionDetails", "Home", new { id = result.QuestionID })" class="list-group-item-action flex-column align-items-start">
                         <table>
                             <tr>
-                                <td width="2%">#@result.Key.QuestionID</td>
-                                <td width="15%">@result.Key.QuestionTitle</td>
-                                <td width="25%">@result.Key.QuestionMessage</td>
-                                <td class="text-center" width="5%">@result.Key.VoteNumber</td>
-                                @if (result.Key.Answered)
+                                <td width="2%">#@result.QuestionID</td>
+                                <td width="15%">@result.QuestionTitle</td>
+                                <td width="25%">@result.QuestionMessage</td>
+                                <td class="text-center" width="5%">@result.VoteNumber</td>
+                                @if (result.Answered)
                                 {
                                     <td align="right" width="3%" class="badge-info rounded">Solution</td>
                                 }
@@ -58,14 +58,14 @@ else
                     </a>
                 </li>
 
-                @if (result.Value.Count != 0)
+                @if (result.AnswerList.Count != 0)
                 {
                     <li class="list-group-item flex-column text-center border-left-0 border-right-0 bg-light w-75 mr-0 ml-auto">
                         Answers containing the keyword(s)
                     </li>
                 }
 
-                foreach (Answer answer in result.Value)
+                foreach (Answer answer in result.AnswerList)
                 {
                     <li class="list-group-item flex-column text-xl-center border-left-0 border-right-0 bg-light w-75 mr-0 ml-auto">
                         <table>

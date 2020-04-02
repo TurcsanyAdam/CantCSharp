@@ -219,20 +219,22 @@ namespace CantCSharp.Controllers
                                                 $"OR a.answer_message ILIKE '%{searchPattern}%' " +
                                                 "GROUP BY q.question_id");
 
-            SortedDictionary<QuestionModel, List<Answer>> resultDict = new SortedDictionary<QuestionModel, List<Answer>>();
-            foreach (QuestionModel question in questionModelList)
+            foreach(QuestionModel question in questionModelList)
             {
-                resultDict.Add(question, new List<Answer>());
+                List<IAnswer> resultAnswerList = new List<IAnswer>();
                 foreach (Answer answer in question.AnswerList)
                 {
                     if (answer.AnswerMessage.ToLower().Contains(searchPattern.ToLower()))
                     {
-                        resultDict[question].Add(answer);
+                        resultAnswerList.Add(answer);
                     }
                 }
+
+                question.AnswerList = resultAnswerList;
             }
 
-            SearchDataModel searchDataModel = new SearchDataModel(resultDict, searchPattern);
+            questionModelList.Sort((q1, q2) => q2.VoteNumber.CompareTo(q1.VoteNumber));
+            SearchDataModel searchDataModel = new SearchDataModel(questionModelList, searchPattern);
 
             return View("SearchResult", searchDataModel);
         }
