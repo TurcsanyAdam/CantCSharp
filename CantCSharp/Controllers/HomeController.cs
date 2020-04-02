@@ -110,8 +110,8 @@ namespace CantCSharp.Controllers
             }
 
             QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
-            
-            Response.Redirect($"QuestionDetails/{questionModel.QuestionID}");
+
+            Response.Redirect($"https://localhost:5001/Home/QuestionDetails/{id}");
         }
 
         [HttpPost]
