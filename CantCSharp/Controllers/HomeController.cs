@@ -71,7 +71,7 @@ namespace CantCSharp.Controllers
                [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
         {
             string[] newTags = new string[0];
-            if (newTag.Length > 0)
+            if (newTag != null )
             {
                 newTags = newTag.Split(",");
                 foreach (string newtag in newTags)
