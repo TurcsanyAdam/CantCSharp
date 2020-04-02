@@ -42,9 +42,9 @@ namespace CantCSharp.Controllers
         }
 
         [HttpGet]
-        public IActionResult QuestionDetails(int id)
+        public IActionResult QuestionDetails( int ID)
         {
-            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
+            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {ID};")[0];
             questionModel.ViewNumber++;
             return View(questionModel);
         }
@@ -96,7 +96,7 @@ namespace CantCSharp.Controllers
         } 
 
         [HttpPost]
-        public IActionResult NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
+        public void NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
            int id, [FromForm(Name = "Link")]string link)
         {
             if(imagesource != null)
@@ -110,24 +110,24 @@ namespace CantCSharp.Controllers
             }
 
             QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
-            return View("QuestionDetails", questionModel);
+            
+            Response.Redirect($"QuestionDetails/{questionModel.QuestionID}");
         }
 
         [HttpPost]
-        public IActionResult DeleteAnswer(int answerID, int questionID)
+        public void DeleteAnswer(int answerID, int questionID)
         {
             QuestionModel questionModel = _loader.GetDataList($"DELETE FROM answer WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
-
-            return View("QuestionDetails", questionModel);
+            Response.Redirect($"QuestionDetails/{questionID}");
         }
         [HttpPost]
-        public IActionResult DeleteTag(string tagName, int questionID)
+        public void DeleteTag(string tagName, int questionID)
         {
             int tagID = _loader.ReturnTagID(tagName);
 
             QuestionModel questionModel = _loader.GetDataList($"DELETE FROM question_tag WHERE tag_id = {tagID} AND question_ID = {questionID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
+            Response.Redirect($"QuestionDetails/{questionID}");
 
-            return View("QuestionDetails", questionModel);
         }
 
         [HttpPost]
@@ -160,19 +160,20 @@ namespace CantCSharp.Controllers
         }
 
         [HttpPost]
-        public IActionResult VoteUp(int answerID, int questionID)
+        public void VoteUp(int answerID, int questionID)
         {
             QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
+            Response.Redirect($"QuestionDetails/{questionID}");
 
-            return View("QuestionDetails",questionModel);
         }
 
         [HttpPost]
-        public IActionResult VoteDown(int answerID, int questionID)
+        public void VoteDown(int answerID, int questionID)
         {
             QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number - 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
 
-            return View("QuestionDetails", questionModel);
+            Response.Redirect($"QuestionDetails/{questionID}");
+
         }
 
         public IActionResult SortByTitle()
