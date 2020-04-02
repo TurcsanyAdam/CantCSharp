@@ -203,7 +203,7 @@ namespace CantCSharp.Controllers
         
         public IActionResult SortByAnswersCount()
         {
-            var questionModel = _loader.GetDataList("Select question.question_id, question.submission_time, view_number, question.vote_number, question_title, question_message, question_image from question left join answer on question.question_id = answer.question_id " +
+            var questionModel = _loader.GetDataList("Select question.question_id, question.submission_time, view_number, question.vote_number, question_title, question_message, question_image, question_username from question left join answer on question.question_id = answer.question_id " +
                                                     "group by question.question_id " +
                                                     "Order by count(answer_id) desc");
             
