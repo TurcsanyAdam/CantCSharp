@@ -1,0 +1,54 @@
+﻿@model CantCSharp.Models.Answer
+@{
+    ViewData["Title"] = "AllAnswerComments";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Comments to the answer</h1>
+</div>
+<div class="list-group m-5">
+    @if (Model.AnswerComments.Count() > 0)
+    {
+        @foreach (Comment comment in Model.AnswerComments)
+        {
+            <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
+                <tr>
+                    <td width="2%">#@comment.Id</td>
+
+                    <td width="40%">Posted on: @comment.SubmissionTime</td>
+                    <td width="15%">Edited before: @comment.EditedNumber times</td>
+                    <td width="5%">
+                        <form action="@Url.Action("EditAnswerComment", "Home", new { editCommentID = comment.Id ,GivenAnswerId = comment.AnswerOrQuestionID} )" method="post">
+                            <button>Edit</button>
+                        </form>
+                    </td>
+                    <td width="5%">
+                        <form action="@Url.Action("DeleteAnswerComment", "Home", new { deleteCommentID = comment.Id ,GivenAnswerId = comment.AnswerOrQuestionID} )" method="post">
+                            <button>Delete</button>
+                        </form>
+
+                    </td>
+
+            </table>
+            <table class="list-group-item list-group-item-action flex-column align-items-start">
+                <tr class="align-text-top m-3">
+                    <td height="70" width="100">@comment.User</td>
+
+                    <td>
+                        <div style=" word-wrap:break-word;width:800px">
+                            @comment.Message
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        }
+    }
+    else
+    {
+        <p class="h6 text-center">There is no comment to this question yet!</p>
+    }
+</div>
+

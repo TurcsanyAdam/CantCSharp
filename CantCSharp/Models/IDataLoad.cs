@@ -21,8 +21,8 @@ namespace CantCSharp.Models
         void UpdateDataRow(string querryString);
         List<IAnswer> GetAnswerList(string queryString);
         List<Comment> GetCommentList(string queryString);
-        void InsertAnswerComment(int answerID, string comment);
-        void InsertQuestionComment(int questionID, string comment);
+        void InsertAnswerComment(int answerID, string comment,string username);
+        void InsertQuestionComment(int questionID, string comment,string username);
 
     }
 }

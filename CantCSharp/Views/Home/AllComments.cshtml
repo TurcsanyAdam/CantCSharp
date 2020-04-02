@@ -16,13 +16,20 @@
                         <td width="2%">#@comment.Id</td>
 
                         <td width="40%">Posted on: @comment.SubmissionTime</td>
+                        <td width="15%">Edited before: @comment.EditedNumber times</td>
                         <td width="5%">
-                            <form action="@Url.Action("EditQuestionComment", "Home", new { editCommentID = comment.Id ,GivenQuestionId = comment.QuestionID} )" method="post">
+                            <form action="@Url.Action("EditQuestionComment", "Home", new { editCommentID = comment.Id ,GivenQuestionId = comment.AnswerOrQuestionID} )" method="post">
                                 <button>Edit</button>
                             </form>
                         </td>
+                        <td width="5%">
+                            <form action="@Url.Action("DeleteQuestionComment", "Home", new { deleteCommentID = comment.Id ,GivenQuestionId = comment.AnswerOrQuestionID} )" method="post">
+                                <button>Delete</button>
+                            </form>
 
-                        </table>
+                        </td>
+
+</table>
                 <table class="list-group-item list-group-item-action flex-column align-items-start">
                     <tr class="align-text-top m-3">
                         <td height="70" width="100">@comment.User</td>

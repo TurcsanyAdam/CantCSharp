@@ -117,7 +117,7 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public void DeleteAnswer(int answerID, int questionID)
         {
-            QuestionModel questionModel = _loader.GetDataList($"DELETE FROM answer WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
+            _loader.DeleteDataRow($"DELETE FROM answer WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}");
             Response.Redirect($"QuestionDetails/{questionID}");
         }
         [HttpPost]
@@ -125,7 +125,7 @@ namespace CantCSharp.Controllers
         {
             int tagID = _loader.ReturnTagID(tagName);
 
-            QuestionModel questionModel = _loader.GetDataList($"DELETE FROM question_tag WHERE tag_id = {tagID} AND question_ID = {questionID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
+            _loader.DeleteDataRow($"DELETE FROM question_tag WHERE tag_id = {tagID} AND question_ID = {questionID}; SELECT * FROM question WHERE question_id = {questionID}");
             Response.Redirect($"QuestionDetails/{questionID}");
 
         }
@@ -140,7 +140,6 @@ namespace CantCSharp.Controllers
         public void EditAnswerConfirm(int editedAnswerID, int editedQuestionID,[FromForm(Name = "EditedAnswer")] string editedAnswer)
         {
             _loader.UpdateDataRow($"Update answer SET answer_message = '{editedAnswer}' Where answer_id = {Convert.ToString(editedAnswerID)} and question_id = {Convert.ToString(editedQuestionID)}");
-            var questionModel = _loader.GetDataList("SELECT * FROM question;");
             Response.Redirect($"QuestionDetails/{editedQuestionID}");
         }
 
@@ -155,14 +154,13 @@ namespace CantCSharp.Controllers
         public void EditQuestionConfirm(int EditedID ,[FromForm(Name = "EditedMessage")] string editedmMessage )
         {
             _loader.UpdateDataRow($"Update question SET question_message = '{editedmMessage}' WHERE question_id = {Convert.ToString(EditedID)}");
-            var questionModel = _loader.GetDataList("SELECT * FROM question;");
             Response.Redirect($"QuestionDetails/{EditedID}");
         }
 
         [HttpPost]
         public void VoteUp(int answerID, int questionID)
         {
-            QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
+            _loader.UpdateDataRow($"UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = {answerID};");
             Response.Redirect($"QuestionDetails/{questionID}");
 
         }
@@ -247,17 +245,39 @@ namespace CantCSharp.Controllers
             return View("AllComments", questionModel);
         }
         [HttpPost]
+        public IActionResult AllAnswerComment(int allCommentAnswerID, int allCommentQuestionId)
+        {
+            IAnswer answer = _loader.GetAnswerList($"Select * from answer WHERE question_id = {Convert.ToString(allCommentQuestionId)} and answer_id = {Convert.ToString(allCommentAnswerID)}")[0];
+            return View("AllAnswerComments", answer);
+        }
+
+        [HttpPost]
         public IActionResult WriteQuestionComment(int QuestionCommentID)
         {
             QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
             return View("CommentToQuestion", questionModel);
         }
+
+        [HttpPost]
+        public IActionResult WriteAnswerComment(int commentQuestionId, int commentAnswerID)
+        {
+            IAnswer answer = _loader.GetAnswerList($"Select * from answer WHERE question_id = {Convert.ToString(commentQuestionId)} and answer_id = {Convert.ToString(commentAnswerID)}")[0];
+            return View("CommentToAnswer", answer);
+        }
         [HttpPost]
         public IActionResult PostTheQuestionComment(int NewCommentedQuestionID, [FromForm(Name = "username")] string username, [FromForm(Name = "comment")] string comment)
         {
-            _loader.InsertQuestionComment(NewCommentedQuestionID, comment);
+            _loader.InsertQuestionComment(NewCommentedQuestionID,comment,username);
             QuestionModel questionListModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
             return View("AllComments", questionListModel);
+        }
+
+        [HttpPost]
+        public IActionResult PostTheAnswerComment(int NewCommentedAnswerID,int necessaryQuestionID, [FromForm(Name = "username")] string username, [FromForm(Name = "comment")] string comment)
+        {
+            _loader.InsertAnswerComment(NewCommentedAnswerID,comment,username);
+            IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer WHERE question_id = {Convert.ToString(necessaryQuestionID)} and answer_id = {Convert.ToString(NewCommentedAnswerID)} ")[0];
+            return View("AllAnswerComments", answer);
         }
 
         [HttpPost]
@@ -266,13 +286,46 @@ namespace CantCSharp.Controllers
             Comment comment = _loader.GetCommentList($"SELECT * FROM  askmate_question_comment WHERE comment_id = {Convert.ToString(editCommentID)} and question_id= {Convert.ToString(GivenQuestionId)}")[0];
             return View("EditQuestionComment", comment);
         }
+
         [HttpPost]
-        public void ConfirmEditedQuestion(int EditedCommentID,int EditedCommentQuestionID, [FromForm(Name = "EditComment")] string editedcomment)
+        public IActionResult EditAnswerComment(int editCommentID, int GivenAnswerId)
         {
-            _loader.UpdateDataRow($"Update askmate_question_comment SET comment_message = '{editedcomment}' Where comment_id = {Convert.ToString(EditedCommentID)} and question_id = {Convert.ToString(EditedCommentQuestionID)}");
-            var questionModel = _loader.GetDataList("SELECT * FROM question;");
+            Comment comment = _loader.GetCommentList($"SELECT * FROM  askmate_answer_comment WHERE comment_id = {Convert.ToString(editCommentID)} and answer_id= {Convert.ToString(GivenAnswerId)}")[0];
+            return View("EditAnswerComment", comment);
+        }
+
+        [HttpPost]
+        public void ConfirmEditedQuestionComment(int EditedCommentID,int EditedCommentQuestionID, [FromForm(Name = "EditComment")] string editedcomment)
+        {
+            _loader.UpdateDataRow($"Update askmate_question_comment SET comment_message = '{editedcomment}',edited_number = edited_number + 1 Where comment_id = {Convert.ToString(EditedCommentID)} and question_id = {Convert.ToString(EditedCommentQuestionID)}");
             Response.Redirect($"QuestionDetails/{EditedCommentQuestionID}");
         }
+
+        [HttpPost]
+        public void ConfirmEditedAnswerComment(int EditedCommentID, int EditedCommentAnswerID, [FromForm(Name = "EditComment")] string editedcomment)
+        {
+            IAnswer answer = _loader.GetAnswerList($"Select * From answer Where answer_id = {Convert.ToString(EditedCommentAnswerID)} ")[0];
+            _loader.UpdateDataRow($"Update askmate_answer_comment SET comment_message = '{editedcomment}',edited_number = edited_number + 1 Where comment_id = {Convert.ToString(EditedCommentID)} and answer_id = {Convert.ToString(EditedCommentAnswerID)}");
+            Response.Redirect($"QuestionDetails/{answer.QuestionID}");
+        }
+
+        [HttpPost]
+        public void DeleteQuestionComment(int deleteCommentID, int GivenQuestionId)
+        {
+            
+            _loader.DeleteDataRow($"DELETE FROM askmate_question_comment WHERE comment_id = {deleteCommentID} and question_id = {GivenQuestionId}");
+            Response.Redirect($"QuestionDetails/{GivenQuestionId}");
+        }
+
+        [HttpPost]
+        public void DeleteAnswerComment(int deleteCommentID, int GivenAnswerId)
+        {
+            IAnswer answer = _loader.GetAnswerList($"Select * From answer Where answer_id = {Convert.ToString(GivenAnswerId)} ")[0];
+            _loader.DeleteDataRow($"DELETE FROM askmate_answer_comment WHERE comment_id = {deleteCommentID} and answer_id = {GivenAnswerId}");
+            Response.Redirect($"QuestionDetails/{answer.QuestionID}");
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

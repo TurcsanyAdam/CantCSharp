@@ -8,6 +8,7 @@ namespace CantCSharp.Models
     public interface IAnswer
     {
         int VoteNumber { get; set; }
+        int QuestionID { get; set; }
 
         void MarkAsSolution();
     }

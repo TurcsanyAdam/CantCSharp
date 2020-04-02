@@ -1,6 +1,6 @@
 ﻿@model CantCSharp.Models.Comment
 @{
-    ViewData["Title"] = "EditQuestionComment";
+    ViewData["Title"] = "EditAnswerComment";
 }
 
 <div class="text-center">
@@ -8,15 +8,14 @@
 </div>
 
 <div>
-    <form method="post" action="@Url.Action("ConfirmEditedQuestionComment","Home", new { EditedCommentID = Model.Id,EditedCommentQuestionID = Model.AnswerOrQuestionID})">
+    <form method="post" action="@Url.Action("ConfirmEditedAnswerComment","Home", new { EditedCommentID = Model.Id,EditedCommentAnswerID = Model.AnswerOrQuestionID})">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend" for="message">
                 <span class="input-group-text">Comment</span>
             </div>
-            <textarea class="form-control" rows="1" type="text" name="EditComment"  required>@Model.Message</textarea><br>
+            <textarea class="form-control" rows="1" type="text" name="EditComment" required>@Model.Message</textarea><br>
         </div>
         <button class="btn-primary">Edit comment</button>
     </form>
 </div>
-
 

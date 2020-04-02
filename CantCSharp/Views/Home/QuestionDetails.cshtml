@@ -36,7 +36,7 @@
 
     <table class="list-group-item list-group-item-action flex-column align-items-start">
         <tr class="align-text-top m-3">
-            <td height="350" width="30%">@Model.User</td>
+            <td height="350" width="30">@Model.User</td>
             <td><textbox>@Model.QuestionMessage</textbox></td>
 
         </tr>
@@ -114,7 +114,15 @@
                     <td align="left" width="3%" class="badge-info rounded">Solution</td>
                 }
                 <td width="40%">Posted on: @answer.PostTime</td>
-                <td width="5%">Upvotes: @answer.VoteNumber</td>
+                <td width="10%">Upvotes: @answer.VoteNumber</td>
+                <td width="15%">
+                    <form action="@Url.Action("WriteAnswerComment", "Home", new { commentAnswerID = answer.Id, commentQuestionId = Model.QuestionID})" method="post">
+                        <button>Comment</button>
+                    </form>
+                <td width="15%">
+                    <form action="@Url.Action("AllAnswerComment", "Home", new { allCommentAnswerID = answer.Id, allCommentQuestionId = Model.QuestionID})" method="post">
+                        <button>All Comments: @answer.AnswerComments.Count()</button>
+                    </form>
                 <td width="5%">
                     <form action="@Url.Action("EditAnswer", "Home", new { editAnswerID = answer.Id, editQuestionId = Model.QuestionID})" method="post">
                         <button>Edit</button>

@@ -16,8 +16,9 @@ namespace CantCSharp.Models
         public string ImageSource { get; set; }
         public string[] Link { get; set; }
         public bool IsSolution { get; set; }
+        public List<Comment> AnswerComments { get; set; }
 
-        public Answer(int id,string user, string theAnswer,string imageSource, int QuesitonId)
+        public Answer(int id,string user, string theAnswer,string imageSource, int QuesitonId )
         {
             this.User = user;
             this.QuestionID = QuesitonId;
@@ -26,6 +27,7 @@ namespace CantCSharp.Models
             IsSolution = false;
             PostTime = DateTime.Now;
             ImageSource = imageSource;
+            AnswerComments = new List<Comment>();
         }
         public Answer(string user, int id, DateTime postTime, int voteNumber, int questionID, string theAnswer, string imageSource, string link, bool isSolution)
         {
@@ -38,7 +40,9 @@ namespace CantCSharp.Models
             ImageSource = imageSource;
             Link = new string[] { link }; 
             IsSolution = isSolution;
+            AnswerComments = new List<Comment>();
         }
+    
 
 
         public void MarkAsSolution()
