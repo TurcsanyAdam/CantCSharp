@@ -25,6 +25,7 @@ namespace CantCSharp.Models
         public QuestionModel(int questionid, DateTime date, int viewNum,
             string questionTitle, string questionMessage, string user)
         {
+            VoteNumber = 0;
             ViewNumber = viewNum;
             QuestionID = questionid;
             QuestionTitle = questionTitle;

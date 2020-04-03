@@ -56,6 +56,7 @@ namespace CantCSharp.Controllers
             _loader.DeleteDataRow($"DELETE FROM question WHERE question_id = {Convert.ToString(ID)}");
             var questionModel = _loader.GetDataList("SELECT * FROM question;");
 
+
             return View("Index", ListLastFiveQuestions());
         }
 
