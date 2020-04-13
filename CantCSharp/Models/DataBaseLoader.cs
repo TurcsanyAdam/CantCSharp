@@ -132,6 +132,10 @@ namespace CantCSharp.Models
                 while (dataReader.Read())
                 {
                     Tag tag = new Tag(dataReader[1].ToString());
+                    if(dataReader.FieldCount >2)
+                    {
+                        tag.TimesUsedInQuestions = Convert.ToInt32(dataReader[2]);
+                    }
                     tagList.Add(tag);
                 }
             }

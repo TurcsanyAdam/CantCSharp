@@ -40,6 +40,11 @@ namespace CantCSharp.Controllers
         {
             return View();
         }
+        public IActionResult Tags()
+        {
+            List<Tag> tagList = _loader.GetTagsList("SELECT tag.tag_id,tag.tag_name,COUNT(question_tag.tag_id) FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id GROUP BY(tag.tag_id, tag.tag_name) ORDER BY(tag.tag_id,tag.tag_name)");
+            return View(tagList);
+        }
 
         [HttpGet]
         public IActionResult QuestionDetails(int id)

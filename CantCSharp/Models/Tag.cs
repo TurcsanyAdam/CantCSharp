@@ -8,10 +8,12 @@ namespace CantCSharp.Models
     public class Tag
     {
         public string  TagName { get; set; }
+        public int TimesUsedInQuestions { get; set; }
 
         public Tag(string tagName)
         {
             TagName = tagName;
+            TimesUsedInQuestions = 0;
         }
     }
 }

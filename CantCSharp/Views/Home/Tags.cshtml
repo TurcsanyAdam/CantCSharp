@@ -1,0 +1,21 @@
+﻿@model IEnumerable<CantCSharp.Models.Tag>
+
+@{
+    ViewData["Title"] = "Tags";
+}
+
+<h1>Tags</h1>
+
+@foreach (var tag in Model)
+{
+<li class="list-group-item list-group-item-action flex-column align-items-start text-center">
+        <table>
+            <tr>
+                <td class="text-left" width="20%">@tag.TagName</td>
+                <td class="text-left" width="2%">Times used: @tag.TimesUsedInQuestions</td>
+            </tr>
+        </table>
+</li>
+
+}
+
