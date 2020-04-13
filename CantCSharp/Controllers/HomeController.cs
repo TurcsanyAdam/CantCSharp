@@ -11,12 +11,12 @@ namespace CantCSharp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        
         private readonly IDataLoad _loader;
         
         public HomeController(ILogger<HomeController> logger, IDataLoad loader)
         {
-            _logger = logger;
+            
             _loader = loader;
         }
 
