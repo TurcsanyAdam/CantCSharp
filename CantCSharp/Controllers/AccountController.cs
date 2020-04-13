@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CantCSharp.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -13,11 +14,12 @@ namespace CantCSharp.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet]
+        
 
         public IActionResult Login()
         {
             return View();
+          
         }
 
         [HttpPost]
@@ -28,6 +30,7 @@ namespace CantCSharp.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            User user = new User(email, password);
             //here comes the Loginformation storing sql querry;
             var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
 
@@ -63,7 +66,7 @@ namespace CantCSharp.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            return RedirectToAction("Index", "Profile");
+            return View("../Profile/Index", user);
         }
     }
 }

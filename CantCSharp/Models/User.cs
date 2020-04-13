@@ -11,9 +11,9 @@ namespace CantCSharp.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public User(string username, string email, string password)
+        public User(string email, string password)
         {
-            UserName = username;
+            UserName = "Dikk";
             Email = email;
             Password = password;
         }

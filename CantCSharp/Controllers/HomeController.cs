@@ -18,6 +18,7 @@ namespace CantCSharp.Controllers
         {
             
             _loader = loader;
+            
         }
 
         public IActionResult Index()
