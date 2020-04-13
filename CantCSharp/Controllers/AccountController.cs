@@ -11,21 +11,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CantCSharp.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
+        [HttpGet]
+
         public IActionResult Login()
         {
             return View();
         }
 
-        
-
-
         [HttpPost]
+
         public async Task<ActionResult> LoginAsync([FromForm]string email, [FromForm] string password)
         {
-
+            if("test@test.com" != email || "test" != password)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             //here comes the Loginformation storing sql querry;
             var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
 
@@ -61,7 +63,7 @@ namespace CantCSharp.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Profile");
         }
     }
 }
