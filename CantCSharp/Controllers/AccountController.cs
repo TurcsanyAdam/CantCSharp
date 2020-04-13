@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CantCSharp.Controllers
 {
-    [Authorize]
+    
     public class AccountController : Controller
     {
         public IActionResult Login()
@@ -61,7 +61,7 @@ namespace CantCSharp.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Profile");
         }
     }
 }
