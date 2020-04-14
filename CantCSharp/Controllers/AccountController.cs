@@ -30,9 +30,9 @@ namespace CantCSharp.Controllers
             return View();
 
         }
-        public IActionResult RegistrationComplete([FromForm]string username, [FromForm]string email, [FromForm] string password)
+        public IActionResult RegistrationComplete([FromForm]string username, [FromForm]string email, [FromForm] string passwordA)
         {
-            _loader.InsertUser(username, email, Utility.Hash(password));
+            _loader.InsertUser(username, email, Utility.Hash(passwordA));
             return View();
 
         }
@@ -41,11 +41,8 @@ namespace CantCSharp.Controllers
 
         public async Task<ActionResult> LoginAsync([FromForm]string email, [FromForm] string password)
         {
-            if("test@test.com" != email || "test" != password)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            User user = new User(email, password);
+
+            User user = new User("cigányember",email, password);
             //here comes the Loginformation storing sql querry;
             var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
 
@@ -83,5 +80,9 @@ namespace CantCSharp.Controllers
 
             return View("../Profile/Index", user);
         }
+    }
+
+    public interface IUserService
+    {
     }
 }

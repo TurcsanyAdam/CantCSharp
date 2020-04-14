@@ -9,6 +9,7 @@ namespace CantCSharp.Models
     {
         List<QuestionModel> QuestionList { get; set; }
         List<QuestionModel> GetDataList(string queryString);
+        int CheckIfUserExists(string username, string password);
         void InsertUser(string username, string password, string email);
 
         int InsertQuestion(string title, string message, string user);
@@ -21,6 +22,7 @@ namespace CantCSharp.Models
         void DeleteDataRow(string querryString);
 
         void UpdateDataRow(string querryString);
+        List<User> GetUserList(string queryString);
         List<IAnswer> GetAnswerList(string queryString);
         List<Comment> GetCommentList(string queryString);
         void InsertAnswerComment(int answerID, string comment,string username);
