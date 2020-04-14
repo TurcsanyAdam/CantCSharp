@@ -190,7 +190,8 @@ namespace CantCSharp.Models
                                             dataReader[1].ToString(),
                                             dataReader[2].ToString(),
                                             DateTime.Parse(dataReader[3].ToString()),
-                                            dataReader[4].ToString());
+                                            dataReader[4].ToString(),
+                                            Convert.ToInt32(dataReader[5]);
 
                     userList.Add(user);
                 }
