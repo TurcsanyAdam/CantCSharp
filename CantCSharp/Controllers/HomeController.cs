@@ -81,7 +81,7 @@ namespace CantCSharp.Controllers
 
         [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
-               [FromForm(Name = "username")] string username, [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
+               [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
         {
             string[] newTags = new string[0];
             if (newTag != null )
@@ -102,7 +102,7 @@ namespace CantCSharp.Controllers
             var email = claim.Value;
             User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
 
-            int questionID = _loader.InsertQuestion(title, message, username,searchedUser.UserId);
+            int questionID = _loader.InsertQuestion(title, message, searchedUser.UserName, searchedUser.UserId);
             foreach(string tag in combinedTags)
             {
                 int tagID = _loader.ReturnTagID(tag);
@@ -114,7 +114,7 @@ namespace CantCSharp.Controllers
         } 
 
         [HttpPost]
-        public void NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
+        public void NewAnswer([FromForm(Name = "answer")] string answer,[FromForm(Name ="Image")] string imagesource,
            int id, [FromForm(Name = "Link")]string link)
         {
             var user = HttpContext.User;
@@ -125,11 +125,11 @@ namespace CantCSharp.Controllers
 
             if (imagesource != null)
             {
-                _loader.InsertAnswer(answer, username, imagesource, id, link, searchedUser.UserId);
+                _loader.InsertAnswer(answer, searchedUser.UserName, imagesource, id, link, searchedUser.UserId);
             }
             else
             {
-                _loader.InsertAnswer(answer, username, "", id, link, searchedUser.UserId);
+                _loader.InsertAnswer(answer, searchedUser.UserName, "", id, link, searchedUser.UserId);
 
             }
 
@@ -297,7 +297,7 @@ namespace CantCSharp.Controllers
             var email = claim.Value;
             User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
 
-            _loader.InsertQuestionComment(NewCommentedQuestionID,comment,username, searchedUser.UserId);
+            _loader.InsertQuestionComment(NewCommentedQuestionID,comment, searchedUser.UserName, searchedUser.UserId);
             QuestionModel questionListModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
             return View("AllComments", questionListModel);
         }
@@ -310,7 +310,7 @@ namespace CantCSharp.Controllers
             var email = claim.Value;
             User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
 
-            _loader.InsertAnswerComment(NewCommentedAnswerID,comment,username, searchedUser.UserId);
+            _loader.InsertAnswerComment(NewCommentedAnswerID,comment, searchedUser.UserName, searchedUser.UserId);
             IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer WHERE question_id = {Convert.ToString(necessaryQuestionID)} and answer_id = {Convert.ToString(NewCommentedAnswerID)} ")[0];
             return View("AllAnswerComments", answer);
         }

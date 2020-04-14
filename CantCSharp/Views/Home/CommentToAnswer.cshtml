@@ -10,12 +10,6 @@
 <div>
     <form method="post" action="@Url.Action("PostTheAnswerComment","Home", new { NewCommentedAnswerID = Model.Id, necessaryQuestionID = Model.QuestionID })">
         <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend" for="username">
-                <span class="input-group-text">Username</span>
-            </div>
-            <input class="form-control" type="text" name="username" placeholder="Jacob Gypsum" required><br>
-        </div>
-        <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend" for="message">
                 <span class="input-group-text">Comment</span>
             </div>

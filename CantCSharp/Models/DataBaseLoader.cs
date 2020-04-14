@@ -35,12 +35,13 @@ namespace CantCSharp.Models
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO users(username, user_password, registration_time, email)" +
-                    $"VALUES ((@username), (@password), (@time), (@email))", connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO users(username, user_password, registration_time, email,reputation)" +
+                    $"VALUES ((@username), (@password), (@time), (@email),(@reputation))", connection);
                 command.Parameters.AddWithValue("username", username);
                 command.Parameters.AddWithValue("password", password);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("email", email);
+                command.Parameters.AddWithValue("reputation", 0);
 
                 command.ExecuteNonQuery();
 
@@ -59,7 +60,7 @@ namespace CantCSharp.Models
 
             }
         }
-        public int InsertQuestion(string title, string message, string question_username)
+        public int InsertQuestion(string title, string message, string question_username,int userID)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
