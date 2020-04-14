@@ -36,7 +36,17 @@ a {
 .btn-edit-container {
     text-align: right;
     margin-right: 37px;
-    margin-bottom:-5%;
+    margin-bottom: -5%;
+}
+.btn-login-container {
+    text-align: right;
+    margin-right: -30%;
+    margin-bottom: -5%;
+}
+.btn-register-container {
+    text-align: right;
+    margin-right: 30%;
+    margin-bottom: -5%;
 }
 .btn-comment-container {
     text-align: left;
