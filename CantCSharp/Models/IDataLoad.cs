@@ -11,6 +11,7 @@ namespace CantCSharp.Models
         List<QuestionModel> GetDataList(string queryString);
         int CheckIfUserExists(string username, string password);
         void InsertUser(string username, string password, string email);
+        void ModifyReputation(string answerOrQuestion,int id, int reputation);
 
         int InsertQuestion(string title, string message, string user);
         void InsertAnswer(string answer, string username, string imageSource, int id, string link);

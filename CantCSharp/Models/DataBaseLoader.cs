@@ -47,6 +47,18 @@ namespace CantCSharp.Models
 
             }
         }
+        public void ModifyReputation(string answerOrQuestion, int id, int reputation)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"Update users Set reputation = reputation + {reputation} from {answerOrQuestion} where users.userid = {answerOrQuestion}.userid and {answerOrQuestion}.{answerOrQuestion}_id = {id}", connection);
+
+                command.ExecuteNonQuery();
+
+
+            }
+        }
         public int InsertQuestion(string title, string message, string question_username)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
@@ -191,7 +203,7 @@ namespace CantCSharp.Models
                                             dataReader[2].ToString(),
                                             DateTime.Parse(dataReader[3].ToString()),
                                             dataReader[4].ToString(),
-                                            Convert.ToInt32(dataReader[5]);
+                                            Convert.ToInt32(dataReader[5]));
 
                     userList.Add(user);
                 }

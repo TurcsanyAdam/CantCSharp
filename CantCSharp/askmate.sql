@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS question_tag;
 DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS askmate_question_comment;
 DROP TABLE IF EXISTS askmate_answer_comment;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS question;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
 userID SERIAL PRIMARY KEY,
@@ -12,7 +12,7 @@ username TEXT NOT NULL,
 user_password TEXT NOT NULL,
 registration_time TIMESTAMP NOT NULL,
 email TEXT NOT NULL,
-reputatiton INT
+reputation INT
 );
 
 CREATE TABLE question(
@@ -66,11 +66,11 @@ tag_id INT REFERENCES tag(tag_id) ON DELETE CASCADE
 );
 
 
-INSERT INTO users(username, user_password, registration_time, email, reputatiton)
+INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('asdasd', 'valami123', '2020-03-22 14:55:01', 'iamking@gmail.com', 0);
-INSERT INTO users(username, user_password, registration_time, email, reputatiton)
+INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('xXxmilf_hunter69', 'milforgilf', '2019-02-12 10:53:44', 'mmmmlady13@citromail.hu', 0);
-INSERT INTO users(username, user_password, registration_time, email, reputatiton)
+INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('ninja the gamer', 'reportth1splayer', '2020-04-02 08:10:03', 'emayraitgamerz@promail.ro', 0);
 
 INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username,userID)
