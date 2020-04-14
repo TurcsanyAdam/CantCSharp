@@ -9,6 +9,8 @@ namespace CantCSharp.Models
     {
         List<QuestionModel> QuestionList { get; set; }
         List<QuestionModel> GetDataList(string queryString);
+        void InsertUser(string username, string password, string email);
+
         int InsertQuestion(string title, string message, string user);
         void InsertAnswer(string answer, string username, string imageSource, int id, string link);
         void InsertTag(string tag);

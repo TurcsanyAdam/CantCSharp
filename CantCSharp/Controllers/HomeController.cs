@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CantCSharp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CantCSharp.Controllers
 {
@@ -31,7 +32,6 @@ namespace CantCSharp.Controllers
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
             return View(questionListModel);
         }
-
         public IActionResult Privacy()
         {
             return View();
