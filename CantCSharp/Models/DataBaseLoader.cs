@@ -15,7 +15,23 @@ namespace CantCSharp.Models
         public static readonly string connectingString = $"Host={dbHost};Username={dbUser};Password={dbPass};Database={dbName}";
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
 
-       
+       public void InsertUser(string username, string email, string password)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO users(username, user_password, registration_time, email)" +
+                    $"VALUES ((@username), (@password), (@time), (@email))", connection);
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("password", password);
+                command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                command.Parameters.AddWithValue("email", email);
+
+                command.ExecuteNonQuery();
+
+
+            }
+        }
         public int InsertQuestion(string title, string message, string question_username)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))

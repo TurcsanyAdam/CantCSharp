@@ -14,12 +14,27 @@ namespace CantCSharp.Controllers
 {
     public class AccountController : Controller
     {
-        
+        private readonly IDataLoad _loader;
 
+        public AccountController(IDataLoad loader)
+        {
+            _loader = loader;
+        }
         public IActionResult Login()
         {
             return View();
           
+        }
+        public IActionResult RegistrationView()
+        {
+            return View();
+
+        }
+        public IActionResult RegistrationComplete([FromForm]string username, [FromForm]string email, [FromForm] string password)
+        {
+            _loader.InsertUser(username, email, Utility.Hash(password));
+            return View();
+
         }
 
         [HttpPost]
