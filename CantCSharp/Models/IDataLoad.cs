@@ -22,6 +22,7 @@ namespace CantCSharp.Models
         void DeleteDataRow(string querryString);
 
         void UpdateDataRow(string querryString);
+        List<User> GetUserList(string queryString);
         List<IAnswer> GetAnswerList(string queryString);
         List<Comment> GetCommentList(string queryString);
         void InsertAnswerComment(int answerID, string comment,string username);

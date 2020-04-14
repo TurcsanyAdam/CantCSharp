@@ -36,6 +36,11 @@ namespace CantCSharp.Controllers
         {
             return View();
         }
+        public IActionResult AllUsers()
+        {
+            List<User> usersList =  _loader.GetUserList("SELECT * FROM users");
+            return View(usersList);
+        }
 
         public IActionResult About()
         {

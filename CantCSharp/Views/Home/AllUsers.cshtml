@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CantCSharp.Models.User>
+
+@{
+    ViewData["Title"] = "AllUsers";
+}
+
+<h1>All Users</h1>
+
+<div class="list-group">
+    <ul class="w-100 p-2">
+        @foreach (var q in Model)
+        {
+            <li class="list-group-item list-group-item-action flex-column align-items-start text-center">
+                    <table>
+                        <tr>
+                            <td class="text-left" width="2%">#@q.UserId</td>
+                            <td class="text-left" width="20%">@q.UserName</td>
+                            <td width="10%">@q.Email</td>
+                        </tr>
+                    </table>
+            </li>
+        }
+    </ul>
+</div>
