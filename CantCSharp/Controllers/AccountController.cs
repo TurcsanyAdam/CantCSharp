@@ -66,7 +66,7 @@ namespace CantCSharp.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            return View("../Profile/Index", user);
+            return RedirectToAction("Index", "Profile");
         }
     }
 }
