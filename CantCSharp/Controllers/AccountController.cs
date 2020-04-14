@@ -25,7 +25,7 @@ namespace CantCSharp.Controllers
             return View();
           
         }
-        public IActionResult RegistrationView()
+        public IActionResult Registration()
         {
             return View();
 
