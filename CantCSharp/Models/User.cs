@@ -12,6 +12,7 @@ namespace CantCSharp.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public int Reputation { get; set; }
 
         public User(string username, string email, string password)
         {
@@ -19,13 +20,14 @@ namespace CantCSharp.Models
             Email = email;
             Password = password;
         }
-        public User(int userId, string username, string password, DateTime registationTime, string email )
+        public User(int userId, string username, string password, DateTime registationTime, string email ,int reputation)
         {
             UserId = userId;
             RegistrationTime = registationTime;
             UserName = username;
             Email = email;
             Password = password;
+            Reputation = reputation;
         }
     }
 }

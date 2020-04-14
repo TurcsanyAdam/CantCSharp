@@ -185,6 +185,7 @@ namespace CantCSharp.Controllers
         public void VoteUp(int answerID, int questionID)
         {
             _loader.UpdateDataRow($"UPDATE answer SET vote_number = vote_number + 1 WHERE answer_id = {answerID};");
+            _loader.ModifyReputation("answer", answerID, 10);
             Response.Redirect($"QuestionDetails/{questionID}");
 
         }
@@ -192,8 +193,8 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public void VoteDown(int answerID, int questionID)
         {
-            QuestionModel questionModel = _loader.GetDataList($"UPDATE answer SET vote_number = vote_number - 1 WHERE answer_id = {answerID}; SELECT * FROM question WHERE question_id = {questionID}")[0];
-
+            _loader.UpdateDataRow($"UPDATE answer SET vote_number = vote_number - 1 WHERE answer_id = {answerID};");
+            _loader.ModifyReputation("answer", answerID, - 2);
             Response.Redirect($"QuestionDetails/{questionID}");
 
         }
