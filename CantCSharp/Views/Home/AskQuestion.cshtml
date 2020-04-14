@@ -4,30 +4,30 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Ask a question...</h1>
+    <h1 class="display-4">Ask a question</h1>
 </div>
 
 <div>
-    <form method="post" action="/Home/NewQuestion">
-        <div class="input-group input-group-sm mb-3">
+    <form class="m-5" method="post" action="/Home/NewQuestion">
+        <div class="input-group input-group-sm m-3">
             <div class="input-group-prepend" for="username">
                 <span class="input-group-text">Username</span>
             </div>
             <input class="form-control" type="text" name="username" placeholder="Jacob Gypsum" required><br>
         </div>
-        <div class="input-group input-group-sm mb-3">
+        <div class="input-group input-group-sm m-3">
             <div class="input-group-prepend" for="title">
                 <span class="input-group-text">Question Title</span>
             </div>
             <input class="form-control" type="text" name="title" placeholder="What is programming?" required><br>
         </div>
-        <div class="input-group input-group-sm mb-3">
+        <div class="input-group input-group-sm m-3">
             <div class="input-group-prepend" for="message">
                 <span class="input-group-text">Description of the problem</span>
             </div>
             <textarea class="form-control" rows="1" type="text" name="message" placeholder="I really can't come up with a good summary of what it is. As you see on line 19..." required></textarea><br>
         </div>
-        <div class="input-group input-group-sm mb-3">
+        <div class="input-group input-group-sm m-3">
             <div class="input-group-prepend" for="tags">
                 <span class="input-group-text">Tag</span>
             </div>

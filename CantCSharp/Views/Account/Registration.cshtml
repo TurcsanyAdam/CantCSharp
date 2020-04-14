@@ -5,16 +5,36 @@
 
 <div class="text-center">
     <h1 class="display-4"> Registration </h1>
-    <form method="post" action="/Account/RegistrationComplete">
-        <label> Username</label>
-        <input type="text" name="username" required/>
-        <label> Email</label>
-        <input type="text" name="email" required/>
-        <label> Password</label>
-        <input type="password" name="password" required/>
-        <label> Password Again</label>
-        <input type="password" name="passwordAgain" required/>
-        <button>Submit</button>
+</div>
+
+<div>
+    <form class="m-5" method="post" action="/Account/RegistrationComplete">
+        <div class="input-group input-group-sm m-3">
+            <div class="input-group-prepend" for="username">
+                <span class="input-group-text">Username</span>
+            </div>
+            <input class="form-control" type="text" name="username" placeholder="gypsjacob" required><br>
+        </div>
+        <div class="input-group input-group-sm m-3">
+            <div class="input-group-prepend" for="email">
+                <span class="input-group-text">E-mail</span>
+            </div>
+            <input class="form-control" type="text" name="email" placeholder="samusaran@mailprovider.hu" required><br>
+        </div>
+        <div class="input-group input-group-sm m-3">
+            <div class="input-group-prepend" for="passwordA">
+                <span class="input-group-text">Password</span>
+            </div>
+            <input class="form-control" type="text" name="passwordA" required><br>
+        </div>
+        <div class="input-group input-group-sm m-3">
+            <div class="input-group-prepend" for="passwordB">
+                <span class="input-group-text">Repeat password</span>
+            </div>
+            <input class="form-control" type="text" name="passwordB" required><br>
+        </div>
+
+        <button class="btn-primary">Submit</button>
     </form>
 
 </div>
