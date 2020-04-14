@@ -19,11 +19,13 @@ namespace CantCSharp.Models
         public List<Tag> TagList { get; set; }
         public  bool Answered { get; private set; }
         public bool IsClosed { get; private set; }
+
         public List<Comment> QuestionComments { get; set; }
+        public int UserID { get; set; }
 
 
         public QuestionModel(int questionid, DateTime date, int viewNum,
-            string questionTitle, string questionMessage, string user)
+            string questionTitle, string questionMessage, string user, int userID)
         {
             VoteNumber = 0;
             ViewNumber = viewNum;
@@ -37,10 +39,11 @@ namespace CantCSharp.Models
             Answered = false;
             IsClosed = false;
             QuestionComments = new List<Comment>();
+            UserID = userID;
         }
 
 
-        public QuestionModel(string user, int questionid, string postTime, int viewNumber, int voteNumber, string questionTitle, string questionMessage, bool answered, bool isClosed)
+        public QuestionModel(string user, int questionid, string postTime, int viewNumber, int voteNumber, string questionTitle, string questionMessage, bool answered, bool isClosed,int userID)
         {
 
             ViewNumber = viewNumber;
@@ -55,6 +58,7 @@ namespace CantCSharp.Models
             Answered = answered;
             IsClosed = isClosed;
             QuestionComments = new List<Comment>();
+            UserID = userID;
         }
 
         public void AddAnswer(IAnswer answer)

@@ -14,8 +14,10 @@ namespace CantCSharp.Models
         public int Id { get; private set; }
         public int AnswerOrQuestionID { get; private set; }
 
+        public int UserID { get; set; }
 
-        public Comment(string message,DateTime submissionTime,int editedNumber,string user,int id,int answerOrQuestionID)
+
+        public Comment(string message,DateTime submissionTime,int editedNumber,string user,int id,int answerOrQuestionID, int userID)
         {
             Message = message;
             SubmissionTime = submissionTime;
@@ -23,6 +25,7 @@ namespace CantCSharp.Models
             User = user;
             Id = id;
             AnswerOrQuestionID = answerOrQuestionID;
+            UserID = userID;
         }
     }
 }

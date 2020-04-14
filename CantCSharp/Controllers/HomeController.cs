@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CantCSharp.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CantCSharp.Controllers
 {
@@ -80,7 +81,7 @@ namespace CantCSharp.Controllers
 
         [HttpPost]
         public IActionResult NewQuestion([FromForm(Name = "title")] string title, [FromForm(Name = "message")] string message, 
-               [FromForm(Name = "username")] string user, [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
+               [FromForm(Name = "username")] string username, [FromForm(Name = "tag[]")] string[] tags, [FromForm(Name = "newTag")] string newTag)
         {
             string[] newTags = new string[0];
             if (newTag != null )
@@ -96,7 +97,12 @@ namespace CantCSharp.Controllers
 
             string[] combinedTags = tags.Concat(newTags).ToArray();
 
-            int questionID = _loader.InsertQuestion(title, message, user);
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
+
+            int questionID = _loader.InsertQuestion(title, message, username,searchedUser.UserId);
             foreach(string tag in combinedTags)
             {
                 int tagID = _loader.ReturnTagID(tag);
@@ -111,13 +117,19 @@ namespace CantCSharp.Controllers
         public void NewAnswer([FromForm(Name = "answer")] string answer, [FromForm(Name = "username")] string username,[FromForm(Name ="Image")] string imagesource,
            int id, [FromForm(Name = "Link")]string link)
         {
-            if(imagesource != null)
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
+
+
+            if (imagesource != null)
             {
-                _loader.InsertAnswer(answer, username, imagesource, id, link);
+                _loader.InsertAnswer(answer, username, imagesource, id, link, searchedUser.UserId);
             }
             else
             {
-                _loader.InsertAnswer(answer, username, "", id, link);
+                _loader.InsertAnswer(answer, username, "", id, link, searchedUser.UserId);
 
             }
 
@@ -279,7 +291,12 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult PostTheQuestionComment(int NewCommentedQuestionID, [FromForm(Name = "username")] string username, [FromForm(Name = "comment")] string comment)
         {
-            _loader.InsertQuestionComment(NewCommentedQuestionID,comment,username);
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
+
+            _loader.InsertQuestionComment(NewCommentedQuestionID,comment,username, searchedUser.UserId);
             QuestionModel questionListModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
             return View("AllComments", questionListModel);
         }
@@ -287,7 +304,12 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult PostTheAnswerComment(int NewCommentedAnswerID,int necessaryQuestionID, [FromForm(Name = "username")] string username, [FromForm(Name = "comment")] string comment)
         {
-            _loader.InsertAnswerComment(NewCommentedAnswerID,comment,username);
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
+
+            _loader.InsertAnswerComment(NewCommentedAnswerID,comment,username, searchedUser.UserId);
             IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer WHERE question_id = {Convert.ToString(necessaryQuestionID)} and answer_id = {Convert.ToString(NewCommentedAnswerID)} ")[0];
             return View("AllAnswerComments", answer);
         }

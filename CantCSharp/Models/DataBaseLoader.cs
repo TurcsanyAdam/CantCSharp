@@ -47,17 +47,18 @@ namespace CantCSharp.Models
 
             }
         }
-        public int InsertQuestion(string title, string message, string question_username)
+        public int InsertQuestion(string title, string message, string question_username, int userID)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username)" +
-                    $"VALUES ((@time), 0, 0, (@title), (@message), null, (@question_username)) RETURNING question_id", connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username, userid)" +
+                    $"VALUES ((@time), 0, 0, (@title), (@message), null, (@question_username), (@userID)) RETURNING question_id", connection);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("title", title);
                 command.Parameters.AddWithValue("message", message);
                 command.Parameters.AddWithValue("question_username", question_username);
+                command.Parameters.AddWithValue("userID", userID);
                 int question_ID = Convert.ToInt32(command.ExecuteScalar());
 
                 return question_ID;
@@ -65,18 +66,19 @@ namespace CantCSharp.Models
             }
         }
 
-        public void InsertAnswer(string answer, string answer_username, string imageSource,int id, string link)
+        public void InsertAnswer(string answer, string answer_username, string imageSource,int id, string link, int UserID)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image, answer_username)" +
-                    $"VALUES ((@time), 0, (@id), (@answer), (@answer_image), (@answer_username))", connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image, answer_username,userid)" +
+                    $"VALUES ((@time), 0, (@id), (@answer), (@answer_image), (@answer_username),(@UserID))", connection);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("id", id);
                 command.Parameters.AddWithValue("answer", answer);
                 command.Parameters.AddWithValue("answer_image", imageSource);
                 command.Parameters.AddWithValue("answer_username", answer_username);
+                command.Parameters.AddWithValue("UserID", UserID);
                 command.ExecuteNonQuery();
             }
         }
@@ -91,32 +93,34 @@ namespace CantCSharp.Models
                 command.ExecuteNonQuery();
             }
         }
-        public void InsertQuestionComment(int questionID,string comment,string username)
+        public void InsertQuestionComment(int questionID,string comment,string username, int UserID)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_question_comment(question_id,comment_message,submission_time,edited_number,comment_username)" +
-                    $"VALUES ((@id),(@comment),(@time),0,(@username))",connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_question_comment(question_id,comment_message,submission_time,edited_number,comment_username,userid)" +
+                    $"VALUES ((@id),(@comment),(@time),0,(@username), (@UserID))",connection);
                 command.Parameters.AddWithValue("id", questionID);
                 command.Parameters.AddWithValue("comment", comment);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("UserID", UserID);
                 command.ExecuteNonQuery();
 
             }
         }
-        public void InsertAnswerComment(int answerID, string comment, string username)
+        public void InsertAnswerComment(int answerID, string comment, string username, int UserID)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_answer_comment(answer_id,comment_message,submission_time,edited_number,comment_username)" +
-                    $"VALUES ((@id),(@comment),(@time),0,(@username))", connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO askmate_answer_comment(answer_id,comment_message,submission_time,edited_number,comment_username,userid)" +
+                    $"VALUES ((@id),(@comment),(@time),0,(@username), (@UserID))", connection);
                 command.Parameters.AddWithValue("id", answerID);
                 command.Parameters.AddWithValue("comment", comment);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("UserID", UserID);
                 command.ExecuteNonQuery();
 
             }
@@ -148,6 +152,7 @@ namespace CantCSharp.Models
             }
             return 0;
         }
+      
 
         public List<Tag> GetTagsList(string queryString)
         {
@@ -214,7 +219,8 @@ namespace CantCSharp.Models
                                                        viewNum:Convert.ToInt32(dataReader[2]),
                                                        questionTitle:dataReader[4].ToString(),
                                                        questionMessage:dataReader[5].ToString(),
-                                                       user: dataReader[7].ToString());
+                                                       user: dataReader[7].ToString(),
+                                                       userID: Convert.ToInt32(dataReader[8]));
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
                     question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
                     question.TagList = GetTagsList($"SELECT * FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id WHERE question_id = {question.QuestionID} ");
@@ -248,7 +254,8 @@ namespace CantCSharp.Models
                                                        dataReader[4].ToString(),
                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/American_Broadcasting_Company_Logo.svg/1200px-American_Broadcasting_Company_Logo.svg.png",
                                                        "www.google.com",
-                                                       false);
+                                                       false,
+                                                       Convert.ToInt32(dataReader[7]));
 
                    answer.AnswerComments = GetCommentList($"SELECT * FROM askmate_answer_comment WHERE answer_id = {answer.Id} ");
                    AnswerList.Add(answer);
@@ -275,7 +282,8 @@ namespace CantCSharp.Models
                                                        Convert.ToInt32(dataReader[4]),
                                                        dataReader[5].ToString(),
                                                        Convert.ToInt32(dataReader[0]),
-                                                       Convert.ToInt32(dataReader[1])));
+                                                       Convert.ToInt32(dataReader[1]),
+                                                       Convert.ToInt32(dataReader[6])));
                  
                 }
             }

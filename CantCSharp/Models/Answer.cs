@@ -17,8 +17,9 @@ namespace CantCSharp.Models
         public string[] Link { get; set; }
         public bool IsSolution { get; set; }
         public List<Comment> AnswerComments { get; set; }
+        public int UserID { get; set; }
 
-        public Answer(int id,string user, string theAnswer,string imageSource, int QuesitonId )
+        public Answer(int id,string user, string theAnswer,string imageSource, int QuesitonId, int userID)
         {
             this.User = user;
             this.QuestionID = QuesitonId;
@@ -28,8 +29,9 @@ namespace CantCSharp.Models
             PostTime = DateTime.Now;
             ImageSource = imageSource;
             AnswerComments = new List<Comment>();
+            UserID = userID;
         }
-        public Answer(string user, int id, DateTime postTime, int voteNumber, int questionID, string theAnswer, string imageSource, string link, bool isSolution)
+        public Answer(string user, int id, DateTime postTime, int voteNumber, int questionID, string theAnswer, string imageSource, string link, bool isSolution, int userID)
         {
             User = user;
             Id = id;
@@ -41,6 +43,7 @@ namespace CantCSharp.Models
             Link = new string[] { link }; 
             IsSolution = isSolution;
             AnswerComments = new List<Comment>();
+            UserID = userID;
         }
     
 
