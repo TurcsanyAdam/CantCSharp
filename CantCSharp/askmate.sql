@@ -74,6 +74,9 @@ INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('xXxmilf_hunter69', 'milforgilf', '2019-02-12 10:53:44', 'mmmmlady13@citromail.hu', 0);
 INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('ninja the gamer', 'reportth1splayer', '2020-04-02 08:10:03', 'emayraitgamerz@promail.ro', 0);
+INSERT INTO users(username, user_password, registration_time, email, reputation)
+VALUES ('test', 'test', '2020-04-02 08:10:03', 'test@test.ts', 0);
+
 
 INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username,userID,IsAnswered)
 VALUES ('2020-03-22 13:32:02', 12, 0, 'What is c#?', 'I see it is simiral to Java but to what extent?', null, 'asdasd',1, false);
