@@ -23,13 +23,14 @@ namespace CantCSharp.Controllers
 
         public IActionResult ProfileDetails()
         {
-            User user;
-            var username = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
-            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE username = '{username}'")[0];
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
 
-            user = new User(searchedUser.UserName, searchedUser.Email, searchedUser.Password);
+            
 
-            return View(user);
+            return View(searchedUser);
         }
     }
 }

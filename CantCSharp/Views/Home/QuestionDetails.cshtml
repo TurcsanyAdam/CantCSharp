@@ -133,11 +133,17 @@
                             <button>Edit</button>
                         </form>
                     </td>
+                }
+                @if (Model.QuestionModel.UserID == Model.User.UserId)
+                {
                     <td width="5%">
                         <form action="@Url.Action("MarkAsSolution", "Home", new { answerID = answer.Id, questionId = Model.QuestionModel.QuestionID })" method="post">
                             <button>Solution</button>
                         </form>
                     </td>
+                }
+                @if (answer.UserID == Model.User.UserId)
+                {
                     <td width="5%">
                         <form action="@Url.Action("DeleteAnswer", "Home", new { answerID = answer.Id, questionId = Model.QuestionModel.QuestionID })" method="post">
                             <button>Delete</button>
