@@ -31,7 +31,7 @@ namespace CantCSharp.Models
             AnswerComments = new List<Comment>();
             UserID = userID;
         }
-        public Answer(string user, int id, DateTime postTime, int voteNumber, int questionID, string theAnswer, string imageSource, string link, bool isSolution, int userID)
+        public Answer(string user, int id, DateTime postTime, int voteNumber, int questionID, string theAnswer, string imageSource, string link, int userID, bool isSolution)
         {
             User = user;
             Id = id;

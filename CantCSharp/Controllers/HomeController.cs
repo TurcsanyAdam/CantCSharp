@@ -137,6 +137,15 @@ namespace CantCSharp.Controllers
 
             Response.Redirect($"https://localhost:5001/Home/QuestionDetails/{id}");
         }
+        public void MarkAsSolution(int answerID, int questionID)
+        {
+            IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer Where answer_id = {Convert.ToString(answerID)} and question_id = {Convert.ToString(questionID)} ")[0];
+            answer.MarkAsSolution();
+            _loader.UpdateDataRow($"UPDATE question SET isanswered = true WHERE question_id = {questionID};");
+            _loader.ModifyReputation("answer", answerID, 15);
+            Response.Redirect($"QuestionDetails/{questionID}");
+
+        }
 
         [HttpPost]
         public void DeleteAnswer(int answerID, int questionID)

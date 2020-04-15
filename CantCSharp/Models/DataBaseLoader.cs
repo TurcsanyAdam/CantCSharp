@@ -234,7 +234,8 @@ namespace CantCSharp.Models
                                                        questionTitle:dataReader[4].ToString(),
                                                        questionMessage:dataReader[5].ToString(),
                                                        user: dataReader[7].ToString(),
-                                                       userID: Convert.ToInt32(dataReader[8]));
+                                                       userID: Convert.ToInt32(dataReader[8]),
+                                                       isAnswered: Convert.ToBoolean(dataReader[9]));
                     question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} ORDER BY vote_number DESC");
                     question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
                     question.TagList = GetTagsList($"SELECT * FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id WHERE question_id = {question.QuestionID} ");
@@ -268,8 +269,8 @@ namespace CantCSharp.Models
                                                        dataReader[4].ToString(),
                                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/American_Broadcasting_Company_Logo.svg/1200px-American_Broadcasting_Company_Logo.svg.png",
                                                        "www.google.com",
-                                                       false,
-                                                       Convert.ToInt32(dataReader[7]));
+                                                       Convert.ToInt32(dataReader[7]),
+                                                       Convert.ToBoolean(dataReader[8]));
 
                    answer.AnswerComments = GetCommentList($"SELECT * FROM askmate_answer_comment WHERE answer_id = {answer.Id} ");
                    AnswerList.Add(answer);
