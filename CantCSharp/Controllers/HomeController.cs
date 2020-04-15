@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 namespace CantCSharp.Controllers
-{
+{   [Authorize]
     public class HomeController : Controller
     {
         
@@ -22,7 +22,7 @@ namespace CantCSharp.Controllers
             _loader = loader;
             
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(ListLastFiveQuestions());
@@ -33,26 +33,29 @@ namespace CantCSharp.Controllers
             List<QuestionModel> questionListModel = _loader.GetDataList("SELECT * FROM question;");
             return View(questionListModel);
         }
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult AllUsers()
         {
             List<User> usersList =  _loader.GetUserList("SELECT * FROM users");
             return View(usersList);
         }
-
+        [AllowAnonymous]
         public IActionResult About()
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult Tags()
         {
             List<Tag> tagList = _loader.GetTagsList("SELECT tag.tag_id,tag.tag_name,COUNT(question_tag.tag_id) FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id GROUP BY(tag.tag_id, tag.tag_name) ORDER BY(tag.tag_id,tag.tag_name)");
             return View(tagList);
         }
-
+        
         [HttpGet]
         public IActionResult QuestionDetails(int id)
         {
@@ -198,32 +201,32 @@ namespace CantCSharp.Controllers
             Response.Redirect($"QuestionDetails/{questionID}");
 
         }
-
+        [AllowAnonymous]
         public IActionResult SortByTitle()
         {
             List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY question_title ASC;");
             return View("AllQuestions", questionModelList);
         }
-
+        [AllowAnonymous]
         public IActionResult SortByVotes()
         {
             List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY vote_number DESC;");
             return View("AllQuestions", questionModelList);
         }
-
+        [AllowAnonymous]
         public IActionResult SortByDate()
         {
             List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY submission_time DESC;");
             return View("AllQuestions", questionModelList);
         }
-
+        [AllowAnonymous]
         public IActionResult SortByViews()
         {
             List<QuestionModel> questionModelList = _loader.GetDataList("SELECT * FROM question ORDER BY view_number DESC;");
             return View("AllQuestions", questionModelList);
         }
 
-        
+        [AllowAnonymous]
         public IActionResult SortByAnswersCount()
         {
             var questionModel = _loader.GetDataList("Select question.question_id, question.submission_time, view_number, question.vote_number, question_title, question_message, question_image from question left join answer on question.question_id = answer.question_id " +
@@ -232,7 +235,7 @@ namespace CantCSharp.Controllers
             
             return View("AllQuestions", questionModel);
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Search(string searchPattern)
         {
@@ -262,13 +265,14 @@ namespace CantCSharp.Controllers
 
             return View("SearchResult", searchDataModel);
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult AllQuestionComment(int QuestionCommentID)
         {
             QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
             return View("AllComments", questionModel);
         }
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult AllAnswerComment(int allCommentAnswerID, int allCommentQuestionId)
         {
