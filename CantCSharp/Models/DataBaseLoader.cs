@@ -60,18 +60,19 @@ namespace CantCSharp.Models
 
             }
         }
-        public int InsertQuestion(string title, string message, string question_username,int userID)
+        public int InsertQuestion(string title, string message, string question_username,int userID,bool IsAnswered)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username, userid)" +
-                    $"VALUES ((@time), 0, 0, (@title), (@message), null, (@question_username), (@userID)) RETURNING question_id", connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username, userid,IsAnswered)" +
+                    $"VALUES ((@time), 0, 0, (@title), (@message), null, (@question_username), (@userID),(@IsAnswered)) RETURNING question_id", connection);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("title", title);
                 command.Parameters.AddWithValue("message", message);
                 command.Parameters.AddWithValue("question_username", question_username);
                 command.Parameters.AddWithValue("userID", userID);
+                command.Parameters.AddWithValue("IsAnswered", IsAnswered);
                 int question_ID = Convert.ToInt32(command.ExecuteScalar());
 
                 return question_ID;
@@ -79,19 +80,20 @@ namespace CantCSharp.Models
             }
         }
 
-        public void InsertAnswer(string answer, string answer_username, string imageSource,int id, string link, int UserID)
+        public void InsertAnswer(string answer, string answer_username, string imageSource,int id, string link, int UserID, bool IsSolution)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image, answer_username,userid)" +
-                    $"VALUES ((@time), 0, (@id), (@answer), (@answer_image), (@answer_username),(@UserID))", connection);
+                NpgsqlCommand command = new NpgsqlCommand($"INSERT INTO answer(submission_time, vote_number, question_id, answer_message, answer_image, answer_username,userid,IsSolution)" +
+                    $"VALUES ((@time), 0, (@id), (@answer), (@answer_image), (@answer_username),(@UserID),(@IsSolution))", connection);
                 command.Parameters.AddWithValue("time", Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
                 command.Parameters.AddWithValue("id", id);
                 command.Parameters.AddWithValue("answer", answer);
                 command.Parameters.AddWithValue("answer_image", imageSource);
                 command.Parameters.AddWithValue("answer_username", answer_username);
                 command.Parameters.AddWithValue("UserID", UserID);
+                command.Parameters.AddWithValue("IsSolution", IsSolution);
                 command.ExecuteNonQuery();
             }
         }

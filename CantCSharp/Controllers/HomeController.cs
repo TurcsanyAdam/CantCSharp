@@ -105,7 +105,7 @@ namespace CantCSharp.Controllers
             var email = claim.Value;
             User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
 
-            int questionID = _loader.InsertQuestion(title, message, searchedUser.UserName, searchedUser.UserId);
+            int questionID = _loader.InsertQuestion(title, message, searchedUser.UserName, searchedUser.UserId,false);
             foreach(string tag in combinedTags)
             {
                 int tagID = _loader.ReturnTagID(tag);
@@ -128,11 +128,11 @@ namespace CantCSharp.Controllers
 
             if (imagesource != null)
             {
-                _loader.InsertAnswer(answer, searchedUser.UserName, imagesource, id, link, searchedUser.UserId);
+                _loader.InsertAnswer(answer, searchedUser.UserName, imagesource, id, link, searchedUser.UserId,false);
             }
             else
             {
-                _loader.InsertAnswer(answer, searchedUser.UserName, "", id, link, searchedUser.UserId);
+                _loader.InsertAnswer(answer, searchedUser.UserName, "", id, link, searchedUser.UserId,false);
 
             }
 

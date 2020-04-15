@@ -13,8 +13,8 @@ namespace CantCSharp.Models
         void InsertUser(string username, string password, string email);
         void ModifyReputation(string answerOrQuestion,int id, int reputation);
 
-        int InsertQuestion(string title, string message, string user, int UserID);
-        void InsertAnswer(string answer, string username, string imageSource, int id, string link, int UserID);
+        int InsertQuestion(string title, string message, string user, int UserID,bool IsAnswered);
+        void InsertAnswer(string answer, string username, string imageSource, int id, string link, int UserID,bool IsSolution);
         void InsertTag(string tag);
         void InsertQuestionTagRelation(int question_ID, int tag_ID);
         int ReturnTagID(string tag_name);
