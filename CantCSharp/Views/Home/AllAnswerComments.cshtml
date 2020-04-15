@@ -1,4 +1,4 @@
-﻿@model CantCSharp.Models.Answer
+﻿@model CantCSharp.Models.LoggedUserIdentytyandModel
 @{
     ViewData["Title"] = "AllAnswerComments";
 }
@@ -8,9 +8,9 @@
     <h1 class="display-4">Comments to the answer</h1>
 </div>
 <div class="list-group m-5">
-    @if (Model.AnswerComments.Count() > 0)
+    @if (Model.Answer.AnswerComments.Count() > 0)
     {
-        @foreach (Comment comment in Model.AnswerComments)
+        @foreach (Comment comment in Model.Answer.AnswerComments)
         {
             <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
                 <tr>
@@ -18,17 +18,21 @@
 
                     <td width="40%">Posted on: @comment.SubmissionTime</td>
                     <td width="15%">Edited before: @comment.EditedNumber times</td>
-                    <td width="5%">
-                        <form action="@Url.Action("EditAnswerComment", "Home", new { editCommentID = comment.Id ,GivenAnswerId = comment.AnswerOrQuestionID} )" method="post">
-                            <button>Edit</button>
-                        </form>
-                    </td>
-                    <td width="5%">
-                        <form action="@Url.Action("DeleteAnswerComment", "Home", new { deleteCommentID = comment.Id ,GivenAnswerId = comment.AnswerOrQuestionID} )" method="post">
-                            <button>Delete</button>
-                        </form>
+                    @if (comment.UserID == Model.User.UserId)
+                    {
+                        <td width="5%">
+                            <form action="@Url.Action("EditAnswerComment", "Home", new { editCommentID = comment.Id, GivenAnswerId = comment.AnswerOrQuestionID })" method="post">
+                                <button>Edit</button>
+                            </form>
+                        </td>
+                        <td width="5%">
+                            <form action="@Url.Action("DeleteAnswerComment", "Home", new { deleteCommentID = comment.Id, GivenAnswerId = comment.AnswerOrQuestionID })" method="post">
+                                <button>Delete</button>
+                            </form>
 
-                    </td>
+                        </td>
+                    }
+                </tr>
 
             </table>
             <table class="list-group-item list-group-item-action flex-column align-items-start">

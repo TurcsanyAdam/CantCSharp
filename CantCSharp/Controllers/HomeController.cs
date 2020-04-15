@@ -59,9 +59,15 @@ namespace CantCSharp.Controllers
         [HttpGet]
         public IActionResult QuestionDetails(int id)
         {
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
             QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {id};")[0];
             questionModel.ViewNumber++;
-            return View(questionModel);
+            LoggedUserIdentytyandModel model = new LoggedUserIdentytyandModel(searchedUser, questionModel);
+
+            return View(model);
         }
 
         [HttpPost]
@@ -277,15 +283,25 @@ namespace CantCSharp.Controllers
         [HttpPost]
         public IActionResult AllQuestionComment(int QuestionCommentID)
         {
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
             QuestionModel questionModel = _loader.GetDataList($"Select * from question WHERE question_id = {Convert.ToString(QuestionCommentID)}")[0];
-            return View("AllComments", questionModel);
+            LoggedUserIdentytyandModel model = new LoggedUserIdentytyandModel(searchedUser, questionModel);
+            return View("AllComments", model);
         }
         [AllowAnonymous]
         [HttpPost]
         public IActionResult AllAnswerComment(int allCommentAnswerID, int allCommentQuestionId)
         {
+            var user = HttpContext.User;
+            var claim = user.Claims.First(c => c.Type == ClaimTypes.Email);
+            var email = claim.Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
             IAnswer answer = _loader.GetAnswerList($"Select * from answer WHERE question_id = {Convert.ToString(allCommentQuestionId)} and answer_id = {Convert.ToString(allCommentAnswerID)}")[0];
-            return View("AllAnswerComments", answer);
+            LoggedUserIdentytyandModel model = new LoggedUserIdentytyandModel(searchedUser, answer);
+            return View("AllAnswerComments", model);
         }
 
         [HttpPost]
@@ -310,8 +326,9 @@ namespace CantCSharp.Controllers
             User searchedUser = _loader.GetUserList($"Select * FROM users WHERE email = '{email}'")[0];
 
             _loader.InsertQuestionComment(NewCommentedQuestionID,comment, searchedUser.UserName, searchedUser.UserId);
-            QuestionModel questionListModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
-            return View("AllComments", questionListModel);
+            QuestionModel questionModel = _loader.GetDataList($"SELECT * FROM question WHERE question_id = {Convert.ToString(NewCommentedQuestionID)}")[0];
+            LoggedUserIdentytyandModel model = new LoggedUserIdentytyandModel(searchedUser, questionModel);
+            return View("AllComments", model);
         }
 
         [HttpPost]
@@ -324,7 +341,8 @@ namespace CantCSharp.Controllers
 
             _loader.InsertAnswerComment(NewCommentedAnswerID,comment, searchedUser.UserName, searchedUser.UserId);
             IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer WHERE question_id = {Convert.ToString(necessaryQuestionID)} and answer_id = {Convert.ToString(NewCommentedAnswerID)} ")[0];
-            return View("AllAnswerComments", answer);
+            LoggedUserIdentytyandModel model = new LoggedUserIdentytyandModel(searchedUser, answer);
+            return View("AllAnswerComments", model);
         }
 
         [HttpPost]

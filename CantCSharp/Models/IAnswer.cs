@@ -9,6 +9,7 @@ namespace CantCSharp.Models
     {
         int VoteNumber { get; set; }
         int QuestionID { get; set; }
+        List<Comment> AnswerComments { get; set; }
 
         void MarkAsSolution();
     }
