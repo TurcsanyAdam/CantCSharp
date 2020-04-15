@@ -25,7 +25,7 @@ namespace CantCSharp.Models
 
 
         public QuestionModel(int questionid, DateTime date, int viewNum,
-            string questionTitle, string questionMessage, string user, int userID)
+            string questionTitle, string questionMessage, string user, int userID, bool isAnswered)
         {
             VoteNumber = 0;
             ViewNumber = viewNum;
@@ -36,7 +36,7 @@ namespace CantCSharp.Models
             AnswerList = new List<IAnswer>();
             TagList = new List<Tag>();
             PostTime = date;
-            Answered = false;
+            Answered = isAnswered;
             IsClosed = false;
             QuestionComments = new List<Comment>();
             UserID = userID;
