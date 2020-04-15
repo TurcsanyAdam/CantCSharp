@@ -142,8 +142,7 @@ namespace CantCSharp.Controllers
         }
         public void MarkAsSolution(int answerID, int questionID)
         {
-            IAnswer answer = _loader.GetAnswerList($"SELECT * FROM answer Where answer_id = {Convert.ToString(answerID)} and question_id = {Convert.ToString(questionID)} ")[0];
-            answer.MarkAsSolution();
+            _loader.UpdateDataRow($"UPDATE answer SET issolution = true WHERE answer_id = {answerID};");
             _loader.UpdateDataRow($"UPDATE question SET isanswered = true WHERE question_id = {questionID};");
             _loader.ModifyReputation("answer", answerID, 15);
             Response.Redirect($"QuestionDetails/{questionID}");

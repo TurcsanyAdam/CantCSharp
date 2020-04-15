@@ -21,7 +21,7 @@
 
             @if (Model.Answered)
             {
-                <td align="left" width="3%" class="badge-info rounded">Solution</td>
+                <td align="left" width="3%" class="badge-info rounded">Answered</td>
             }
             else
             {
@@ -101,8 +101,11 @@
     {
         <table class="list-group-item list-group-item-action flex-column align-items-start box-shadow">
             <tr>
+                @if (answer.IsSolution)
+                {
+                    <td align="left" width="3%" class="badge-info rounded">Solution</td>
+                }
                 <td width="2%">#@answer.Id</td>
-
                 <td width="40%">Posted on: @answer.PostTime</td>
                 <td width="10%">Upvotes: @answer.VoteNumber</td>
                 <td width="15%">
