@@ -42,7 +42,7 @@ namespace CantCSharp.Controllers
         public async Task<ActionResult> LoginAsync([FromForm]string email, [FromForm] string password)
         {
 
-            User user = new User("cigányember",email, password);
+            User user = new User("Test Username",email, password);
             //here comes the Loginformation storing sql querry;
             var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
 
@@ -78,7 +78,7 @@ namespace CantCSharp.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            return View("../Profile/Index", user);
+            return RedirectToAction("ProfileDetails", "Profile");
         }
     }
 
