@@ -21,11 +21,15 @@ namespace CantCSharp.Controllers
             _loader = loader;
         }
 
-        public IActionResult Index()
+        public IActionResult ProfileDetails()
         {
-            return View();
-        }
+            User user;
+            var username = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            User searchedUser = _loader.GetUserList($"Select * FROM users WHERE username = '{username}'")[0];
 
-        
+            user = new User(searchedUser.UserName, searchedUser.Email, searchedUser.Password);
+
+            return View(user);
+        }
     }
 }
