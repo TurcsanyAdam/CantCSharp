@@ -1,13 +1,97 @@
-﻿@model CantCSharp.Models.User
+﻿@model CantCSharp.Models.ProfileDetailsModel
 @{
     ViewData["Title"] = "Profile Details";
 }
 
-    <h1>Welcome @Model.UserName</h1>
-<div class="text-center">
-    <h1 class="display-4"> Profile </h1>
-    <h2>@Model.Email</h2>
-    <h2></h2>
 
+<div class="text-center">
+    <h1 class="display-4">Welcome, @Model.User.UserName</h1>
 </div>
 
+<div class="text-left m-5">
+    <table class="w-50 bg-light">
+        <tr>
+            <td class="font-weight-bold">Id</td>
+            <td>@Model.User.UserId</td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">E-mail</td>
+            <td>@Model.User.Email</td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Registration Date</td>
+            <td>@Model.User.RegistrationTime</td>
+        </tr>
+        <tr>
+            <td class="font-weight-bold">Reputation</td>
+            <td>@Model.User.Reputation</td>
+        </tr>
+    </table>
+</div>
+
+@if (Model.QuestionsList.Count() == 0)
+{
+    <p class="h6 text-center">You did not post any Questions or Answers yet!</p>
+}
+else
+{
+    <p class="h6 text-center m-5">Here are your Question(s) and Answer(s) so far.</p>
+    <div class="list-group">
+        <ul class="w-100 p-2">
+            <li class="list-group-item flex-column align-items-start border-0 font-weight-bold text-center">
+                <table>
+                    <tr>
+                        <td class="text-left" width="2%">ID</td>
+                        <td class="text-left" width="15%">Title</td>
+                        <td width="25%">Description</td>
+                        <td width="5%">Upvotes</td>
+                        <td align="right" width="4%"></td>
+                    </tr>
+                </table>
+            </li>
+            @foreach (var result in Model.QuestionsList)
+            {
+                <li class="list-group-item list-group-item-action flex-column align-items-start text-left">
+                    <a href="@Url.Action("QuestionDetails", "Home", new { id = result.QuestionID })" class="list-group-item-action flex-column align-items-start">
+                        <table>
+                            <tr>
+                                <td width="2%">#@result.QuestionID</td>
+                                <td width="15%">@result.QuestionTitle</td>
+                                <td width="25%">@result.QuestionMessage</td>
+                                <td class="text-center" width="5%">@result.VoteNumber</td>
+                                @if (result.Answered)
+                                {
+                                    <td align="right" width="3%" class="badge-info rounded">Solution</td>
+                                }
+                                else
+                                {
+                                    <td align="right" width="3%" class="badge-danger rounded">Problem</td>
+                                }
+                            </tr>
+                        </table>
+                    </a>
+                </li>
+
+                @if (result.AnswerList.Count != 0)
+                {
+                    <li class="list-group-item flex-column text-center border-left-0 border-right-0 bg-light w-75 mr-0 ml-auto">
+                        Answer(s) by you
+                    </li>
+                }
+
+                foreach (Answer answer in result.AnswerList)
+                {
+                    <li class="list-group-item flex-column text-xl-center border-left-0 border-right-0 bg-light w-75 mr-0 ml-auto">
+                        <table>
+                            <tr>
+                                <td width="15%">@answer.User</td>
+                                <td width="70%">@answer.AnswerMessage</td>
+                                <td width="15%">@answer.PostTime</td>
+                            </tr>
+                        </table>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+}
