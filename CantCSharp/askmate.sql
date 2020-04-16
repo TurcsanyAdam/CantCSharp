@@ -67,13 +67,16 @@ question_id INT REFERENCES question(question_id) ON DELETE CASCADE,
 tag_id INT REFERENCES tag(tag_id) ON DELETE CASCADE
 );
 
-
+--valami123;
 INSERT INTO users(username, user_password, registration_time, email, reputation)
-VALUES ('asdasd', 'valami123', '2020-03-22 14:55:01', 'iamking@gmail.com', 0);
+VALUES ('asdasd', '4fec1c7f3c269734399879fa9ee2eb5fef2558feb49e32196b84e9c6ffc8ef2e', '2020-03-22 14:55:01', 'iamking@gmail.com', 0);
+-- milforgilf;
 INSERT INTO users(username, user_password, registration_time, email, reputation)
-VALUES ('xXxmilf_hunter69', 'milforgilf', '2019-02-12 10:53:44', 'mmmmlady13@citromail.hu', 0);
+VALUES ('xXxmilf_hunter69', 'e2feb5d0b99f0bdc9a71017db0625e4692cf6d52bf7867cc1a58adcb59778d62', '2019-02-12 10:53:44', 'mmmmlady13@citromail.hu', 0);
+--reportth1splayer;
 INSERT INTO users(username, user_password, registration_time, email, reputation)
-VALUES ('ninja the gamer', 'reportth1splayer', '2020-04-02 08:10:03', 'emayraitgamerz@promail.ro', 0);
+VALUES ('ninja the gamer', '97f78ed7fa63ae3681ff4ca53a205eed995838abef5c764580744de637556c38', '2020-04-02 08:10:03', 'emayraitgamerz@promail.ro', 0);
+--test;
 INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '2020-04-02 08:10:03', 'test@test.ts', 0);
 
