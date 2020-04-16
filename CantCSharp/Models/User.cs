@@ -14,12 +14,6 @@ namespace CantCSharp.Models
         public string Password { get; set; }
         public int Reputation { get; set; }
 
-        public User(string username, string email, string password)
-        {
-            UserName = username;
-            Email = email;
-            Password = password;
-        }
         public User(int userId, string username, string password, DateTime registationTime, string email ,int reputation)
         {
             UserId = userId;

@@ -41,25 +41,7 @@ namespace CantCSharp.Models
             QuestionComments = new List<Comment>();
             UserID = userID;
         }
-
-
-        public QuestionModel(string user, int questionid, string postTime, int viewNumber, int voteNumber, string questionTitle, string questionMessage, bool answered, bool isClosed,int userID)
-        {
-
-            ViewNumber = viewNumber;
-            VoteNumber = voteNumber;
-            QuestionID = questionid;
-            QuestionTitle = questionTitle;
-            QuestionMessage = questionMessage;
-            User = user;
-            AnswerList = new List<IAnswer>();
-            TagList = new List<Tag>();
-            PostTime = Convert.ToDateTime(postTime);
-            Answered = answered;
-            IsClosed = isClosed;
-            QuestionComments = new List<Comment>();
-            UserID = userID;
-        }
+       
 
         public void AddAnswer(IAnswer answer)
         {

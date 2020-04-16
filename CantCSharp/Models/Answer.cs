@@ -19,18 +19,7 @@ namespace CantCSharp.Models
         public List<Comment> AnswerComments { get; set; }
         public int UserID { get; set; }
 
-        public Answer(int id,string user, string theAnswer,string imageSource, int QuesitonId, int userID)
-        {
-            this.User = user;
-            this.QuestionID = QuesitonId;
-            Id = id;
-            AnswerMessage = theAnswer;
-            IsSolution = false;
-            PostTime = DateTime.Now;
-            ImageSource = imageSource;
-            AnswerComments = new List<Comment>();
-            UserID = userID;
-        }
+       
         public Answer(string user, int id, DateTime postTime, int voteNumber, int questionID, string theAnswer, string imageSource, string link, int userID, bool isSolution)
         {
             User = user;
