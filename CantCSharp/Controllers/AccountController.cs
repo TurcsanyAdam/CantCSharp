@@ -36,6 +36,14 @@ namespace CantCSharp.Controllers
             return View();
 
         }
+        [Authorize]
+        [HttpGet]
+
+        public async Task<ActionResult> LogOutAsync()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login","Account");
+        }
 
         [HttpPost]
 

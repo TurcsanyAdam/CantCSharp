@@ -9,17 +9,20 @@
         <h1 class="display-4">Welcome Stranger!</h1>
         <table >
             <tr>
-                <td>
-                    <form action="@Url.Action("Login","Account")">
-                        <button class="btn-primary" align="left">Login</button>
-                    </form>
-                </td>
-                <td>
-                    <form  method="post" action="@Url.Action("Registration","Account")">
-                        <button class="btn-primary" align="left">Sign up</button>
-                    </form>
-                </td>
-            </tr>
+                @if (!Context.User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <form action="@Url.Action("Login", "Account")">
+                            <button class="btn-primary" align="left">Login</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="@Url.Action("Registration", "Account")">
+                            <button class="btn-primary" align="left">Sign up</button>
+                        </form>
+                    </td>
+                }
+                </tr>
         </table>
 
         <p>Questions are everywhere, answers are on Can't C#</p><br /><br />

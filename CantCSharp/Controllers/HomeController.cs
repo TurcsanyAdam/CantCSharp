@@ -25,7 +25,13 @@ namespace CantCSharp.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View(ListLastFiveQuestions());
+         
+          
+            
+                
+             return View(ListLastFiveQuestions());
+            
+            
         }
 
         public IActionResult AllQuestions()

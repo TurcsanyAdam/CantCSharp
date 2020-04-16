@@ -11,6 +11,8 @@ namespace CantCSharp.Models
         public QuestionModel QuestionModel { get; set; }
         public IAnswer Answer { get; set; }
 
+        public List<QuestionModel> QuestionModelList { get; set; }
+
         public LoggedUserIdentytyandModel(User user, QuestionModel questionmodel)
         {
             User = user;
@@ -21,6 +23,16 @@ namespace CantCSharp.Models
         {
             User = user;
             Answer = answer;
+        }
+        public LoggedUserIdentytyandModel(User user, List<QuestionModel> questionModel)
+        {
+            User = user;
+            QuestionModelList = questionModel;
+        }
+        public LoggedUserIdentytyandModel(List<QuestionModel> questionModel)
+        {
+            
+            QuestionModelList = questionModel;
         }
     }
 }
