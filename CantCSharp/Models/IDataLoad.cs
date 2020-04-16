@@ -28,6 +28,6 @@ namespace CantCSharp.Models
         List<Comment> GetCommentList(string queryString);
         void InsertAnswerComment(int answerID, string comment,string username, int UserID);
         void InsertQuestionComment(int questionID, string comment,string username, int UserID);
-
+        List<QuestionModel> GetUserQuestions(User user, string queryString);
     }
 }

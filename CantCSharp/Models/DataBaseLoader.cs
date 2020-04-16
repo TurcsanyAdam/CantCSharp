@@ -232,6 +232,7 @@ namespace CantCSharp.Models
                     QuestionModel question = new QuestionModel(questionid:Convert.ToInt32(dataReader[0]),
                                                        date:DateTime.Parse(dataReader[1].ToString()),
                                                        viewNum:Convert.ToInt32(dataReader[2]),
+                                                       voteNum:Convert.ToInt32(dataReader[3]),
                                                        questionTitle:dataReader[4].ToString(),
                                                        questionMessage:dataReader[5].ToString(),
                                                        user: dataReader[7].ToString(),
@@ -247,6 +248,38 @@ namespace CantCSharp.Models
 
             return QuestionList;
         }
+
+        public List<QuestionModel> GetUserQuestions(User user, string queryString)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
+            {
+                QuestionList.Clear();
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand(queryString, connection);
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    QuestionModel question = new QuestionModel(questionid: Convert.ToInt32(dataReader[0]),
+                                                       date: DateTime.Parse(dataReader[1].ToString()),
+                                                       viewNum: Convert.ToInt32(dataReader[2]),
+                                                       voteNum: Convert.ToInt32(dataReader[3]),
+                                                       questionTitle: dataReader[4].ToString(),
+                                                       questionMessage: dataReader[5].ToString(),
+                                                       user: dataReader[7].ToString(),
+                                                       userID: Convert.ToInt32(dataReader[8]),
+                                                       isAnswered: Convert.ToBoolean(dataReader[9]));
+                    question.AnswerList = GetAnswerList($"SELECT * FROM answer WHERE question_id = {question.QuestionID} AND userid = {user.UserId} ORDER BY vote_number DESC");
+                    question.QuestionComments = GetCommentList($"SELECT * FROM askmate_question_comment WHERE question_id = {question.QuestionID} ");
+                    question.TagList = GetTagsList($"SELECT * FROM tag LEFT JOIN question_tag ON tag.tag_id = question_tag.tag_id WHERE question_id = {question.QuestionID} ");
+                    question.CalculateUpvotes();
+                    QuestionList.Add(question);
+                }
+            }
+
+            return QuestionList;
+        }
+
         public List<IAnswer> GetAnswerList(string queryString)
         {
             List<IAnswer> AnswerList  = new List<IAnswer>();

@@ -34,6 +34,18 @@
             <td width="40%">Posted on: @Model.QuestionModel.PostTime</td>
             <td width="5%">Views: @Model.QuestionModel.ViewNumber</td>
             <td width="5%">Answers: @Model.QuestionModel.AnswerList.Count</td>
+            <td width="10%">Upvotes: @Model.QuestionModel.VoteNumber</td>
+
+            <td width="5%">
+                <form action="@Url.Action("VoteUpQ", "Home", new {questionId = Model.QuestionModel.QuestionID})" method="post">
+                    <button><arrow class="up"></arrow></button>
+                </form>
+            </td>
+            <td width="5%">
+                <form action="@Url.Action("VoteDownQ", "Home", new {questionId = Model.QuestionModel.QuestionID})" method="post">
+                    <button><arrow class="down"></arrow></button>
+                </form>
+            </td>
         </tr>
     </table>
 
@@ -134,7 +146,7 @@
                         </form>
                     </td>
                 }
-                @if (Model.QuestionModel.UserID == Model.User.UserId)
+                @if (Model.QuestionModel.UserID == Model.User.UserId && !Model.QuestionModel.Answered)
                 {
                     <td width="5%">
                         <form action="@Url.Action("MarkAsSolution", "Home", new { answerID = answer.Id, questionId = Model.QuestionModel.QuestionID })" method="post">

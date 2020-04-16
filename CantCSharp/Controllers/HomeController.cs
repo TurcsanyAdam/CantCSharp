@@ -221,6 +221,22 @@ namespace CantCSharp.Controllers
             Response.Redirect($"QuestionDetails/{questionID}");
 
         }
+        public void VoteUpQ(int questionID)
+        {
+            _loader.UpdateDataRow($"UPDATE question SET vote_number = vote_number + 1 WHERE question_id = {questionID};");
+            _loader.ModifyReputation("question", questionID, 5);
+            Response.Redirect($"QuestionDetails/{questionID}");
+
+        }
+
+        [HttpPost]
+        public void VoteDownQ(int questionID)
+        {
+            _loader.UpdateDataRow($"UPDATE question SET vote_number = vote_number - 1 WHERE question_id = {questionID};");
+            _loader.ModifyReputation("answer", questionID, -2);
+            Response.Redirect($"QuestionDetails/{questionID}");
+
+        }
         [AllowAnonymous]
         public IActionResult SortByTitle()
         {
