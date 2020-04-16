@@ -146,7 +146,7 @@
                         </form>
                     </td>
                 }
-                @if (Model.QuestionModel.UserID == Model.User.UserId)
+                @if (Model.QuestionModel.UserID == Model.User.UserId && !Model.QuestionModel.Answered)
                 {
                     <td width="5%">
                         <form action="@Url.Action("MarkAsSolution", "Home", new { answerID = answer.Id, questionId = Model.QuestionModel.QuestionID })" method="post">
