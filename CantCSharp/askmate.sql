@@ -75,7 +75,7 @@ VALUES ('xXxmilf_hunter69', 'milforgilf', '2019-02-12 10:53:44', 'mmmmlady13@cit
 INSERT INTO users(username, user_password, registration_time, email, reputation)
 VALUES ('ninja the gamer', 'reportth1splayer', '2020-04-02 08:10:03', 'emayraitgamerz@promail.ro', 0);
 INSERT INTO users(username, user_password, registration_time, email, reputation)
-VALUES ('test', 'test', '2020-04-02 08:10:03', 'test@test.ts', 0);
+VALUES ('test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '2020-04-02 08:10:03', 'test@test.ts', 0);
 
 
 INSERT INTO question(submission_time, view_number, vote_number, question_title, question_message, question_image, question_username,userID,IsAnswered)

@@ -42,43 +42,52 @@ namespace CantCSharp.Controllers
         public async Task<ActionResult> LoginAsync([FromForm]string email, [FromForm] string password)
         {
 
-            User user = new User("Test Username",email, password);
-            //here comes the Loginformation storing sql querry;
-            var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
-
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            var authProperties = new AuthenticationProperties
+            if (_loader.CheckIfUserExists(email, password))
             {
-                //AllowRefresh = <bool>,
-                // Refreshing the authentication session should be allowed.
+                //here comes the Loginformation storing sql querry;
+                var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
 
-                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                // The time at which the authentication ticket expires. A 
-                // value set here overrides the ExpireTimeSpan option of 
-                // CookieAuthenticationOptions set with AddCookie.
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                //IsPersistent = true,
-                // Whether the authentication session is persisted across 
-                // multiple requests. When used with cookies, controls
-                // whether the cookie's lifetime is absolute (matching the
-                // lifetime of the authentication ticket) or session-based.
+                var authProperties = new AuthenticationProperties
+                {
+                    //AllowRefresh = <bool>,
+                    // Refreshing the authentication session should be allowed.
 
-                //IssuedUtc = <DateTimeOffset>,
-                // The time at which the authentication ticket was issued.
+                    //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                    // The time at which the authentication ticket expires. A 
+                    // value set here overrides the ExpireTimeSpan option of 
+                    // CookieAuthenticationOptions set with AddCookie.
 
-                //RedirectUri = <string>
-                // The full path or absolute URI to be used as an http 
-                // redirect response value.
-            };
+                    //IsPersistent = true,
+                    // Whether the authentication session is persisted across 
+                    // multiple requests. When used with cookies, controls
+                    // whether the cookie's lifetime is absolute (matching the
+                    // lifetime of the authentication ticket) or session-based.
 
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+                    //IssuedUtc = <DateTimeOffset>,
+                    // The time at which the authentication ticket was issued.
 
-            return RedirectToAction("ProfileDetails", "Profile");
+                    //RedirectUri = <string>
+                    // The full path or absolute URI to be used as an http 
+                    // redirect response value.
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+
+                return RedirectToAction("ProfileDetails", "Profile");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+
+
+            }
+
         }
     }
 

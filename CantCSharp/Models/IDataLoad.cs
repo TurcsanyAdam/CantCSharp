@@ -9,7 +9,7 @@ namespace CantCSharp.Models
     {
         List<QuestionModel> QuestionList { get; set; }
         List<QuestionModel> GetDataList(string queryString);
-        int CheckIfUserExists(string username, string password);
+        bool CheckIfUserExists(string email, string password);
         void InsertUser(string username, string password, string email);
         void ModifyReputation(string answerOrQuestion,int id, int reputation);
 

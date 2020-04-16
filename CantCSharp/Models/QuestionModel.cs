@@ -24,10 +24,10 @@ namespace CantCSharp.Models
         public int UserID { get; set; }
 
 
-        public QuestionModel(int questionid, DateTime date, int viewNum,
+        public QuestionModel(int questionid, DateTime date, int viewNum,int voteNum,
             string questionTitle, string questionMessage, string user, int userID, bool isAnswered)
         {
-            VoteNumber = 0;
+            VoteNumber = voteNum;
             ViewNumber = viewNum;
             QuestionID = questionid;
             QuestionTitle = questionTitle;
