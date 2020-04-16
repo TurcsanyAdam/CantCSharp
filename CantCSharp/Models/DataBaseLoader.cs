@@ -14,17 +14,16 @@ namespace CantCSharp.Models
         private static readonly string dbName = Environment.GetEnvironmentVariable("DB_NAME");
         public static readonly string connectingString = $"Host={dbHost};Username={dbUser};Password={dbPass};Database={dbName}";
         public List<QuestionModel> QuestionList { get; set; } = new List<QuestionModel>();
-        public int CheckIfUserExists(string username, string password)
+        public bool CheckIfUserExists(string email, string password)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectingString))
             {
                 connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand($"select * from users where username = '{username}' and user_password = '{Utility.Hash(password)}')" +
-                    $"values ((@username), (@password))", connection);
-                command.Parameters.AddWithValue("username", username);
+                NpgsqlCommand command = new NpgsqlCommand($"select true from users where email = '{email}' and user_password = '{Utility.Hash(password)}'", connection);
+                command.Parameters.AddWithValue("email", email);
                 command.Parameters.AddWithValue("password", password);
-
-                int UserExist = (int)command.ExecuteScalar();
+                bool UserExist = false;
+                UserExist = Convert.ToBoolean(command.ExecuteScalar());
                 return UserExist;
 
             }
