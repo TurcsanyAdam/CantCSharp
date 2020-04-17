@@ -32,6 +32,11 @@ namespace CantCSharp.Controllers
         }
         public IActionResult RegistrationComplete([FromForm]string username, [FromForm]string email, [FromForm] string passwordA)
         {
+            if (!Utility.IsValidEmail(email))
+            {
+                return RedirectToAction("Registration", "Account");
+
+            }
             _loader.InsertUser(username, email, Utility.Hash(passwordA));
             return View();
 
